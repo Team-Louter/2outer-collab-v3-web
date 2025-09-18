@@ -2,7 +2,7 @@ import { eachDayOfInterval, endOfWeek, format, startOfWeek } from "date-fns";
 import styles from './calendarContent.module.css';
 import { Tooltip } from "react-tooltip";
 
-export default function CalendarContent({ data, startDate, endDate, current, modalShow, setModalShow, setSelectedDate, setModalMode}) {
+export default function CalendarContent({ schedules, startDate, endDate, current, modalShow, setModalShow, setSelectedDate, setModalMode}) {
     const week = ['일', '월', '화', '수', '목', '금', '토']
     const monthDays = eachDayOfInterval({
         start: startOfWeek(startDate),
@@ -21,15 +21,19 @@ export default function CalendarContent({ data, startDate, endDate, current, mod
             e.stopPropagation();
         }
         setModalShow(!modalShow);
-        setSelectedDate(day);
+        const localDateStr = `${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;
+        setSelectedDate(localDateStr);
         setModalMode(mode);
     }
 
-    const dailySchedules = data.reduce((acc, currentItem) => {
-        const scheduleDate = format(new Date(currentItem.date), 'yyyy-MM-dd');
-        acc[scheduleDate] = currentItem;
+    const dailySchedules = (schedules || []).reduce((acc, cur) => {
+        const date = new Date(cur.date); 
+        const localDateKey = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+        if (!acc[localDateKey]) acc[localDateKey] = [];
+        acc[localDateKey].push(cur);
         return acc;
-    }, {});
+      }, {});
+      
 
     return (
         <>
@@ -42,20 +46,27 @@ export default function CalendarContent({ data, startDate, endDate, current, mod
                     </tr>
                 </thead>
                 <tbody>
-                    {weekDays.map(days => (
-                        <tr>
+                    {weekDays.map((days, weekIndex) => (
+                        <tr key={weekIndex}>
                             {days.map(day => {
-                                const scheduleDate = format(day, 'yyyy-MM-dd');
-                                const schedule = dailySchedules[scheduleDate];
                                 return(
-                                    <td style={day.getMonth() !== current.getMonth() ? {color:'gray'} : {}} onClick={(e) => clickDate(e, day, '생성')}>
+                                    <td style={day.getMonth() !== current.getMonth() ? {color:'gray'} : {}} onClick={(e) => clickDate(e, day, '생성')} key={day}>
                                         <div className={styles.forScroll}>
                                             {day.getDate()}일<br/>
-                                            {schedule && <span 
-                                                onClick={(e) => clickDate(e, day, '편집')}
-                                                data-tooltip-id="scheduleTooltip"
-                                                data-tooltip-content={schedule.title}
-                                            >{schedule.title}</span>}
+                                            {dailySchedules[format(day, 'yyyy-MM-dd')]?.map(item => (
+                                                <div>
+                                                    <span
+                                                        key={item.id}
+                                                        onClick={(e) => clickDate(e, day, '편집')}
+                                                        data-tooltip-id="scheduleTooltip"
+                                                        data-tooltip-content={item.title}
+                                                        style={{ backgroundColor: item.color}}
+                                                    >
+                                                        {item.title}
+                                                    </span>
+                                                    <br/>
+                                                </div>
+                                            ))}
                                         </div>
                                     </td>
                                 )

@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { endOfMonth, startOfMonth } from 'date-fns';
 import CalendarContent from '../../components/calendarContent';
 import CalendarHeader from '../../components/calendarHeader';
 import CalendarModal from '../../components/calendarModal';
-import data from '../../data.json';
 import styles from './schedule.module.css';
+import axios from 'axios';
 
 export default function Schedule() {
     const [current, setCurrent] = useState(new Date());
@@ -13,11 +13,23 @@ export default function Schedule() {
     const [modalShow, setModalShow] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [modalMode, setModalMode] = useState(null);
+    const [schedules, setSchedules] = useState([]);
     console.log(modalShow)
 
     if (modalShow === true) {
         document.body.style.overflow = 'hidden';
     }
+
+    useEffect(() => {
+        axios.get("http://localhost:5174/schedules")
+            .then(res => {
+                setSchedules(res.data);
+            })
+            .catch(err => {
+                console.error("데이터 가져오기 실패 :", err);
+            });
+    }, []);
+    console.log('schedules :', schedules);
 
     return(
         <>
@@ -27,7 +39,7 @@ export default function Schedule() {
                 <div className={styles.calendar}>
                     <CalendarHeader current={current} setCurrent={setCurrent}/>
                     <CalendarContent 
-                        data={data}
+                        schedules={schedules}
                         startDate={startDate} 
                         endDate={endDate} 
                         current={current} 
@@ -37,11 +49,12 @@ export default function Schedule() {
                         setModalMode={setModalMode}
                     />
                     {modalShow && <CalendarModal 
-                        data={data}
+                        schedules={schedules}
                         modalShow={modalShow} 
                         setModalShow={setModalShow} 
                         selectedDate={selectedDate}
                         modalMode={modalMode}
+                        setSchedules={setSchedules}
                     />}
                 </div>
             </main>

@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { format } from 'date-fns';
 import styles from './calendarModal.module.css';
+import axios from 'axios';
 
-export default function CalendarModal({data, modalShow, setModalShow, selectedDate, modalMode}) {
-    const [titleTextLength, setTitleTextLength] = useState(0);
-    const [detailTextLength, setDetailTextLength] = useState(0);
+export default function CalendarModal({schedules, modalShow, setModalShow, selectedDate, modalMode, setSchedules}) {
+    const titleRef = useRef("");
+    const contentRef = useRef("");
+    const [highlight, setHighlight] = useState('lightgrey');
 
     const handleTitleText = (e) => {
         setTitleTextLength(e.target.value.length);
@@ -14,13 +16,36 @@ export default function CalendarModal({data, modalShow, setModalShow, selectedDa
         setDetailTextLength(e.target.value.length);
     }
 
-    const dailySchedules = data.reduce((acc, currentItem) => {
-        const scheduleDate = format(new Date(currentItem.date), 'yyyy-MM-dd');
-        acc[scheduleDate] = currentItem;
+    const dailySchedules = (schedules || []).reduce((acc, cur) => {
+        const date = new Date(cur.date); 
+        const localDateKey = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+        if (!acc[localDateKey]) acc[localDateKey] = [];
+        acc[localDateKey].push(cur);
         return acc;
     }, {});
+    console.log('dailySchedules:', dailySchedules)
+      
 
     const selectedDay = format(selectedDate, 'yyyy-MM-dd');
+
+    const [titleTextLength, setTitleTextLength] = useState(() => modalMode === '편집' ? dailySchedules[selectedDay]?.title?.length : 0);
+    const [detailTextLength, setDetailTextLength] = useState(() => modalMode === '편집' ? dailySchedules[selectedDay]?.content?.length : 0);
+
+    const scheduleSubmit = (e) => {
+        e.preventDefault();
+        axios.post("http://localhost:5174/schedules", {
+            date: selectedDate,
+            title: titleRef.current.value,
+            content: contentRef.current.value,
+            color: highlight
+        })
+        .then(res => {
+            console.log('추가 성공', res.data);
+            setSchedules(prev => [...prev, res.data])
+            setModalShow(!modalShow);
+        })
+        .catch(err => console.error("추가 실패", err));
+    };
 
     return (
         <>
@@ -32,28 +57,28 @@ export default function CalendarModal({data, modalShow, setModalShow, selectedDa
                         </svg>
                         <h3>{format(selectedDate, 'MM월 dd일')} 일정 {modalMode}</h3>
                     </div>
-                    <form>
+                    <form onSubmit={scheduleSubmit}>
                         <div className={styles.inputArea} style={{marginTop:'20px'}}>
                             <label>제목</label>
-                            <input type='text' placeholder='제목을 입력하세요.' required maxLength="50" onChange={handleTitleText} defaultValue={dailySchedules[selectedDay] && modalMode == '편집' ? dailySchedules[selectedDay].title : ""}/>
+                            <input type='text' placeholder='제목을 입력하세요.' required maxLength="50" onChange={handleTitleText} defaultValue={dailySchedules[selectedDay] && modalMode == '편집' ? dailySchedules[selectedDay].title : ""} ref={titleRef}/>
                             <small>{titleTextLength}/50</small>
                         </div>
                         <div className={styles.inputArea}>
                             <label>내용</label>
-                            <textarea placeholder='내용을 입력하세요.' maxLength="250" onChange={handleDetailText} defaultValue={dailySchedules[selectedDay] && modalMode == '편집' ? dailySchedules[selectedDay].content : ""}/>
+                            <textarea placeholder='내용을 입력하세요.' maxLength="250" onChange={handleDetailText} defaultValue={dailySchedules[selectedDay] && modalMode == '편집' ? dailySchedules[selectedDay].content : ""} ref={contentRef}/>
                             <small>{detailTextLength}/250</small>
                         </div>
                         <div className={styles.palette}>
                             <small>색상</small>
-                            <div style={{backgroundColor: 'lightgrey'}}></div>
-                            <div style={{backgroundColor: 'pink'}}></div>
-                            <div style={{backgroundColor: 'gold'}}></div>
-                            <div style={{backgroundColor: 'lightgreen'}}></div>
-                            <div style={{backgroundColor: 'lightblue'}}></div>
+                            <div style={{backgroundColor: 'lightgrey'}} onClick={() => setHighlight('lightgrey')}></div>
+                            <div style={{backgroundColor: 'pink'}} onClick={() => setHighlight('pink')}></div>
+                            <div style={{backgroundColor: 'gold'}} onClick={() => setHighlight('gold')}></div>
+                            <div style={{backgroundColor: 'lightgreen'}} onClick={() => setHighlight('lightgreen')}></div>
+                            <div style={{backgroundColor: 'lightblue'}} onClick={() => setHighlight('lightblue')}></div>
                         </div>
                         <div className={styles.buttons}>
-                            <button className={styles.cancel}>취소</button>
-                            <button className={styles.create}>생성</button>
+                            <button className={styles.cancel} type='button' onClick={() => setModalShow(!modalShow)}>취소</button>
+                            <button className={styles.create} type='submit'>생성</button>
                         </div>
                     </form>
                 </div>
