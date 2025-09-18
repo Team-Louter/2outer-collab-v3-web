@@ -14,7 +14,9 @@ export default function Schedule() {
     const [selectedDate, setSelectedDate] = useState(null);
     const [modalMode, setModalMode] = useState(null);
     const [schedules, setSchedules] = useState([]);
-    console.log(modalShow)
+    const [clickedSchedule, setClickedSchedule] = useState(null);
+    console.log(modalShow);
+    console.log('clickedSchedule : ',clickedSchedule);
 
     if (modalShow === true) {
         document.body.style.overflow = 'hidden';
@@ -47,14 +49,15 @@ export default function Schedule() {
                         setModalShow={setModalShow} 
                         setSelectedDate={setSelectedDate}
                         setModalMode={setModalMode}
+                        setClickedSchedule={setClickedSchedule}
                     />
                     {modalShow && <CalendarModal 
-                        schedules={schedules}
                         modalShow={modalShow} 
                         setModalShow={setModalShow} 
                         selectedDate={selectedDate}
                         modalMode={modalMode}
                         setSchedules={setSchedules}
+                        clickedSchedule={clickedSchedule}
                     />}
                 </div>
             </main>

@@ -2,7 +2,7 @@ import { eachDayOfInterval, endOfWeek, format, startOfWeek } from "date-fns";
 import styles from './calendarContent.module.css';
 import { Tooltip } from "react-tooltip";
 
-export default function CalendarContent({ schedules, startDate, endDate, current, modalShow, setModalShow, setSelectedDate, setModalMode}) {
+export default function CalendarContent({ schedules, startDate, endDate, current, modalShow, setModalShow, setSelectedDate, setModalMode, setClickedSchedule}) {
     const week = ['일', '월', '화', '수', '목', '금', '토']
     const monthDays = eachDayOfInterval({
         start: startOfWeek(startDate),
@@ -16,7 +16,7 @@ export default function CalendarContent({ schedules, startDate, endDate, current
     }
     console.log(weekDays);
 
-    const clickDate = (e, day, mode) => {
+    const clickDate = (e, day, mode, item) => {
         if (e) {
             e.stopPropagation();
         }
@@ -24,6 +24,8 @@ export default function CalendarContent({ schedules, startDate, endDate, current
         const localDateStr = `${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;
         setSelectedDate(localDateStr);
         setModalMode(mode);
+
+        setClickedSchedule(item);
     }
 
     const dailySchedules = (schedules || []).reduce((acc, cur) => {
@@ -57,7 +59,7 @@ export default function CalendarContent({ schedules, startDate, endDate, current
                                                 <div>
                                                     <span
                                                         key={item.id}
-                                                        onClick={(e) => clickDate(e, day, '편집')}
+                                                        onClick={(e) => clickDate(e, day, '편집', item)}
                                                         data-tooltip-id="scheduleTooltip"
                                                         data-tooltip-content={item.title}
                                                         style={{ backgroundColor: item.color}}

@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import styles from './calendarModal.module.css';
 import axios from 'axios';
 
-export default function CalendarModal({schedules, modalShow, setModalShow, selectedDate, modalMode, setSchedules}) {
+export default function CalendarModal({ modalShow, setModalShow, selectedDate, modalMode, setSchedules, clickedSchedule}) {
     const titleRef = useRef("");
     const contentRef = useRef("");
     const [highlight, setHighlight] = useState('lightgrey');
@@ -16,20 +16,8 @@ export default function CalendarModal({schedules, modalShow, setModalShow, selec
         setDetailTextLength(e.target.value.length);
     }
 
-    const dailySchedules = (schedules || []).reduce((acc, cur) => {
-        const date = new Date(cur.date); 
-        const localDateKey = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
-        if (!acc[localDateKey]) acc[localDateKey] = [];
-        acc[localDateKey].push(cur);
-        return acc;
-    }, {});
-    console.log('dailySchedules:', dailySchedules)
-      
-
-    const selectedDay = format(selectedDate, 'yyyy-MM-dd');
-
-    const [titleTextLength, setTitleTextLength] = useState(() => modalMode === '편집' ? dailySchedules[selectedDay]?.title?.length : 0);
-    const [detailTextLength, setDetailTextLength] = useState(() => modalMode === '편집' ? dailySchedules[selectedDay]?.content?.length : 0);
+    const [titleTextLength, setTitleTextLength] = useState(() => modalMode === '편집' ? clickedSchedule.title.length : 0);
+    const [detailTextLength, setDetailTextLength] = useState(() => modalMode === '편집' ? clickedSchedule.content.length : 0);
 
     const scheduleSubmit = (e) => {
         e.preventDefault();
@@ -60,12 +48,12 @@ export default function CalendarModal({schedules, modalShow, setModalShow, selec
                     <form onSubmit={scheduleSubmit}>
                         <div className={styles.inputArea} style={{marginTop:'20px'}}>
                             <label>제목</label>
-                            <input type='text' placeholder='제목을 입력하세요.' required maxLength="50" onChange={handleTitleText} defaultValue={dailySchedules[selectedDay] && modalMode == '편집' ? dailySchedules[selectedDay].title : ""} ref={titleRef}/>
+                            <input type='text' placeholder='제목을 입력하세요.' required maxLength="50" onChange={handleTitleText} defaultValue={clickedSchedule && modalMode == '편집' ? clickedSchedule.title : ""} ref={titleRef}/>
                             <small>{titleTextLength}/50</small>
                         </div>
                         <div className={styles.inputArea}>
                             <label>내용</label>
-                            <textarea placeholder='내용을 입력하세요.' maxLength="250" onChange={handleDetailText} defaultValue={dailySchedules[selectedDay] && modalMode == '편집' ? dailySchedules[selectedDay].content : ""} ref={contentRef}/>
+                            <textarea placeholder='내용을 입력하세요.' maxLength="250" onChange={handleDetailText} defaultValue={clickedSchedule && modalMode == '편집' ? clickedSchedule.content : ""} ref={contentRef}/>
                             <small>{detailTextLength}/250</small>
                         </div>
                         <div className={styles.palette}>
