@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import styles from './calendarModal.module.css';
 import axios from 'axios';
 
-export default function CalendarModal({ modalShow, setModalShow, selectedDate, modalMode, setSchedules, clickedSchedule}) {
+export default function CalendarModal({ modalShow, setModalShow, selectedDate, modalMode, setSchedules, clickedSchedule }) {
     const titleRef = useRef("");
     const contentRef = useRef("");
     const [highlight, setHighlight] = useState('lightgrey');
@@ -35,6 +35,12 @@ export default function CalendarModal({ modalShow, setModalShow, selectedDate, m
         .catch(err => console.error("추가 실패", err));
     };
 
+    const scheduleDelete = () => {
+        axios.delete(`http://localhost:5174/schedules/${clickedSchedule.id}`)
+        setSchedules(prev => prev.filter(item => item.id !== clickedSchedule.id))
+        setModalShow(!modalShow)
+    }
+
     return (
         <>
             <div className={styles.modalBackground}>
@@ -65,7 +71,7 @@ export default function CalendarModal({ modalShow, setModalShow, selectedDate, m
                             <div style={{backgroundColor: 'lightblue'}} onClick={() => setHighlight('lightblue')}></div>
                         </div>
                         <div className={styles.buttons}>
-                            <button className={styles.cancel} type='button' onClick={() => setModalShow(!modalShow)}>취소</button>
+                            <button className={styles.delete} type='button' onClick={scheduleDelete}>삭제</button>
                             <button className={styles.create} type='submit'>생성</button>
                         </div>
                     </form>

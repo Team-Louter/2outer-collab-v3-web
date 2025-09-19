@@ -85,7 +85,7 @@ textarea {
     align-self: flex-end;
 }
 
-.cancel, .create {
+.delete, .create {
     width: 90px;
     height: 35px;
     margin-top: 20px;
@@ -94,13 +94,14 @@ textarea {
     border: 0px solid black;
 }
 
-.cancel {
+.delete {
     margin-right: 10px;
-    background-color: #E0E0E0;
+    color: white;
+    background-color: #F30000;
 }
 
-.cancel:hover {
-    background-color: #d2d2d2;
+.delete:hover {
+    background-color: #e01010;
 }
 
 .create {
