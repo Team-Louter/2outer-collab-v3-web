@@ -41,6 +41,8 @@ export default function CalendarModal({ modalShow, setModalShow, selectedDate, m
         setModalShow(!modalShow)
     }
 
+    const colors = ['lightgrey', 'pink', 'gold', 'lightgreen', 'lightblue'];
+
     return (
         <>
             <div className={styles.modalBackground}>
@@ -53,7 +55,7 @@ export default function CalendarModal({ modalShow, setModalShow, selectedDate, m
                     </div>
                     <form onSubmit={scheduleSubmit}>
                         <div className={styles.inputArea} style={{marginTop:'20px'}}>
-                            <label>제목</label>
+                            <label>제목 <span style={{color: 'red'}}>*</span></label>
                             <input type='text' placeholder='제목을 입력하세요.' required maxLength="50" onChange={handleTitleText} defaultValue={clickedSchedule && modalMode == '편집' ? clickedSchedule.title : ""} ref={titleRef}/>
                             <small>{titleTextLength}/50</small>
                         </div>
@@ -64,11 +66,9 @@ export default function CalendarModal({ modalShow, setModalShow, selectedDate, m
                         </div>
                         <div className={styles.palette}>
                             <small>색상</small>
-                            <div style={{backgroundColor: 'lightgrey'}} onClick={() => setHighlight('lightgrey')}></div>
-                            <div style={{backgroundColor: 'pink'}} onClick={() => setHighlight('pink')}></div>
-                            <div style={{backgroundColor: 'gold'}} onClick={() => setHighlight('gold')}></div>
-                            <div style={{backgroundColor: 'lightgreen'}} onClick={() => setHighlight('lightgreen')}></div>
-                            <div style={{backgroundColor: 'lightblue'}} onClick={() => setHighlight('lightblue')}></div>
+                            {colors.map(color => (
+                                <div style={{backgroundColor: color, border: highlight === color ? "1px solid black" : "0px solid black"}} onClick={() => setHighlight(color)}></div>
+                            ))}
                         </div>
                         <div className={styles.buttons}>
                             <button className={styles.delete} type='button' onClick={scheduleDelete}>삭제</button>
