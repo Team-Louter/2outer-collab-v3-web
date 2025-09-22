@@ -33,6 +33,10 @@ export default function CalendarModal({ modalShow, setModalShow, selectedDate, m
             setModalShow(!modalShow);
         })
         .catch(err => console.error("추가 실패", err));
+
+        if (modalMode === '편집') {
+            scheduleDelete()
+        }
     };
 
     const scheduleDelete = () => {

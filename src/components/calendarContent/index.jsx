@@ -54,7 +54,7 @@ export default function CalendarContent({ schedules, startDate, endDate, current
                                 return(
                                     <td style={day.getMonth() !== current.getMonth() ? {color:'gray'} : {}} onClick={(e) => clickDate(e, day, '생성')} key={day}>
                                         <div className={styles.forScroll}>
-                                            {day.getDate()}일<br/>
+                                            <span style={{padding:"5px"}}>{day.getDate()}일<br/></span>
                                             {dailySchedules[format(day, 'yyyy-MM-dd')]?.map(item => (
                                                 <div>
                                                     <span
@@ -62,7 +62,7 @@ export default function CalendarContent({ schedules, startDate, endDate, current
                                                         onClick={(e) => clickDate(e, day, '편집', item)}
                                                         data-tooltip-id="scheduleTooltip"
                                                         data-tooltip-content={item.title}
-                                                        style={{ backgroundColor: item.color}}
+                                                        style={{ backgroundColor: item.color, marginLeft: '5px'}}
                                                     >
                                                         {item.title}
                                                     </span>
