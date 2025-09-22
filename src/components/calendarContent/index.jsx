@@ -1,6 +1,7 @@
 import { eachDayOfInterval, endOfWeek, format, startOfWeek } from "date-fns";
 import styles from './calendarContent.module.css';
 import { Tooltip } from "react-tooltip";
+import { useState } from "react";
 
 export default function CalendarContent({ schedules, startDate, endDate, current, modalShow, setModalShow, setSelectedDate, selectedDate, setModalMode, setClickedSchedule}) {
     const week = ['일', '월', '화', '수', '목', '금', '토']
@@ -42,8 +43,17 @@ export default function CalendarContent({ schedules, startDate, endDate, current
         const localDateStr = `${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;
         setSelectedDate(localDateStr);
     }
-      
 
+    const [detailShow, setDetailShow] = useState([]);
+
+    function toggleDetail(id) {
+        setDetailShow(prev =>
+          prev.includes(id)
+            ? prev.filter(x => x !== id) 
+            : [...prev, id]             
+        );
+      }
+      
     return (
         <>
             <table>
@@ -63,7 +73,7 @@ export default function CalendarContent({ schedules, startDate, endDate, current
                                         <div className={styles.forScroll}>
                                             <span style={{padding:"5px"}} onClick={(e) => changeDate(e, day)}>{day.getDate()}일<br/></span>
                                             {dailySchedules[format(day, 'yyyy-MM-dd')]?.map(item => (
-                                                <div>
+                                                <div key={item.id}>
                                                     <span
                                                         key={item.id}
                                                         onClick={(e) => clickDate(e, day, '편집', item)}
@@ -86,9 +96,10 @@ export default function CalendarContent({ schedules, startDate, endDate, current
             </table>
             <div className={styles.scheduleContainer}>
                 {dailySchedules[selectedDate]?.map(item => (
-                    <div className={styles.scheduleItems}>
+                    <div className={`${styles.scheduleItems} ${detailShow.includes(item.id) ? styles.detail : ""}`} onClick={() => toggleDetail(item.id)} key={item.id}>
                         <span>{format(selectedDate, 'MM/dd')}</span>
                         <span>{item.title}</span>
+                        <small>{item.content}</small>
                     </div>
                 ))}
             </div>

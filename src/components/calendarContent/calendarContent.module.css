@@ -23,6 +23,7 @@ th {
     font-weight: 700;
 }
 
+
 td {
     border-right: 1px solid #BFD4FF;
     border-top: 1px solid #BFD4FF;
@@ -38,25 +39,39 @@ td:last-child {
 .scheduleContainer {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 15px;
-    width: 90%;
+    width: 100%;
     margin-top: 30px
 }
 
 .scheduleItems {
     background-color: white;
-    width: 100%;
-    height: 70px;
+    width: 85%;
+    height: 50px;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding: 20px;
+    cursor: pointer;
 }
 
 .scheduleItems span {
-    font-size: 0.9rem;
     font-weight: 700;
-    padding-left: 20px;
+}
+
+.scheduleItems small {
+    font-size: 0.9rem;
+    font-weight: 600;
+    visibility: hidden;
+}
+
+.detail {
+    height: fit-content;
+}
+
+.detail small {
+    visibility: visible;
 }
 
 .tooltip {

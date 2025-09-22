@@ -76,7 +76,7 @@ export default function CalendarModal({ modalShow, setModalShow, selectedDate, m
                         </div>
                         <div className={styles.buttons}>
                             <button className={styles.delete} type='button' onClick={scheduleDelete}>삭제</button>
-                            <button className={styles.create} type='submit'>생성</button>
+                            <button className={styles.create} type='submit'>{modalMode === '생성' ? "생성" : "저장"}</button>
                         </div>
                     </form>
                 </div>
