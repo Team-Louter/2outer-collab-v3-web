@@ -94,12 +94,12 @@
 }
 
 /* === 공지사항 아이템 === */
-.notice-item {
+.minutes-item {
   display: flex;
   flex-direction: column;
 }
 
-.notice-box {
+.minutes-box {
   height: 64px;
   width: 100%;
   background-color: white;
@@ -111,11 +111,11 @@
   transition: border-bottom 0.2s ease;
 }
 
-.notice-box.open {
+.minutes-box.open {
   border-bottom: none;
 }
 
-.notice-box-left {
+.minutes-box-left {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -124,7 +124,7 @@
   font-weight: 500;
 }
 
-.notice-box-right {
+.minutes-box-right {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -133,7 +133,7 @@
   font-weight: 400;
 }
 
-.notice-detail {
+.minutes-detail {
   background-color: white;
   padding: 0 16px;
   border-bottom: 1px solid #ccc;
@@ -145,7 +145,7 @@
   transition: max-height 0.3s ease, padding 0.3s ease;
 }
 
-.notice-detail.open {
+.minutes-detail.open {
   max-height: 500px;
   padding: 16px;
 }
@@ -228,7 +228,7 @@
   border: 1px solid #ccc;
 }
 
-.notice-title-input {
+.minutes-title-input {
   padding-left: 8px;
   height: 100%;
   width: 100%;
@@ -237,7 +237,7 @@
   border: none;
 }
 
-.notice-title-input::placeholder {
+.minutes-title-input::placeholder {
   color: #ccc;
 }
 
@@ -250,7 +250,7 @@
   align-items: center;
 }
 
-.notice-title-length {
+.minutes-title-length {
   font-size: 12px;
 }
 
@@ -269,7 +269,7 @@
   border: 1px solid #ccc;
 }
 
-.notice-des-input {
+.minutes-des-input {
   padding-left: 8px;
   padding-top: 8px;
   height: 100%;
@@ -280,7 +280,7 @@
   resize: none;
 }
 
-.notice-des-input::placeholder {
+.minutes-des-input::placeholder {
   color: #ccc;
 }
 
@@ -293,7 +293,7 @@
   align-items: center;
 }
 
-.notice-des-length {
+.minutes-des-length {
   font-size: 12px;
 }
 
