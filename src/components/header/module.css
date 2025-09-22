@@ -103,10 +103,14 @@
     color: #181F29;
     display: flex;
     align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .login_button {
     color: #181F29;
     display: flex;
     align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
 }
