@@ -2,7 +2,7 @@ import { eachDayOfInterval, endOfWeek, format, startOfWeek } from "date-fns";
 import styles from './calendarContent.module.css';
 import { Tooltip } from "react-tooltip";
 
-export default function CalendarContent({ schedules, startDate, endDate, current, modalShow, setModalShow, setSelectedDate, setModalMode, setClickedSchedule}) {
+export default function CalendarContent({ schedules, startDate, endDate, current, modalShow, setModalShow, setSelectedDate, selectedDate, setModalMode, setClickedSchedule}) {
     const week = ['일', '월', '화', '수', '목', '금', '토']
     const monthDays = eachDayOfInterval({
         start: startOfWeek(startDate),
@@ -35,6 +35,13 @@ export default function CalendarContent({ schedules, startDate, endDate, current
         acc[localDateKey].push(cur);
         return acc;
       }, {});
+
+    const changeDate = (e, day) => {
+        e.stopPropagation()
+
+        const localDateStr = `${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;
+        setSelectedDate(localDateStr);
+    }
       
 
     return (
@@ -54,7 +61,7 @@ export default function CalendarContent({ schedules, startDate, endDate, current
                                 return(
                                     <td style={day.getMonth() !== current.getMonth() ? {color:'gray'} : {}} onClick={(e) => clickDate(e, day, '생성')} key={day}>
                                         <div className={styles.forScroll}>
-                                            <span style={{padding:"5px"}}>{day.getDate()}일<br/></span>
+                                            <span style={{padding:"5px"}} onClick={(e) => changeDate(e, day)}>{day.getDate()}일<br/></span>
                                             {dailySchedules[format(day, 'yyyy-MM-dd')]?.map(item => (
                                                 <div>
                                                     <span
@@ -77,6 +84,14 @@ export default function CalendarContent({ schedules, startDate, endDate, current
                     ))}
                 </tbody>
             </table>
+            <div className={styles.scheduleContainer}>
+                {dailySchedules[selectedDate]?.map(item => (
+                    <div className={styles.scheduleItems}>
+                        <span>{format(selectedDate, 'MM/dd')}</span>
+                        <span>{item.title}</span>
+                    </div>
+                ))}
+            </div>
             {/* <Tooltip 
                 id="scheduleTooltip" 
                 place="bottom"

@@ -32,6 +32,7 @@ export default function Schedule() {
             });
     }, []);
     console.log('schedules :', schedules);
+    console.log('selectedDate: ', selectedDate)
 
     return(
         <>
@@ -48,6 +49,7 @@ export default function Schedule() {
                         modalShow={modalShow} 
                         setModalShow={setModalShow} 
                         setSelectedDate={setSelectedDate}
+                        selectedDate={selectedDate}
                         setModalMode={setModalMode}
                         setClickedSchedule={setClickedSchedule}
                     />
