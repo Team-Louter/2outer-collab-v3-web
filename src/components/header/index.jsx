@@ -5,7 +5,7 @@ import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 
 // Img import
-import logoImg from '../../assets/header/Collab_Logo.svg';
+import logoImg from '../../assets/header/logo.svg';
 import searchImg from '../../assets/header/search.svg';
 import chattingImg from '../../assets/header/chatting.svg';
 import bellImg from '../../assets/header/bell.svg';
