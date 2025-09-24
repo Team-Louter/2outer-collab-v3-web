@@ -1,4 +1,3 @@
-/* === 기본 스타일 === */
  {
   margin: 0;
   padding: 0;
@@ -40,7 +39,6 @@
   background-color: #f5f5f5;
 }
 
-/* === 상단 타이틀 === /
 .top-container {
   height: 110px;
   width: 100%;
@@ -78,8 +76,7 @@
   height: 18px;
 }
 
-/ === 모달 오버레이 === /
-.modal-overlay {
+/ === 모달 오버레이 === / .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -92,8 +89,7 @@
   z-index: 999;
 }
 
-/ === 모달 본체 === /
-.modal.small {
+/ === 모달 본체 === / .modal.small {
   background-color: white;
   width: 420px;
   height: auto;
@@ -105,7 +101,6 @@
   animation: fadeIn 0.3s ease;
 }
 
-/ === 모달 헤더 === */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -159,7 +154,6 @@
   color: #888;
 }
 
-/* === 모달 푸터 === /
 .modal-footer {
   display: flex;
   justify-content: flex-end;
@@ -192,9 +186,7 @@
   opacity: 0.9;
 }
 
-/ === 할 일 리스트 === /
-/ 할 일 리스트 /
-.task-section {
+/ === 할 일 리스트 === / / 할 일 리스트 / .task-section {
   width: 90%;
   margin: 0 auto 20px auto;
 }
@@ -205,8 +197,7 @@
   margin: 12px 0;
 }
 
-/ 개별 할 일 박스 (공지사항 박스랑 비슷하게) /
-.task-box {
+/ 개별 할 일 박스 (공지사항 박스랑 비슷하게) / .task-box {
   height: 64px;
   width: 100%;
   background-color: white;
@@ -223,15 +214,13 @@
   background-color: #f8f8f8;
 }
 
-/ 체크박스 /
-.task-checkbox {
+/ 체크박스 / .task-checkbox {
   width: 18px;
   height: 18px;
   cursor: pointer;
 }
 
-/ 텍스트 /
-.task-text {
+/ 텍스트 / .task-text {
   flex: 1;
   font-size: 15px;
   color: #333;
@@ -242,7 +231,6 @@
   color: #aaa;
 }
 
-/ 수정 / 삭제 버튼 */
 .task-actions {
   display: flex;
   gap: 10px;

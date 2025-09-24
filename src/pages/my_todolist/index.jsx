@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./App.css";
+import styles from "./my_todolist.module.css";
 
 function Todolist() {
   // 기본 할 일
@@ -64,26 +64,26 @@ function Todolist() {
   };
 
   return (
-    <div className="background">
-      <div className="top-bar"></div>
-      <div className="bottom">
-        <div className="left-side-bar"></div>
-        <div className="main">
+    <div className={styles.background}>
+      <div className={styles["top-bar"]}></div>
+      <div className={styles.bottom}>
+        <div className={styles["left-side-bar"]}></div>
+        <div className={styles.main}>
           {/* 상단 타이틀 */}
-          <div className="top-container">
-            <div className="top-container-wrapper">
-              <div className="top-container-wrapper-left">
-                <div className="top-container-title">할 일</div>
+          <div className={styles["top-container"]}>
+            <div className={styles["top-container-wrapper"]}>
+              <div className={styles["top-container-wrapper-left"]}>
+                <div className={styles["top-container-title"]}>할 일</div>
               </div>
-              <div className="top-container-wrapper-right">
+              <div className={styles["top-container-wrapper-right"]}>
                 <button
-                  className="plus-button"
+                  className={styles["plus-button"]}
                   onClick={() => setModalOpen(true)}
                 >
                   <img
                     src="/plus-icon.png"
                     alt="플러스 아이콘"
-                    className="icon"
+                    className={styles.icon}
                   />
                 </button>
               </div>
@@ -91,38 +91,38 @@ function Todolist() {
           </div>
 
           {/* 미완료 */}
-          <div className="task-section">
-            <div className="task-section-title">미완료</div>
+          <div className={styles["task-section"]}>
+            <div className={styles["task-section-title"]}>미완료</div>
             {tasks
               .filter((t) => !t.done)
               .map((task) => (
-                <div key={task.id} className={`task-box`}>
+                <div key={task.id} className={styles["task-box"]}>
                   <input
                     type="checkbox"
-                    className="task-checkbox"
+                    className={styles["task-checkbox"]}
                     checked={task.done}
                     onChange={() => toggleTask(task.id)}
                   />
-                  <span className="task-text">{task.text}</span>
-                  <div className="task-actions">
+                  <span className={styles["task-text"]}>{task.text}</span>
+                  <div className={styles["task-actions"]}>
                     <button
-                      className="task-btn"
+                      className={styles["task-btn"]}
                       onClick={() => openEditModal(task)}
                     >
                       <img
                         src="/public/edit.png"
                         alt="편집 아이콘"
-                        className="icon"
+                        className={styles.icon}
                       />
                     </button>
                     <button
-                      className="task-btn"
+                      className={styles["task-btn"]}
                       onClick={() => deleteTask(task.id)}
                     >
                       <img
                         src="/public/delete.png"
                         alt="삭제 아이콘"
-                        className="icon"
+                        className={styles.icon}
                       />
                     </button>
                   </div>
@@ -131,38 +131,41 @@ function Todolist() {
           </div>
 
           {/* 완료 */}
-          <div className="task-section">
-            <div className="task-section-title">완료</div>
+          <div className={styles["task-section"]}>
+            <div className={styles["task-section-title"]}>완료</div>
             {tasks
               .filter((t) => t.done)
               .map((task) => (
-                <div key={task.id} className={`task-box done`}>
+                <div
+                  key={task.id}
+                  className={`${styles["task-box"]} ${styles.done}`}
+                >
                   <input
                     type="checkbox"
-                    className="task-checkbox"
+                    className={styles["task-checkbox"]}
                     checked={task.done}
                     onChange={() => toggleTask(task.id)}
                   />
-                  <span className="task-text">{task.text}</span>
-                  <div className="task-actions">
+                  <span className={styles["task-text"]}>{task.text}</span>
+                  <div className={styles["task-actions"]}>
                     <button
-                      className="task-btn"
+                      className={styles["task-btn"]}
                       onClick={() => openEditModal(task)}
                     >
                       <img
                         src="/public/edit.png"
                         alt="편집 아이콘"
-                        className="icon"
+                        className={styles.icon}
                       />
                     </button>
                     <button
-                      className="task-btn"
+                      className={styles["task-btn"]}
                       onClick={() => deleteTask(task.id)}
                     >
                       <img
                         src="/public/delete.png"
                         alt="삭제 아이콘"
-                        className="icon"
+                        className={styles.icon}
                       />
                     </button>
                   </div>
@@ -170,84 +173,102 @@ function Todolist() {
               ))}
           </div>
         </div>
-        <div className="right-side-bar"></div>
+        <div className={styles["right-side-bar"]}></div>
       </div>
 
       {/* 추가 모달 */}
       {modalOpen && (
-        <div className="modal-overlay" onClick={() => setModalOpen(false)}>
-          <div className="modal small" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <div className="modal-title">할 일 생성</div>
+        <div
+          className={styles["modal-overlay"]}
+          onClick={() => setModalOpen(false)}
+        >
+          <div
+            className={`${styles.modal} ${styles.small}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles["modal-header"]}>
+              <div className={styles["modal-title"]}>할 일 생성</div>
               <button
-                className="modal-close"
+                className={styles["modal-close"]}
                 onClick={() => setModalOpen(false)}
               >
                 ✕
               </button>
             </div>
-            <div className="modal-body">
-              <label className="modal-label">
-                할 일 <span className="star">*</span>
+            <div className={styles["modal-body"]}>
+              <label className={styles["modal-label"]}>
+                할 일 <span className={styles.star}>*</span>
               </label>
               <input
                 type="text"
-                className="modal-input"
+                className={styles["modal-input"]}
                 placeholder="할 일을 입력해주세요."
                 value={taskText}
                 onChange={(e) => setTaskText(e.target.value)}
                 maxLength={50}
               />
-              <div className="modal-length">{taskText.length}/50</div>
+              <div className={styles["modal-length"]}>{taskText.length}/50</div>
             </div>
-            <div className="modal-footer">
+            <div className={styles["modal-footer"]}>
               <button
-                className="cancel-button"
+                className={styles["cancel-button"]}
                 onClick={() => setModalOpen(false)}
               >
                 취소
               </button>
-              <button className="create-button" onClick={addTask}>
+              <button className={styles["create-button"]} onClick={addTask}>
                 생성
               </button>
             </div>
           </div>
         </div>
       )}
+
       {/* 편집 모달 */}
       {editModalOpen && (
-        <div className="modal-overlay" onClick={() => setEditModalOpen(false)}>
-          <div className="modal small" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <div className="modal-title">할 일 편집</div>
+        <div
+          className={styles["modal-overlay"]}
+          onClick={() => setEditModalOpen(false)}
+        >
+          <div
+            className={`${styles.modal} ${styles.small}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles["modal-header"]}>
+              <div className={styles["modal-title"]}>할 일 편집</div>
               <button
-                className="modal-close"
+                className={styles["modal-close"]}
                 onClick={() => setEditModalOpen(false)}
               >
                 ✕
               </button>
             </div>
-            <div className="modal-body">
-              <label className="modal-label">
-                할 일 <span className="star">*</span>
+            <div className={styles["modal-body"]}>
+              <label className={styles["modal-label"]}>
+                할 일 <span className={styles.star}>*</span>
               </label>
               <input
                 type="text"
-                className="modal-input"
+                className={styles["modal-input"]}
                 value={editTaskText}
                 onChange={(e) => setEditTaskText(e.target.value)}
                 maxLength={50}
               />
-              <div className="modal-length">{editTaskText.length}/50</div>
+              <div className={styles["modal-length"]}>
+                {editTaskText.length}/50
+              </div>
             </div>
-            <div className="modal-footer">
+            <div className={styles["modal-footer"]}>
               <button
-                className="cancel-button"
+                className={styles["cancel-button"]}
                 onClick={() => setEditModalOpen(false)}
               >
                 취소
               </button>
-              <button className="create-button" onClick={saveEditedTask}>
+              <button
+                className={styles["create-button"]}
+                onClick={saveEditedTask}
+              >
                 저장
               </button>
             </div>
