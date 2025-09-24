@@ -6,10 +6,16 @@
     scrollbar-width: none;
 }
 
+/* text 기본 세팅 값 */
+.text_setting {
+    text-decoration: none;
+    color: #181F29;
+}
+
 /* header 기본 세팅 */
 .main_header {
     width: 100%;
-    height: 6.2vh;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -71,16 +77,16 @@
 
 /* main_header search 기본 세팅 */
 .header_search {
-    width: 500px;
+    width: 30%;
     height: 36px;
     background-color: #F6F6F6;
     border-radius: 50px;
-    
     display: flex;
     align-items: center;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    box-sizing: border-box;
 }
 
 .search_img {
@@ -90,12 +96,15 @@
 
 .header_search_input {
     height: 100%;
-    width: 430px;
+    width: 90%;
     border: none;
     outline: none;
     background-color: #F6F6F6;
     font-size: 16px;
     margin-left: 12px;
+    box-sizing: border-box;
+    border-radius: 50px;
+    padding-right: 10px;
 }
 
 /* main_header 버튼 */
