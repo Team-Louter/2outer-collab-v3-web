@@ -7,13 +7,13 @@
 }
 
 /* text 기본 세팅 값 */
-.text_setting {
+.textSetting {
     text-decoration: none;
     color: #181F29;
 }
 
 /* header 기본 세팅 */
-.main_header {
+.mainHeader {
     width: 100%;
     height: 60px;
     display: flex;
@@ -24,59 +24,59 @@
     top: 0;
 }
 
-.main_header ul {
+.mainHeader ul {
     list-style: none;
     display: flex;
     margin-right: 12px;
 }
 
-.main_header ul li {
+.mainHeader ul li {
     margin: 0px 10px;
     display: flex;
     cursor: pointer;
 }
 
 /* header 이미지 */
-.logo_img {
+.logoImg {
     height: 28px;
     margin-left: 20px;
 }
 
-.chatting_img {
+.chattingImg {
     height: 20px;
 }
 
-.bell_img {
+.bellImg {
     height: 24px;
 }
 
-.profile_img {
+.profileImg {
     height: 32px;
 }
 
 /* header li */
-.logo_button {
+.logoButton {
     display: flex;
     align-items: center;
 }
 
-.chatting_button {
+.chattingButton {
     display: flex;
     align-items: center;
 }
 
-.bell_button {
+.bellButton {
     display: flex;
     align-items: center;
 }
 
-.profile_button {
+.profileButton {
     display: flex;
     align-items: center;
 }
 
 /* main_header search 기본 세팅 */
-.header_search {
+.headerSearch {
     width: 30%;
     height: 36px;
     background-color: #F6F6F6;
@@ -89,12 +89,12 @@
     box-sizing: border-box;
 }
 
-.search_img {
+.searchImg {
     height: 20px;
     margin-left: 16px;
 }
 
-.header_search_input {
+.headerSearchInput {
     height: 100%;
     width: 90%;
     border: none;
@@ -108,7 +108,7 @@
 }
 
 /* main_header 버튼 */
-.signup_button {
+.signupButton {
     color: #181F29;
     display: flex;
     align-items: center;
@@ -116,7 +116,7 @@
     font-weight: 500;
 }
 
-.login_button {
+.loginButton {
     color: #181F29;
     display: flex;
     align-items: center;

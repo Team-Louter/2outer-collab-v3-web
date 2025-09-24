@@ -1,15 +1,15 @@
 // Module.css import
-import styles from './header.module.css';
+import styles from './Header.module.css';
 
 // Link import
 import { Link } from 'react-router-dom';
 
 // Img import
-import logo_img from '../../assets/header/Collab_Logo.svg';
-import search_img from '../../assets/header/search.svg';
-import chatting_img from '../../assets/header/chatting.svg';
-import bell_img from '../../assets/header/bell.svg';
-import profile_img from '../../assets/header/profile.svg';
+import logoImg from '../../assets/header/Collab_Logo.svg';
+import searchImg from '../../assets/header/search.svg';
+import chattingImg from '../../assets/header/chatting.svg';
+import bellImg from '../../assets/header/bell.svg';
+import profileImg from '../../assets/header/profile.svg';
 
 // Userid
 const userid = 1;
@@ -18,36 +18,36 @@ const userid = 1;
 const Header = () => {
     return (
         <>
-            <header className={styles.main_header}>
-                <Link className={styles.logo_button} to={`/`}>
-                    <img className={styles.logo_img} src={logo_img} alt="logo" />
+            <header className={styles.mainHeader}>
+                <Link className={styles.logoButton} to={`/`}>
+                    <img className={styles.logoImg} src={logoImg} alt="logo" />
                 </Link>
                 
-                <div className={styles.header_search}>
-                    <img className={styles.search_img} src={search_img} alt="search" />
-                    <input className={styles.header_search_input} type="search"/>
+                <div className={styles.headerSearch}>
+                    <img className={styles.searchImg} src={searchImg} alt="search" />
+                    <input className={styles.headerSearchInput} type="search"/>
                 </div>
 
-                <ul className={styles.header_menu}>
-                    <li className={styles.chatting_button}>
-                        <img className={styles.chatting_img} src={chatting_img} alt="chatting" />
+                <ul className={styles.headerMenu}>
+                    <li className={styles.chattingButton}>
+                        <img className={styles.chattingImg} src={chattingImg} alt="chatting" />
                     </li>
 
-                    <li className={styles.bell_button}>
-                        <img className={styles.bell_img} src={bell_img} alt="bell" />
+                    <li className={styles.bellButton}>
+                        <img className={styles.bellImg} src={bellImg} alt="bell" />
                     </li>
 
-                    <li className={styles.signup_button}>
-                        <Link className={styles.text_setting} to={`/signup`}>회원가입</Link>
+                    <li className={styles.signupButton}>
+                        <Link className={styles.textSetting} to={`/signup`}>회원가입</Link>
                     </li>
 
-                    <li className={styles.login_button}>
-                        <Link className={styles.text_setting} to={`/login`}>로그인</Link>
+                    <li className={styles.loginButton}>
+                        <Link className={styles.textSetting} to={`/login`}>로그인</Link>
                     </li>
 
-                    <li className={styles.profile_button}>
-                        <Link className={styles.profile_img} to={`/profile/${userid}`}>
-                            <img src={profile_img} alt="profile" />
+                    <li className={styles.profileButton}>
+                        <Link className={styles.profileImg} to={`/profile/${userid}`}>
+                            <img src={profileImg} alt="profile" />
                         </Link>
                     </li>
                 </ul>
