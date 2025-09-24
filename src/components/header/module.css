@@ -1,0 +1,119 @@
+/* 전체 페이지 기본 세팅 값 */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', sans-serif;
+    scrollbar-width: none;
+}
+
+/* header 기본 세팅 */
+.main_header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    background-color: #FFFFFF;
+    top: 0;
+}
+
+.main_header ul {
+    list-style: none;
+    display: flex;
+    margin-right: 12px;
+}
+
+.main_header ul li {
+    margin: 0px 10px;
+    display: flex;
+    cursor: pointer;
+}
+
+/* header 이미지 */
+.logo_img {
+    height: 28px;
+    margin-left: 20px;
+}
+
+.chatting_img {
+    height: 20px;
+}
+
+.bell_img {
+    height: 24px;
+}
+
+.profile_img {
+    height: 32px;
+}
+
+/* header li */
+.logo_button {
+    display: flex;
+    align-items: center;
+}
+
+.chatting_button {
+    display: flex;
+    align-items: center;
+}
+
+.bell_button {
+    display: flex;
+    align-items: center;
+}
+
+.profile_button {
+    display: flex;
+    align-items: center;
+}
+
+/* main_header search 기본 세팅 */
+.header_search {
+    width: 30%;
+    height: 36px;
+    background-color: #F6F6F6;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+}
+
+.search_img {
+    height: 20px;
+    margin-left: 16px;
+}
+
+.header_search_input {
+    height: 100%;
+    width: 90%;
+    border: none;
+    outline: none;
+    background-color: #F6F6F6;
+    font-size: 16px;
+    margin-left: 12px;
+    box-sizing: border-box;
+    border-radius: 50px;
+    padding-right: 10px;
+}
+
+/* main_header 버튼 */
+.signup_button {
+    color: #181F29;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.login_button {
+    color: #181F29;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+}
