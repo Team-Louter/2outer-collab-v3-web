@@ -23,7 +23,7 @@ export default function Schedule() {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:5174/schedules")
+        axios.get("http://localhost:5173/schedules")
             .then(res => {
                 setSchedules(res.data);
             })
