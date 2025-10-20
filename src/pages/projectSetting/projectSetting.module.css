@@ -1,0 +1,150 @@
+.topbar {
+    width: 100%;
+    height: 60px;
+    background-color: white;
+}
+  
+.leftSidebar {
+    background-color: white;
+}
+
+main {
+    background-color: #F5F5F5;
+    width: 100%;
+    height: 100%;
+    min-width: 550px;
+    overflow-y: scroll;
+}
+
+.rightSidebar {
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;  
+    padding-bottom: 30px;  
+}
+
+.title {
+    display: flex;
+    height: 100px;
+    align-items: flex-end;
+    margin-left: 10%;
+    align-self: flex-start;
+    flex-shrink: 0;
+}
+
+.title img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.title h2 {
+    font-weight: 600;
+}
+
+.thisProject {
+    background-color: white;
+    width: 90%;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.row {
+    width: 90%;
+    height: 55%;
+    display: flex;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.role, .members {
+    width: 48%;
+    height: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 0px 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.setting {
+    background-color: white;
+    width: 90%;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.setting:last-child {
+    margin-bottom: 30px;
+}
+
+.top {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid #CCCCCC;
+    flex-shrink: 0;
+}
+
+.roleContainer, .memberContainer {
+    width: 100%;
+    height: calc(100% - 70px);
+    overflow-y: scroll;
+}
+
+.roleElement, .memberElement {
+    border-bottom: 1px solid #CCCCCC;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+.profileImg {
+    background-color: aquamarine;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.forRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.forRow img {
+    width: 25px;
+    height: 25px;
+}
+
+.dropdown {
+    width: 80px;
+    height: 25px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.dropdown:focus {
+    outline: none;
+}
