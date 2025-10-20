@@ -1,11 +1,8 @@
-import './App.css'
+import "./App.css";
+import Todolist from "./pages/my_todolist";
 
 function App() {
-
-  return (
-    <>
-    </>
-  )
+  return <Todolist></Todolist>;
 }
 
-export default App
+export default App;
