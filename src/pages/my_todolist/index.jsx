@@ -73,6 +73,7 @@ function Todolist() {
           <div className={styles["top-container"]}>
             <div className={styles["top-container-wrapper"]}>
               <div className={styles["top-container-wrapper-left"]}>
+                <img src="/todolist-icon.svg" alt="할일 아이콘" />
                 <div className={styles["top-container-title"]}>할 일</div>
               </div>
               <div className={styles["top-container-wrapper-right"]}>
@@ -81,9 +82,9 @@ function Todolist() {
                   onClick={() => setModalOpen(true)}
                 >
                   <img
-                    src="/plus-icon.png"
+                    src="/plus.svg"
                     alt="플러스 아이콘"
-                    className={styles.icon}
+                    className={styles["plus-icon"]}
                   />
                 </button>
               </div>
@@ -110,7 +111,7 @@ function Todolist() {
                       onClick={() => openEditModal(task)}
                     >
                       <img
-                        src="/public/edit.png"
+                        src="/edit.svg"
                         alt="편집 아이콘"
                         className={styles.icon}
                       />
@@ -120,7 +121,7 @@ function Todolist() {
                       onClick={() => deleteTask(task.id)}
                     >
                       <img
-                        src="/public/delete.png"
+                        src="/delete.svg"
                         alt="삭제 아이콘"
                         className={styles.icon}
                       />
