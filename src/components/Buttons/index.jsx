@@ -1,12 +1,19 @@
 import styles from "./Buttons.module.css";
 
-function YesNoButtons({no, yes}) {
+export function YesNoButtons({no, yes}) {
     return (
-        <div className={styles.yesNoButtons}>
+        <div className={styles.Buttons}>
             <button className={styles.no} onClick={() => no(false)}>아니오</button>
             <button className={styles.yes} onClick={() => yes}>네</button>
         </div>
     )
 }
 
-export default YesNoButtons;
+export function OkayButtons({no, yes}) {
+    return (
+        <div className={styles.Buttons}>
+            <button className={styles.no} onClick={() => no}>거절</button>
+            <button className={styles.yes} onClick={() => yes}>수락</button>
+        </div>
+    )
+}

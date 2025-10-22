@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Expel from '../../components/Expel';
 import DeleteProject from '../../components/DeleteProject';
+import ApplyJoin from "../../components/ApplyJoin";
 
 export default function projectSetting() {
     const [expelModalOpen, setExpelModalOpen] = useState(false);
@@ -109,6 +110,11 @@ export default function projectSetting() {
             ? <></>
             : <DeleteProject 
                 setDeletePModalOpen={setDeletePModalOpen}
+            />}
+            {applyModalOpen === false
+            ? <></>
+            : <ApplyJoin 
+                setApplyModalOpen={setApplyModalOpen}
             />}
         </>
     )

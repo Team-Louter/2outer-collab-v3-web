@@ -11,23 +11,27 @@
 }
 
 .modalContent {
-    background-color: white;
-    width: 320px;
-    height: 150px;
-    position: relative;
-    padding: 30px 40px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+  background-color: white;
+  width: 400px;
+  max-height: 80vh;
+  height: 200px;
+  position: relative;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 30px 40px;
+  box-sizing: border-box;
+  gap: 10px;
+  overflow-y: auto;
 }
 
-.modalContent img {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    cursor: pointer;
+.closeIcon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
 }
 
 .modalContent h3 {
