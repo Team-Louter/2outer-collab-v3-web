@@ -3,10 +3,25 @@ import Header from "../../components/Header";
 import settingIcon from "../../assets/projectSetting/settingIcon.svg";
 import plus from "../../assets/projectSetting/plus.svg";
 import changeIcon from "../../assets/projectSetting/changeIcon.svg";
-import deleteRole from "../../assets/projectSetting/deleteRole.svg";
+import deleteRole from "../../assets/projectSetting/delete.svg";
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Expel from '../../components/Expel';
+import DeleteProject from '../../components/DeleteProject';
 
 export default function projectSetting() {
+    const [expelModalOpen, setExpelModalOpen] = useState(false);
+    const [deletePModalOpen, setDeletePModalOpen] = useState(false);
+    const [applyModalOpen, setApplyModalOpen] = useState(false);
+    const [expelPerson, setExpelPerson] = useState(null);
+    const [members, setMembers] = useState(Firstmembers);
+
+    if (expelModalOpen === true || deletePModalOpen === true || applyModalOpen === true) {
+        document.body.style.overflow = 'hidden';
+    }
+
+    const { teamname } = useParams();
+
     const [memberRoles, setMemberRoles] = useState(
         members.reduce((acc, m) => {
           acc[m.nickname] = m.role; 
@@ -21,6 +36,11 @@ export default function projectSetting() {
         }));
       };
 
+      const expel = (person) => {
+        setExpelModalOpen(!expelModalOpen);
+        setExpelPerson(person);
+      }
+
     return(
         <>
             <Header />
@@ -31,7 +51,7 @@ export default function projectSetting() {
                         <img src={settingIcon} />
                         <h2>프로젝트 설정</h2>
                     </div>
-                    <div className={styles.thisProject}>프로젝트명</div>
+                    <div className={styles.thisProject}>프로젝트명<small style={{marginLeft: 10}}>{teamname}</small></div>
                     <div className={styles.row}>
                         <div className={styles.role}>
                             <div className={styles.top}>
@@ -64,24 +84,37 @@ export default function projectSetting() {
                                                     <option key={role.role}>{role.role}</option>
                                                 ))}
                                             </select>
-                                            <img src={deleteRole} />
+                                            <img src={deleteRole} onClick={() => expel(member)}/>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     </div>
-                    <div className={styles.setting}>프로젝트 참가 요청</div>
+                    <div className={styles.setting} onClick={() => setApplyModalOpen(!applyModalOpen)}>프로젝트 참가 요청</div>
                     <div className={styles.setting}>프로젝트 프로필 변경</div>
-                    <div className={styles.setting} style={{color:'red'}}>프로젝트 삭제</div>
+                    <div className={styles.setting} style={{color:'red'}} onClick={() => setDeletePModalOpen(!deletePModalOpen)}>프로젝트 삭제</div>
                 </div>
             </main>
             <div className={`${styles.rightSidebar} rightSidebar`}>오른 사이드</div>
+
+            {expelModalOpen === false 
+            ? <></> 
+            : <Expel 
+                expelPerson={expelPerson} 
+                setExpelModalOpen={setExpelModalOpen}
+                setMembers={setMembers}
+            />}
+            {deletePModalOpen === false
+            ? <></>
+            : <DeleteProject 
+                setDeletePModalOpen={setDeletePModalOpen}
+            />}
         </>
     )
 }
 
-const members = [
+const Firstmembers = [
     { nickname: "코딩왕자", role: "팀장" },
     { nickname: "버그헌터", role: "프론트엔드 개발자" },
     { nickname: "데이터요정", role: "백엔드 개발자" },

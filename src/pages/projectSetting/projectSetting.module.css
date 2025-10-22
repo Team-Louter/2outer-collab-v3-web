@@ -90,6 +90,7 @@ main {
     justify-content: center;
     font-weight: 500;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .setting:last-child {
@@ -105,6 +106,10 @@ main {
     flex-shrink: 0;
 }
 
+.top img {
+    cursor: pointer;
+}
+
 .roleContainer, .memberContainer {
     width: 100%;
     height: calc(100% - 70px);
@@ -118,6 +123,10 @@ main {
     align-items: center;
     justify-content: space-between;
     padding: 0px 10px;
+}
+
+.roleElement img {
+    cursor: pointer;
 }
 
 .profileImg {
@@ -136,6 +145,7 @@ main {
 .forRow img {
     width: 25px;
     height: 25px;
+    cursor: pointer;
 }
 
 .dropdown {
