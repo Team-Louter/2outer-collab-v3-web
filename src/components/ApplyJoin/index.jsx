@@ -3,7 +3,7 @@ import closeModal from "../../assets/projectSetting/delete.svg";
 import { useState } from "react";
 import Appliance from "../Appliance";
 
-export default function DeleteProject({ setApplyModalOpen }) {
+export default function ApplyJoin({ setApplyModalOpen }) {
     const [applianceOpen, setApplianceOpen] = useState(null); 
 
     return (
