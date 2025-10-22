@@ -1,0 +1,30 @@
+
+.yesNoButtons {
+    display: flex;
+    gap: 30px;
+}
+
+.no, .yes {
+    width: 80px;
+    height: 30px;
+    border: 0px solid black;
+    border-radius: 5px;
+    color: white;
+    font-weight: 700;
+}
+
+.no {
+    background-color: #F30000;
+}
+
+.no:hover {
+    background-color: #db0000;
+}
+
+.yes {
+    background-color: #4A85FF
+}
+
+.yes:hover {
+    background-color: #3578fe;
+}
