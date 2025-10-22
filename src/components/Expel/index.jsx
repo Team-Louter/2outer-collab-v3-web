@@ -1,5 +1,6 @@
 import styles from "./Expel.module.css";
 import closeModal from "../../assets/projectSetting/delete.svg";
+import YesNoButtons from "../Buttons";
 
 export default function Expel({expelPerson, setExpelModalOpen, setMembers}) {
     const handleExpel = (nickname) => {
@@ -13,10 +14,7 @@ export default function Expel({expelPerson, setExpelModalOpen, setMembers}) {
                 <img src={closeModal} onClick={() => setExpelModalOpen(false)} />
                 <h3>해당 멤버를 추방하시겠습니까?</h3>
                 <h4>{expelPerson.nickname}({expelPerson.role})</h4>
-                <div className={styles.buttons}>
-                    <button className={styles.no} onClick={() => setExpelModalOpen(false)}>아니오</button>
-                    <button className={styles.yes} onClick={() => handleExpel(expelPerson.nickname)}>네</button>
-                </div>
+            <YesNoButtons no={setExpelModalOpen} yes={handleExpel}/>
             </div>
         </div>
     )
