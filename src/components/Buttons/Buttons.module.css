@@ -28,3 +28,34 @@
 .yes:hover {
     background-color: #3578fe;
 }
+
+.toggle {
+    width: 40px;
+    height: 20px;
+    background: #ccc;
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.toggle.on {
+    background: #3578fe;
+}
+
+.circle {
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    left: 3px;
+    transition: left 0.3s;
+}
+
+.toggle.on .circle {
+    left: 22px;
+}
+  

@@ -17,3 +17,14 @@ export function OkayButtons({no, yes}) {
         </div>
     )
 }
+
+export function ToggleButton({on, setOn}) {
+    return (
+        <div
+            className={`${styles.toggle} ${on ? styles.on : ""}`}
+            onClick={() => setOn(!on)}
+        >
+            <div className={styles.circle}></div>
+        </div>
+    )
+}

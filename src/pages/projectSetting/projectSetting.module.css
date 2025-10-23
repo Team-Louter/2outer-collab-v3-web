@@ -134,6 +134,7 @@ main {
     width: 25px;
     height: 25px;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .forRow {

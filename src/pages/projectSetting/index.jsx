@@ -9,15 +9,19 @@ import { useParams } from 'react-router-dom';
 import Expel from '../../components/Expel';
 import DeleteProject from '../../components/DeleteProject';
 import ApplyJoin from "../../components/ApplyJoin";
+import EditRole from '../../components/EditRole';
 
 export default function projectSetting() {
-    const [expelModalOpen, setExpelModalOpen] = useState(false);
-    const [deletePModalOpen, setDeletePModalOpen] = useState(false);
-    const [applyModalOpen, setApplyModalOpen] = useState(false);
-    const [expelPerson, setExpelPerson] = useState(null);
+    const [expelModalOpen, setExpelModalOpen] = useState(false); //추방 경고 모달
+    const [deletePModalOpen, setDeletePModalOpen] = useState(false); //프로젝트 삭제 경고 모달
+    const [applyModalOpen, setApplyModalOpen] = useState(false); // 참가 요청 확인 모달
+    const [editRole, setEditRole] = useState(false); // 역할 편집 모달
+    const [expelPerson, setExpelPerson] = useState(null); //추방할 사람
     const [members, setMembers] = useState(Firstmembers);
+    const [roleMode, setRoleMode] = useState("");
+    const [selectedRole, setSelectedRole] = useState(null);
 
-    if (expelModalOpen === true || deletePModalOpen === true || applyModalOpen === true) {
+    if (expelModalOpen === true || deletePModalOpen === true || applyModalOpen === true || editRole === true) {
         document.body.style.overflow = 'hidden';
     }
 
@@ -42,6 +46,12 @@ export default function projectSetting() {
         setExpelPerson(person);
       }
 
+      const handleRole = (mode, role=null) => {
+        setRoleMode(mode);
+        setEditRole(true);
+        setSelectedRole(role)
+      }
+
     return(
         <>
             <Header />
@@ -57,13 +67,13 @@ export default function projectSetting() {
                         <div className={styles.role}>
                             <div className={styles.top}>
                                 <span>역할</span>
-                                <img src={plus} />
+                                <img src={plus} onClick={() => handleRole("생성")}/>
                             </div>
                             <div className={styles.roleContainer}>
                                 {roles.map(role => (
                                     <div className={styles.roleElement} key={role.role}>
                                         <small>{role.role}({role.memberCount})</small>
-                                        <img src={changeIcon} />
+                                        <img src={changeIcon} onClick={() => handleRole("편집", role)}/>
                                     </div>
                                 ))}
                             </div>
@@ -116,6 +126,13 @@ export default function projectSetting() {
             : <ApplyJoin 
                 setApplyModalOpen={setApplyModalOpen}
             />}
+            {editRole === false
+            ? <></>
+            : <EditRole 
+                setEditRole={setEditRole}
+                roleMode={roleMode}
+                selectedRole={selectedRole}
+            />}
         </>
     )
 }
@@ -135,94 +152,84 @@ const Firstmembers = [
 
   const roles = [
     {
-      role: "팀장",
-      description: "팀의 전반적인 운영을 총괄하며 모든 권한을 가진다.",
-      editTeam: true,
-      writeNotice: true,
-      editMinutes: true,
-      manageSchedule: true,
-      chat: true,
-      memberCount: 1
+      "role": "팀장",
+      "description": "팀의 전반적인 운영을 총괄하며 모든 권한을 가진다.",
+      "teamSettings": true,
+      "announcement": true,
+      "meetingNote": true,
+      "schedule": true,
+      "memberCount": 1
     },
     {
-      role: "프론트엔드 개발자",
-      description: "사용자 인터페이스를 개발하고 기능 구현을 담당한다.",
-      editTeam: false,
-      writeNotice: false,
-      editMinutes: true,
-      manageSchedule: false,
-      chat: true,
-      memberCount: 2
+      "role": "프론트엔드 개발자",
+      "description": "사용자 인터페이스를 개발하고 기능 구현을 담당한다.",
+      "teamSettings": false,
+      "announcement": false,
+      "meetingNote": true,
+      "schedule": false,
+      "memberCount": 2
     },
     {
-      role: "백엔드 개발자",
-      description: "서버, API, 데이터베이스를 구축하고 유지보수한다.",
-      editTeam: false,
-      writeNotice: false,
-      editMinutes: true,
-      manageSchedule: false,
-      chat: true,
-      memberCount: 1
+      "role": "백엔드 개발자",
+      "description": "서버, API, 데이터베이스를 구축하고 유지보수한다.",
+      "teamSettings": false,
+      "announcement": false,
+      "meetingNote": true,
+      "schedule": false,
+      "memberCount": 1
     },
     {
-      role: "디자이너",
-      description: "UI/UX를 설계하고 디자인 리소스를 제작한다.",
-      editTeam: false,
-      writeNotice: false,
-      editMinutes: false,
-      manageSchedule: false,
-      chat: true,
-      memberCount: 1
+      "role": "디자이너",
+      "description": "UI/UX를 설계하고 디자인 리소스를 제작한다.",
+      "teamSettings": false,
+      "announcement": false,
+      "meetingNote": false,
+      "schedule": false,
+      "memberCount": 1
     },
     {
-      role: "기획자",
-      description: "서비스의 기능과 흐름을 설계하고 요구사항을 정리한다.",
-      editTeam: false,
-      writeNotice: true,
-      editMinutes: true,
-      manageSchedule: true,
-      chat: true,
-      memberCount: 1
+      "role": "기획자",
+      "description": "서비스의 기능과 흐름을 설계하고 요구사항을 정리한다.",
+      "teamSettings": false,
+      "announcement": true,
+      "meetingNote": true,
+      "schedule": true,
+      "memberCount": 1
     },
     {
-      role: "QA",
-      description: "품질 관리를 담당하며 버그 및 이슈를 테스트한다.",
-      editTeam: false,
-      writeNotice: false,
-      editMinutes: true,
-      manageSchedule: false,
-      chat: true,
-      memberCount: 1
+      "role": "QA",
+      "description": "품질 관리를 담당하며 버그 및 이슈를 테스트한다.",
+      "teamSettings": false,
+      "announcement": false,
+      "meetingNote": true,
+      "schedule": false,
+      "memberCount": 1
     },
     {
-      role: "개발자",
-      description: "기능 구현과 유지보수를 담당하는 일반 개발자 역할이다.",
-      editTeam: false,
-      writeNotice: false,
-      editMinutes: true,
-      manageSchedule: false,
-      chat: true,
-      memberCount: 1
+      "role": "개발자",
+      "description": "기능 구현과 유지보수를 담당하는 일반 개발자 역할이다.",
+      "teamSettings": false,
+      "announcement": false,
+      "meetingNote": true,
+      "schedule": false,
+      "memberCount": 1
     },
     {
-      role: "DevOps",
-      description: "배포, 서버 인프라, CI/CD를 관리한다.",
-      editTeam: true,
-      writeNotice: false,
-      editMinutes: false,
-      manageSchedule: true,
-      chat: true,
-      memberCount: 1
+      "role": "DevOps",
+      "description": "배포, 서버 인프라, CI/CD를 관리한다.",
+      "teamSettings": true,
+      "announcement": false,
+      "meetingNote": false,
+      "schedule": true,
+      "memberCount": 1
     },
     {
-      role: "PM",
-      description: "프로젝트 일정과 팀 업무를 조율하며 공지와 회의를 주도한다.",
-      editTeam: true,
-      writeNotice: true,
-      editMinutes: true,
-      manageSchedule: true,
-      chat: true,
-      memberCount: 1
+      "role": "PM",
+      "description": "프로젝트 일정과 팀 업무를 조율하며 공지와 회의를 주도한다.",
+      "teamSettings": true,
+      "announcement": true,
+      "meetingNote": true,
+      "schedule": true,
+      "memberCount": 1
     }
-  ];
-  
+  ]
