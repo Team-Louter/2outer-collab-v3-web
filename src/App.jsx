@@ -5,6 +5,7 @@ import ProjectSetting from './pages/projectSetting';
 import SignUp from './pages/signUp';
 import Schedule from './pages/schedule';
 import ProjectMain from './pages/projectMain';
+import Login from './pages/login';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path='/profile/:userId' element={<UserProfile />} />
         <Route path='/:teamname/setting' element={<ProjectSetting />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </>
   );

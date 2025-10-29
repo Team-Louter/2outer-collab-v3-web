@@ -1,0 +1,134 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    font-size: 2.25rem;
+    font-weight: 800;
+
+    /* 텍스트 그라데이션 */
+    background-image: linear-gradient(to right, #4A85FF 0%, #181F29 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    margin: 4rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input {
+    width: 468px;
+    height: 3.6rem;
+    background-color: #F5F5F5;
+    color: #181F29;
+    box-sizing: border-box;
+    border: 1px solid #CCCCCC;
+    border-radius: 1000px;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0 1.5rem;
+}
+
+/* 자동완성 시 배경색 제거 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #F5F5F5 inset;
+}
+
+.input:hover {
+    border: 2px solid #4A85FF;
+}
+
+.input:focus {
+    outline: none;
+    border: 2px solid #4A85FF;
+}
+
+.input::placeholder {
+    color: #999999;
+    font-weight: 400;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.usernameInput {
+    margin-bottom: 0.5rem;
+}
+
+.submit {
+    width: calc(420px + 1.5rem * 2);
+    height: 3.6rem;
+    background-color: #4A85FF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 1000px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 3rem;
+}
+
+.signUpPrompt {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #181F29;
+}
+
+.signUpLink {
+    color: #4A85FF;
+    text-decoration: none;
+    margin-left: 0.25rem;
+    font-weight: 500;
+}
+
+.forgotPassword {
+    color: #181F29;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.checkbox {
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid rgb(0, 0, 0, 0.5);
+    border-radius: 1rem;
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+
+.forgotPasswordLink {
+    color: #333333;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    float: right;
+    cursor: pointer;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
