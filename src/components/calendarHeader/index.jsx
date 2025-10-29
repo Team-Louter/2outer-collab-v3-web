@@ -1,8 +1,8 @@
 import { addMonths, format, subMonths } from 'date-fns';
 import styles from './calendarHeader.module.css'
 import { ko } from 'date-fns/locale';
-import left from '../../assets/left.svg';
-import right from '../../assets/right.svg';
+import left from '../../assets/schedule/left.svg';
+import right from '../../assets/schedule/right.svg';
 
 export default function CalendarHeader ({ current, setCurrent }) {
     const preMonth = () => {

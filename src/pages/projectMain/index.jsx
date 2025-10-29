@@ -2,16 +2,16 @@ import { useState } from "react";
 import styles from './ProjectMain.module.css'
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-import Header from "../../components/header";
-import detailIcon from "../../assets/detailIcon.svg";
-import documentIcon from "../../assets/documentIcon.svg";
-import headerMenu from "../../assets/headerMenu.svg";
-import noticeIcon from "../../assets/noticeIcon.svg";
-import pOutIcon from "../../assets/pOutIcon.svg";
-import pProfileIcon from "../../assets/pProfileIcon.svg";
-import profileChangeIcon from "../../assets/profileChangeIcon.svg";
-import reportIcon from "../../assets/reportIcon.svg";
-import todoIcon from "../../assets/todoIcon.svg";
+import Header from "../../components/Header";
+import detailIcon from "../../assets/projectMain/detailIcon.svg";
+import documentIcon from "../../assets/projectMain/documentIcon.svg";
+import headerMenu from "../../assets/projectMain/headerMenu.svg";
+import noticeIcon from "../../assets/projectMain/noticeIcon.svg";
+import pOutIcon from "../../assets/projectMain/pOutIcon.svg";
+import pProfileIcon from "../../assets/projectMain/pProfileIcon.svg";
+import profileChangeIcon from "../../assets/projectMain/profileChangeIcon.svg";
+import reportIcon from "../../assets/projectMain/reportIcon.svg";
+import todoIcon from "../../assets/projectMain/todoIcon.svg";
 
 
 export default function ProjectMain() {
