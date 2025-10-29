@@ -41,6 +41,14 @@
     font-weight: 500;
 }
 
+/* 자동완성 시 배경색 제거 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #F5F5F5 inset;
+}
+
 .input:hover {
     border-bottom: 2px solid #4A85FF;
 }
