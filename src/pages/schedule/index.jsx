@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { endOfMonth, startOfMonth } from 'date-fns';
-import CalendarContent from '../../components/calendarContent';
-import CalendarHeader from '../../components/calendarHeader';
-import CalendarModal from '../../components/calendarModal';
+import CalendarContent from '../../components/CalendarContent';
+import CalendarHeader from '../../components/CalendarHeader';
+import CalendarModal from '../../components/CalendarModal';
 import styles from './schedule.module.css';
 import axios from 'axios';
 
