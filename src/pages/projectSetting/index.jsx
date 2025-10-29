@@ -10,18 +10,20 @@ import Expel from '../../components/Expel';
 import DeleteProject from '../../components/DeleteProject';
 import ApplyJoin from "../../components/ApplyJoin";
 import EditRole from '../../components/EditRole';
+import EditProject from '../../components/EditProject';
 
 export default function projectSetting() {
     const [expelModalOpen, setExpelModalOpen] = useState(false); //추방 경고 모달
     const [deletePModalOpen, setDeletePModalOpen] = useState(false); //프로젝트 삭제 경고 모달
     const [applyModalOpen, setApplyModalOpen] = useState(false); // 참가 요청 확인 모달
     const [editRole, setEditRole] = useState(false); // 역할 편집 모달
+    const [editProject, setEditProject] = useState(false); // 프로젝트 프로필 편집 모달
     const [expelPerson, setExpelPerson] = useState(null); //추방할 사람
     const [members, setMembers] = useState(Firstmembers);
     const [roleMode, setRoleMode] = useState("");
     const [selectedRole, setSelectedRole] = useState(null);
 
-    if (expelModalOpen === true || deletePModalOpen === true || applyModalOpen === true || editRole === true) {
+    if (expelModalOpen === true || deletePModalOpen === true || applyModalOpen === true || editRole === true || editProject === true) {
         document.body.style.overflow = 'hidden';
     }
 
@@ -103,7 +105,7 @@ export default function projectSetting() {
                         </div>
                     </div>
                     <div className={styles.setting} onClick={() => setApplyModalOpen(!applyModalOpen)}>프로젝트 참가 요청</div>
-                    <div className={styles.setting}>프로젝트 프로필 변경</div>
+                    <div className={styles.setting} onClick={() => setEditProject(!editProject)}>프로젝트 프로필 변경</div>
                     <div className={styles.setting} style={{color:'red'}} onClick={() => setDeletePModalOpen(!deletePModalOpen)}>프로젝트 삭제</div>
                 </div>
             </main>
@@ -133,6 +135,9 @@ export default function projectSetting() {
                 roleMode={roleMode}
                 selectedRole={selectedRole}
             />}
+            {editProject === false
+            ? <></>
+            : <EditProject setEditProject={setEditProject}/>}
         </>
     )
 }
