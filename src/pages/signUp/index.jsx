@@ -8,9 +8,9 @@ const signUp = () => {
         <>
             <Header />
             <div className={styles.container}>
-                <div className={styles.title}>회원가입</div>
+                <div className={styles.title}>회원 가입</div>
                 <div className={styles.formContainer}>
-                    <form>
+                    <form className={styles.formMain}>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>아이디</label>
                             <input className={styles.input} type="text" id="username" name="username" placeholder="영문/숫자로 입력해주세요." required />
@@ -21,7 +21,7 @@ const signUp = () => {
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>비밀번호 확인</label>
-                            <input className={styles.input} type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요." required />
+                            <input className={styles.input} type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호를 입력해주세요." required />
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>이메일</label>
@@ -38,7 +38,7 @@ const signUp = () => {
                             </div>
                         </div>
                         <button className={styles.submit} type="submit">회원 가입</button>
-                        <h5 className={styles.signInPrompt}>이미 계정이 있으신가요? <a className={styles.signInLink} href="/signin">로그인</a></h5>
+                        <h5 className={styles.signInPrompt}>이미 계정이 있으신가요? <a className={styles.signInLink} href="/login">로그인</a></h5>
                     </form>
                 </div>
             </div>

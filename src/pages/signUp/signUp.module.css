@@ -1,15 +1,15 @@
 .container {
     width: 100vw;
-    height: calc(100vh - 60px);
+    height: 100vh;
     background-color: #F5F5F5;
-    margin-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .title {
-    font-size: 2.25rem;
+    font-size: 2rem;
     font-weight: 800;
 
     /* 텍스트 그라데이션 */
@@ -31,7 +31,7 @@
 }
 
 .input {
-    width: 505px;
+    width: 31.5625rem;
     height: 2.5rem;
     background-color: #F5F5F5;
     color: #181F29;
@@ -46,7 +46,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0px 1000px #F5F5F5 inset;
+    -webkit-box-shadow: 0 0 0rem 62.5rem #F5F5F5 inset;
 }
 
 .input:hover {
@@ -59,17 +59,17 @@ input:-webkit-autofill:active {
 }
 
 .buttonInput {
-    width: 405px;
+    width: 25.3125rem;
 }
 
 .button {
-    width: 100px;
+    width: 6.25rem;
     height: 2rem;
     margin-left: 0.5rem;
     background-color: #FFFFFF;
     color: #181F29;
     border: 1px solid #4A85FF;
-    border-radius: 1000px;
+    border-radius: 62.5rem;
     font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
@@ -99,7 +99,7 @@ input:-webkit-autofill:active {
 }
 
 .submit {
-    width: 505px;
+    width: 31.5625rem;
     height: 3.5rem;
     background-color: #4A85FF;
     color: #FFFFFF;
@@ -108,7 +108,7 @@ input:-webkit-autofill:active {
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 2rem;
+    margin-top: 1.6rem;
 }
 
 .submit:active {
