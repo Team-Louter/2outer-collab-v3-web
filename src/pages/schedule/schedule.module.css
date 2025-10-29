@@ -1,0 +1,30 @@
+.topbar {
+    width: 100%;
+    height: 60px;
+    background-color: white;
+}
+  
+.leftSidebar {
+    background-color: white;
+}
+
+main {
+    background-color: #F5F5F5;
+    width: 100%;
+    height: 100%;
+    min-width: 550px;
+    overflow-y: scroll;
+}
+
+.rightSidebar {
+    background-color: white;
+}
+
+.calendar {
+    margin-top: 30px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
