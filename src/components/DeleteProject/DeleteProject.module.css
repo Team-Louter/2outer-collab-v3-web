@@ -1,0 +1,62 @@
+.modalBackground {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+  background-color: white;
+  width: 400px;
+  max-height: 80vh;
+  height: 250px;
+  position: relative;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 30px 40px;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.modalContent h3 {
+    font-weight: 700;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.inputBox small {
+    align-self: flex-start;
+    margin-left: 15px;
+    font-weight: 600;
+    font-size:smaller;
+    margin-bottom: 1px;
+}
+
+.inputBox input {
+    width: 90%;
+    height: 30px;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 3px;
+    padding-left: 10px;
+}
