@@ -29,5 +29,9 @@ main {
 }
 
 .rightSidebar {
-  grid-area: right;
+    grid-area: right;
+}
+
+.tooltip {
+    background-color: aliceblue;
 }
