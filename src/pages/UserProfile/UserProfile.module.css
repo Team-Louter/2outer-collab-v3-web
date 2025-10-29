@@ -1,0 +1,149 @@
+.profile {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+main {
+    flex: 1;
+    background-color: #F5F5F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 50vw;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profileImg {
+    background-color: white;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 1px solid #CCCCCC;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.profileImg img {
+    width: 70px;
+    height: 70px;
+}
+
+.top {
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%; 
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 180px);  
+    margin-left: 30px;
+    min-width: 0;  
+}
+.column input {
+    height: 40px;
+    width: 100%;  
+    border: 1px solid #CCCCCC;
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 10px;
+    box-sizing: border-box;  
+}
+
+.column input:focus {
+    outline: none;
+}
+
+.column input:read-only {
+    background-color: #EFEFEF;
+    color: #ABABAB;
+}
+
+.container textarea {
+    resize: none;
+    width: 100%;  
+    height: 20%;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;  
+}
+
+.container textarea:focus {
+    outline: none;
+}
+
+.container textarea:read-only {
+    background-color: #EFEFEF;
+    color: #ABABAB;
+}
+
+.container button {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: 0px solid black;
+    background-color: #4A85FF;
+    color: white;
+    margin-top: 30px;
+    align-self: flex-end;
+}
+
+.container button:hover {
+    background-color: #3c7dff;
+}
+
+small {
+    margin-bottom: 1px;
+    margin-top: 10px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    align-self: flex-end;
+}
+
+.projectContainer {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.project {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+
+.edit {
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #CCCCCC;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit img {
+    width: 25px;
+    height: 25px;
+}
