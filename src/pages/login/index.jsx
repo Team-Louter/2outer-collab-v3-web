@@ -3,7 +3,7 @@ import styles from './login.module.css';
 import Header from '../../components/Header';
 
 // Const
-const login = () => {
+export default function login() {
     return (
         <>
             <Header />
@@ -29,7 +29,3 @@ const login = () => {
         </>
     );
 }
-
-
-// Export
-export default login;
