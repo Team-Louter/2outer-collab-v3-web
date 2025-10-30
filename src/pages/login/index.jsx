@@ -3,7 +3,7 @@ import styles from './login.module.css';
 import Header from '../../components/Header';
 
 // Const
-const login = () => {
+export default function login() {
     return (
         <>
             <Header />
@@ -18,7 +18,7 @@ const login = () => {
                             <input className={`${styles.input} ${styles.passwordInput}`} type="password" id="password" name="password" placeholder="8자 이상 입력해주세요." required />
                         </div>
                         <div className={styles.options}>
-                            <div className={styles.rememberMe}><a className={styles.rememberMeLink}><div className={styles.checkbox}></div>로그인 유지</a></div>
+                            <div className={styles.forgotPassword}><div className={styles.checkbox}></div>로그인 유지</div>
                             <a className={styles.forgotPasswordLink} href="/forgot-password">비밀번호를 잊어버리셨나요?</a>
                         </div>
                         <button className={styles.submit} type="submit">로그인</button>
@@ -29,7 +29,3 @@ const login = () => {
         </>
     );
 }
-
-
-// Export
-export default login;
