@@ -99,7 +99,7 @@ input:-webkit-autofill:active {
     font-weight: 500;
 }
 
-.forgotPassword {
+.rememberMe {
     color: #181F29;
     font-size: 0.9rem;
     font-weight: 500;
@@ -131,4 +131,12 @@ input:-webkit-autofill:active {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.rememberMeLink {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
 }
