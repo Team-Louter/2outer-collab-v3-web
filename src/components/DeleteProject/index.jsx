@@ -2,9 +2,12 @@ import styles from "./DeleteProject.module.css";
 import closeModal from "../../assets/projectSetting/delete.svg";
 import { useParams } from "react-router-dom";
 import { YesNoButtons } from "../Buttons";
+import axios from "axios";
 
-export default function DeleteProject({ setDeletePModalOpen }) {
+export default function DeleteProject({ setDeletePModalOpen, teams }) {
     const {teamname} = useParams();
+
+
     return (
         <div className={styles.modalBackground}>
             <div className={styles.modalContent}>
