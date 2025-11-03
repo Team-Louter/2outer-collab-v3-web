@@ -4,14 +4,13 @@ import settingIcon from "../../assets/projectSetting/settingIcon.svg";
 import plus from "../../assets/projectSetting/plus.svg";
 import changeIcon from "../../assets/projectSetting/changeIcon.svg";
 import deleteRole from "../../assets/projectSetting/delete.svg";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Expel from '../../components/Expel';
 import DeleteProject from '../../components/DeleteProject';
 import ApplyJoin from "../../components/ApplyJoin";
 import EditRole from '../../components/EditRole';
 import EditProject from '../../components/EditProject';
-import axios from 'axios';
 
 export default function projectSetting() {
     const [expelModalOpen, setExpelModalOpen] = useState(false); //추방 경고 모달
@@ -23,16 +22,6 @@ export default function projectSetting() {
     const [members, setMembers] = useState(Firstmembers);
     const [roleMode, setRoleMode] = useState("");
     const [selectedRole, setSelectedRole] = useState(null);
-    const [teams, setTeam] = useState(null);
-
-    useEffect(() => {
-      axios.get("/teams/my-teams")
-        .then(res => {
-          setTeam(res.data);
-          console.log('teams : ', res.data);
-        })
-        .catch(console.error);
-    }, []);
 
     if (expelModalOpen === true || deletePModalOpen === true || applyModalOpen === true || editRole === true || editProject === true) {
         document.body.style.overflow = 'hidden';
@@ -75,7 +64,7 @@ export default function projectSetting() {
                         <img src={settingIcon} />
                         <h2>프로젝트 설정</h2>
                     </div>
-                    <div className={styles.thisProject}>프로젝트명<small style={{margin: 0, marginLeft: 10}}>{teamname}</small></div>
+                    <div className={styles.thisProject}>프로젝트명<small style={{marginLeft: 10}}>{teamname}</small></div>
                     <div className={styles.row}>
                         <div className={styles.role}>
                             <div className={styles.top}>
@@ -122,29 +111,33 @@ export default function projectSetting() {
             </main>
             <div className={`${styles.rightSidebar} rightSidebar`}>오른 사이드</div>
 
-            {expelModalOpen &&
-            <Expel 
+            {expelModalOpen === false 
+            ? <></> 
+            : <Expel 
                 expelPerson={expelPerson} 
                 setExpelModalOpen={setExpelModalOpen}
                 setMembers={setMembers}
             />}
-            {deletePModalOpen &&
-            <DeleteProject 
+            {deletePModalOpen === false
+            ? <></>
+            : <DeleteProject 
                 setDeletePModalOpen={setDeletePModalOpen}
-                teams={teams}
             />}
-            {applyModalOpen &&
-            <ApplyJoin 
+            {applyModalOpen === false
+            ? <></>
+            : <ApplyJoin 
                 setApplyModalOpen={setApplyModalOpen}
             />}
-            {editRole &&
-            <EditRole 
+            {editRole === false
+            ? <></>
+            : <EditRole 
                 setEditRole={setEditRole}
                 roleMode={roleMode}
                 selectedRole={selectedRole}
             />}
-            {editProject &&
-            <EditProject setEditProject={setEditProject}/>}
+            {editProject === false
+            ? <></>
+            : <EditProject setEditProject={setEditProject}/>}
         </>
     )
 }

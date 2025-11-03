@@ -55,7 +55,7 @@ export default function EditProject({ setEditProject }) {
           <div className={styles.top}>
             <h3>프로젝트 프로필</h3>
           </div>
-          <div className={styles.inputBox} style={{marginTop: 20}}>
+          <div className={styles.inputBox}>
             <small>프로젝트명 <span>*</span></small>
             <input placeholder="프로젝트명을 입력해주세요." defaultValue={teamname}/>
             <small className={styles.letter}>{teamname.length}/50</small>
