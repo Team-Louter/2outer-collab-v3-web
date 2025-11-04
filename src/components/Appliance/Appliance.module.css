@@ -1,0 +1,109 @@
+.modalBackground {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+  background-color: white;
+  width: 400px;
+  max-height: 80vh;
+  position: relative;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 40px;
+  box-sizing: border-box;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.name,
+.intro,
+.imageSection {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2px;
+}
+
+.name input,
+.intro textarea {
+  outline: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.name input {
+  height: 30px;
+  padding-left: 10px;
+}
+
+.intro textarea {
+  resize: none;
+  height: 100px;
+  line-height: 18px;
+}
+
+.preview {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.previewImage {
+  max-width: auto;
+  height: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.fileInput {
+  display: none;
+}
+
+.enlargedBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.enlargedImage {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}

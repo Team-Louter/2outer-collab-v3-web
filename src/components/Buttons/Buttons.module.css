@@ -1,0 +1,61 @@
+
+.Buttons {
+    display: flex;
+    gap: 30px;
+}
+
+.no, .yes {
+    width: 80px;
+    height: 30px;
+    border: 0px solid black;
+    border-radius: 5px;
+    color: white;
+    font-weight: 700;
+}
+
+.no {
+    background-color: #F30000;
+}
+
+.no:hover {
+    background-color: #db0000;
+}
+
+.yes {
+    background-color: #4A85FF
+}
+
+.yes:hover {
+    background-color: #3578fe;
+}
+
+.toggle {
+    width: 40px;
+    height: 20px;
+    background: #ccc;
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.toggle.on {
+    background: #3578fe;
+}
+
+.circle {
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    left: 3px;
+    transition: left 0.3s;
+}
+
+.toggle.on .circle {
+    left: 22px;
+}
+  

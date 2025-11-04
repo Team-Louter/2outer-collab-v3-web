@@ -1,0 +1,93 @@
+/* CropImage.module.css */
+.cropBackground {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.cropContainer {
+  background-color: white;
+  width: 600px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cropperWrapper {
+  flex: 1;
+  position: relative;
+  width: 100%;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  border-top: 1px solid #eee;
+  justify-content: flex-end;
+}
+
+.button {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.buttonCancel {
+  background-color: #f5f5f5;
+}
+
+.buttonCancel:hover {
+  background-color: #e8e8e8;
+}
+
+.buttonConfirm {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}
+
+.buttonConfirm:hover {
+  background-color: #0056b3;
+}
+
+/* CropImage.module.css 에 추가 */
+
+.preview {
+  width: 100%;
+  height: 100px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  overflow: hidden;
+}
+
+.preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.buttonSecondary {
+  background-color: #6c757d;
+  color: white;
+  border: 1px solid #6c757d;
+}
+
+.buttonSecondary:hover {
+  background-color: #5a6268;
+}
