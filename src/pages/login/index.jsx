@@ -1,12 +1,14 @@
 // Link import
 import styles from './login.module.css';
 import Header from '../../components/Header';
+import Sidebar from '../../components/Sidebar';
 
 // Const
 export default function login() {
     return (
         <>
             <Header />
+            <Sidebar />
             <div className={styles.container}>
                 <div className={styles.title}>로그인</div>
                 <div className={styles.formContainer}>
