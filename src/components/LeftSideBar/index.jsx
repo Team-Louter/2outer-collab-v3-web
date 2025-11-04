@@ -1,11 +1,11 @@
 // Module.css import
-import styles from './Sidebar.module.css';
+import styles from './LeftSideBar.module.css';
 
 // Link import
 import { Link } from 'react-router-dom';
 
 // Img import
-import minus from '../../assets/header/logo.svg';
+import minus from '../../assets/leftSideBar/logo.svg';
 
 // Const
 const Sidebar = () => {
