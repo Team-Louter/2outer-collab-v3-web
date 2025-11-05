@@ -33,10 +33,10 @@ export default function Sidebar() {
         <>
             <div className={styles.container}>
                 <div className={styles.minusButton}>
-                    <img src={minus} alt="Minus" />
+                    <img className={styles.minusIcon} src={minus} alt="Minus" />
                 </div>
                 <div className={styles.projectCreate}>
-                    <img src={plus} alt="Plus" /><div className={styles.projectCreateText}>새 프로젝트 만들기</div>
+                    <img className={styles.plusIcon} src={plus} alt="Plus" /><div className={styles.projectCreateText}>새 프로젝트 만들기</div>
                 </div>
                 <div className={styles.line}></div>
                 <div className={styles.myProjectsTitle}>내 프로젝트</div>

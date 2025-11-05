@@ -9,3 +9,37 @@
     display: flex;
     flex-direction: column;
 }
+
+.minusButton {
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-top: 1rem; /* 16px */
+}
+
+/* 아이콘 크기 */
+.minusIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.projectCreate {
+    width: 100%;
+    height: 2.5rem; /* 40px */
+    display: flex;
+    align-items: center;
+    margin-top: 1rem; /* 16px */
+    cursor: pointer;
+    padding-left: 1.6rem;
+}
+
+.projectCreateText {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #181F29;
+    margin-left: 0.4rem; /* 6px */
+}
