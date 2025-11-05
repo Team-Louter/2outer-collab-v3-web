@@ -64,7 +64,7 @@ export default function projectSetting() {
                         <img src={settingIcon} />
                         <h2>프로젝트 설정</h2>
                     </div>
-                    <div className={styles.thisProject}>프로젝트명<small style={{marginLeft: 10}}>{teamname}</small></div>
+                    <div className={styles.thisProject}>프로젝트명<small style={{margin: 0, marginLeft: 10}}>{teamname}</small></div>
                     <div className={styles.row}>
                         <div className={styles.role}>
                             <div className={styles.top}>
