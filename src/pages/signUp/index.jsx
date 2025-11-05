@@ -2,57 +2,107 @@
 import styles from './signUp.module.css';
 import Header from '../../components/Header';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import
 import axios from 'axios';
 
-const API_URL = '서버주소/users/signup';
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/auth/signup`;
 
 // Const
 export default function SignUp() {
     const [sendData, setSendData] = useState({
-        username: "",
-        password: "",
-        email: "",
+        userName: "",
+        userPassword: "",
+        confirmPassword: "",
+        userEmail: "",
     });
 
     const onChangeId = (e) => {
         setSendData({
             ...sendData,
-            username: e.target.value,
+            userName: e.target.value,
         });
     };
 
     const onChangePassword = (e) => {
         setSendData({
             ...sendData,
-            password: e.target.value,
+            userPassword: e.target.value,
         });
     }
+
+    const onChangeConfirmPassword = (e) => {
+        setSendData({
+            ...sendData,
+            confirmPassword: e.target.value,
+        });
+    };
 
     const onChangeEmail = (e) => {
         setSendData({
             ...sendData,
-            email: e.target.value,
+            userEmail: e.target.value,
         });
     }
 
     const clickSignUp = (e) => {
         e.preventDefault(); // 새로고침 방지
-        
-        axios.post(API_URL, sendData, {
-            withCredentials: true
-        })
 
-        .then(response => {
-            console.log('API Response:', response.data);
-            alert('회원가입 성공!');
-        })
+        axios.post(API_URL, sendData, {withCredentials: true})
+            .then(response => {
+                toast.success('회원가입 성공!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            })
 
-        .catch(error => {
-            // console.error('API Error:', error);
-            alert(error.response.data.detail);
-        });
+            .catch(error => {
+                console.error('API Error:', error);
+                console.error('에러 응답:', error.response?.data);
+                
+                if (error.response?.data?.detail) {
+                    toast.error(error.response.data.detail, {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                } else if (error.response?.data) {
+                    toast.error(JSON.stringify(error.response.data), {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                } else {
+                    toast.error('회원가입 실패: ' + error.message, {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+            });
 
     }
 
@@ -65,20 +115,20 @@ export default function SignUp() {
                     <form className={styles.formMain}>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>아이디</label>
-                            <input className={styles.input} type="text" id="username" name="username" placeholder="영문/숫자로 입력해주세요." value={sendData.username} onChange={onChangeId} required />
+                            <input className={styles.input} type="text" id="username" name="username" placeholder="영문/숫자로 입력해주세요." value={sendData.userName} onChange={onChangeId} required />
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>비밀번호</label>
-                            <input className={styles.input} type="password" id="password" name="password" placeholder="8자 이상 입력해주세요." value={sendData.password} onChange={onChangePassword} required />
+                            <input className={styles.input} type="password" id="password" name="password" placeholder="8자 이상 입력해주세요." value={sendData.userPassword} onChange={onChangePassword} required />
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>비밀번호 확인</label>
-                            <input className={styles.input} type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호를 입력해주세요." required />
+                            <input className={styles.input} type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호를 입력해주세요." value={sendData.confirmPassword} onChange={onChangeConfirmPassword} required />
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>이메일</label>
                             <div>
-                                <input className={`${styles.input} ${styles.buttonInput}`} type="email" id="email" name="email" placeholder="example@example.com" value={sendData.email} onChange={onChangeEmail} required />
+                                <input className={`${styles.input} ${styles.buttonInput}`} type="email" id="email" name="email" placeholder="example@example.com" value={sendData.userEmail} onChange={onChangeEmail} required />
                                 <button className={`${styles.button} ${styles.emailButton}`} type="button">인증번호 발송</button>
                             </div>
                         </div>
@@ -94,6 +144,7 @@ export default function SignUp() {
                     </form>
                 </div>
             </div>
+            <ToastContainer />
         </>
     );
 };
