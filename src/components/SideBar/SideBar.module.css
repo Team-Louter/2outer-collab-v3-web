@@ -43,3 +43,17 @@
     color: #181F29;
     margin-left: 0.4rem; /* 6px */
 }
+
+.line {
+    width: 90%;
+    height: 2px;
+    background-color: #F1F2F3;
+    margin: 1rem auto; /* 16px */
+}
+
+.myProjectsTitle {
+    font-size: 1rem; /* 16px */
+    font-weight: 700;
+    color: #181F29;
+    margin-left: 1.625rem; /* 26px */
+}
