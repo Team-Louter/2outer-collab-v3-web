@@ -120,11 +120,11 @@ export default function SignUp() {
         axiosInstance.get('/auth/email', { params: { userEmail: sendData.userEmail } })
             .then(response => {
                 setIsEmailSent(true);
-                toast.info('인증번호가 발송되었습니다', toastcode);
+                toast.info('인증번호가 전송되었습니다', toastcode);
             })
             .catch(error => {
-                console.error('이메일 발송 실패:', error);
-                toast.error('인증번호 발송에 실패했습니다', toastcode);
+                console.error('이메일 전송 실패:', error);
+                toast.error('인증번호 전송에 실패했습니다', toastcode);
             });
     };
 
@@ -143,7 +143,7 @@ export default function SignUp() {
         })
             .then(response => {
                 setIsEmailVerified(true);
-                toast.success('이메일 인증이 완료되었습니다', toastcode);
+                toast.success('이메일 인증 성공', toastcode);
             })
             .catch(error => {
                 console.error('인증 실패:', error);

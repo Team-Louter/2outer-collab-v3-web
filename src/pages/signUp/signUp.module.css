@@ -129,7 +129,3 @@ input:-webkit-autofill:active {
     text-decoration: none;
     margin-left: 0.25rem;
 }
-
-.Toastify__toast-container {
-  margin-top: 3.75rem !important; /* 원하는 값 */
-}

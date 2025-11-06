@@ -12,9 +12,8 @@ function App() {
 
   return (
     <>
-      <Main />
-      
       <Routes>
+        <Route path='/' element={<Main />} />
         <Route path='/:teamId' element={<ProjectMain />} />
         <Route path='/:teamId/schedule' element={<Schedule />} />
         <Route path='/profile/:userId' element={<UserProfile />} />
