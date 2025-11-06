@@ -1,14 +1,12 @@
 // Link import
 import styles from './signUp.module.css';
 import Header from '../../components/Header';
-import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { useState, useEffect } from 'react';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // import
-import axios from 'axios';
-
-const API_URL = `${import.meta.env.VITE_API_BASE_URL}/auth/signup`;
+import axiosInstance from '../../axiosInstance';
 
 // Const
 export default function SignUp() {
@@ -17,7 +15,12 @@ export default function SignUp() {
         userPassword: "",
         confirmPassword: "",
         userEmail: "",
-    });
+    })
+
+    // 이메일 인증 관련 상태
+    const [isEmailSent, setIsEmailSent] = useState(false);
+    const [isEmailVerified, setIsEmailVerified] = useState(false);
+    const [verificationCode, setVerificationCode] = useState("");
 
     const onChangeId = (e) => {
         setSendData({
@@ -45,65 +48,107 @@ export default function SignUp() {
             ...sendData,
             userEmail: e.target.value,
         });
-    }
+    };
+
+    const onChangeVerificationCode = (e) => {
+        setVerificationCode(e.target.value);
+    };
+
+    const toastcode = {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: 0,
+        theme: "light",
+        transition: Bounce,
+    };
 
     const clickSignUp = (e) => {
         e.preventDefault(); // 새로고침 방지
 
-        axios.post(API_URL, sendData, {withCredentials: true})
+        // 유효성 검사
+        if (!sendData.userName) {
+            toast.info('아이디를 입력해주세요', toastcode);
+            return;
+        } else if (!sendData.userPassword) {
+            toast.info('비밀번호를 입력해주세요', toastcode);
+            return;
+        } else if (sendData.userPassword !== sendData.confirmPassword) {
+            toast.info('비밀번호가 일치하지 않습니다', toastcode);
+            return;
+        } else if (!sendData.userEmail) {
+            toast.info('이메일을 입력해주세요', toastcode);
+            return;
+        }
+
+        // API 요청
+        axiosInstance.post('/auth/signup', sendData)
+            // 성공 시
             .then(response => {
-                toast.success('회원가입 성공!', {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+                // 성공 토스트 메시지
+                toast.success('회원가입 성공!', toastcode);
+                
+                // 회원가입 성공 후 로그인 페이지로 이동
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 1500);
             })
 
+            // 실패 시
             .catch(error => {
                 console.error('API Error:', error);
                 console.error('에러 응답:', error.response?.data);
                 
-                if (error.response?.data?.detail) {
-                    toast.error(error.response.data.detail, {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
-                } else if (error.response?.data) {
-                    toast.error(JSON.stringify(error.response.data), {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
+                if (error.response?.data) {
+                    toast.error(error.response.data, toastcode);
                 } else {
-                    toast.error('회원가입 실패: ' + error.message, {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
+                    toast.error('회원가입에 실패했습니다: ' + error.message, toastcode);
                 }
             });
+    }
 
+    // 이메일 인증번호 발송
+    const sendVerificationEmail = () => {
+        if (!sendData.userEmail) {
+            toast.info('이메일을 입력해주세요', toastcode);
+            return;
+        }
+        
+        axiosInstance.get('/auth/email', { params: { userEmail: sendData.userEmail } })
+            .then(response => {
+                setIsEmailSent(true);
+                toast.info('인증번호가 발송되었습니다', toastcode);
+            })
+            .catch(error => {
+                console.error('이메일 발송 실패:', error);
+                toast.error('인증번호 발송에 실패했습니다', toastcode);
+            });
+    };
+
+    // 인증번호 확인
+    const verifyCode = () => {
+        if (!verificationCode) {
+            toast.info('인증번호를 입력해주세요', toastcode);
+            return;
+        }
+
+        axiosInstance.get('/auth/verify', {
+            params: {
+                userEmail: sendData.userEmail,
+                inputCode: verificationCode
+            }
+        })
+            .then(response => {
+                setIsEmailVerified(true);
+                toast.success('이메일 인증이 완료되었습니다', toastcode);
+            })
+            .catch(error => {
+                console.error('인증 실패:', error);
+                toast.info('인증번호가 올바르지 않습니다', toastcode);
+            });
     }
 
     return (
@@ -128,15 +173,19 @@ export default function SignUp() {
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>이메일</label>
                             <div>
-                                <input className={`${styles.input} ${styles.buttonInput}`} type="email" id="email" name="email" placeholder="example@example.com" value={sendData.userEmail} onChange={onChangeEmail} required />
-                                <button className={`${styles.button} ${styles.emailButton}`} type="button">인증번호 발송</button>
+                                <input className={`${styles.input} ${styles.buttonInput}`} type="email" id="email" name="email" placeholder="example@example.com" value={sendData.userEmail} onChange={onChangeEmail} disabled={isEmailVerified} required />
+                                <button className={`${styles.button} ${styles.emailButton}`} type="button" onClick={sendVerificationEmail} disabled={isEmailVerified}>
+                                    {isEmailVerified ? '인증 완료' : isEmailSent ? '재전송' : '인증번호 전송'}
+                                </button>
                             </div>
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>인증번호</label>
                             <div>
-                                <input className={`${styles.input} ${styles.buttonInput}`} type="text" id="auth" name="auth" placeholder="******" required />
-                                <button className={`${styles.button} ${styles.authButton}`} type="button">인증번호 확인</button>
+                                <input className={`${styles.input} ${styles.buttonInput}`} type="text" id="auth" name="auth" placeholder="******" value={verificationCode} onChange={onChangeVerificationCode} disabled={isEmailVerified || !isEmailSent} />
+                                <button className={`${styles.button} ${styles.authButton}`} type="button" onClick={verifyCode} disabled={isEmailVerified || !isEmailSent}>
+                                    {isEmailVerified ? '인증 완료' : '인증번호 확인'}
+                                </button>
                             </div>
                         </div>
                         <button className={styles.submit} type="button" onClick={clickSignUp} >회원 가입</button>
@@ -144,7 +193,7 @@ export default function SignUp() {
                     </form>
                 </div>
             </div>
-            <ToastContainer />
+            <ToastContainer limit={9} />
         </>
     );
 };

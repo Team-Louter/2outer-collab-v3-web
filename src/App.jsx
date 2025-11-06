@@ -12,10 +12,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/:teamname' element={<ProjectMain />} />
-        <Route path='/:teamname/schedule' element={<Schedule />} />
+        <Route path='/:teamId' element={<ProjectMain />} />
+        <Route path='/:teamId/schedule' element={<Schedule />} />
         <Route path='/profile/:userId' element={<UserProfile />} />
-        <Route path='/:teamname/setting' element={<ProjectSetting />} />
+        <Route path='/:teamId/setting' element={<ProjectSetting />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path='/login' element={<Login />} />
       </Routes>
