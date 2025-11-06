@@ -6,11 +6,14 @@ import SignUp from './pages/signUp';
 import Schedule from './pages/schedule';
 import ProjectMain from './pages/projectMain';
 import Login from './pages/login';
+import Main from './pages/main';
 
 function App() {
 
   return (
     <>
+      <Main />
+      
       <Routes>
         <Route path='/:teamId' element={<ProjectMain />} />
         <Route path='/:teamId/schedule' element={<Schedule />} />
