@@ -9,6 +9,10 @@ import 'react-toastify/dist/ReactToastify.css';
 // import
 import axiosInstance from '../../axiosInstance';
 
+// Img import
+import passwordToggleIcon from '../../assets/signUp/passwordToggleIcon.svg';
+import textToggleIcon from '../../assets/signUp/textToggleIcon.svg';
+
 // Const
 export default function SignUp() {
     const navigate = useNavigate();
@@ -26,6 +30,10 @@ export default function SignUp() {
     const [verificationCode, setVerificationCode] = useState("");
     const [timer, setTimer] = useState(0);
     const [isTimerActive, setIsTimerActive] = useState(false);
+
+    // 비밀번호 보기/숨기기 상태
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const onChangeId = (e) => {
         setSendData({
@@ -158,7 +166,7 @@ export default function SignUp() {
                 setIsEmailSent(true);
                 setTimer(600); // 10분 = 600초
                 setIsTimerActive(true);
-                toast.info('인증번호가 전송되었습니다', toastcode(5000));
+                toast.success('인증번호가 전송되었습니다', toastcode(5000));
                 toast.clearWaitingQueue();
             })
             .catch(error => {
@@ -208,11 +216,17 @@ export default function SignUp() {
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>비밀번호</label>
-                            <input className={styles.input} type="password" id="password" name="password" placeholder="8자 이상 입력해주세요." value={sendData.userPassword} onChange={onChangePassword} title="" required />
+                            <div style={{ position: 'relative', width: '100%' }}>
+                                <input className={styles.input} type={showPassword ? "text" : "password"} id="password" name="password" placeholder="8자 이상 입력해주세요." value={sendData.userPassword} onChange={onChangePassword} />
+                                <img className={styles.passwordToggleIcon} src={showPassword ? textToggleIcon : passwordToggleIcon} onClick={() => setShowPassword(!showPassword)} alt="비밀번호 보기/숨기기" />
+                            </div>
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>비밀번호 확인</label>
-                            <input className={styles.input} type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호를 입력해주세요." value={sendData.confirmPassword} onChange={onChangeConfirmPassword} title="" required />
+                            <div style={{ position: 'relative', width: '100%' }}>
+                                <input className={styles.input} type={showConfirmPassword ? "text" : "password"} id="confirm-password" name="confirm-password" placeholder="비밀번호를 입력해주세요." value={sendData.confirmPassword} onChange={onChangeConfirmPassword} title="" required />
+                                <img className={styles.passwordToggleIcon} src={showConfirmPassword ? textToggleIcon : passwordToggleIcon} onClick={() => setShowConfirmPassword(!showConfirmPassword)} alt="비밀번호 보기/숨기기" />
+                            </div>
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>이메일</label>
