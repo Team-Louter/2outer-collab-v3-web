@@ -44,17 +44,31 @@ export default function login() {
         }
     }, [location]);
 
-    // 마운트 시 토큰이 있으면 로그인 페이지 건너뛰기(자동 리다이렉트)
+    // 마운트 시 토큰이 있으면 토큰 유효성 검사 후 자동 리다이렉트
     useEffect(() => {
-        try {
-            const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-            if (token) {
-                console.log('토큰이 존재하여 로그인 페이지를 건너뜁니다.');
-                navigate('/', { state: { loginSuccess: true } });
+        const validateTokenAndRedirect = async () => {
+            try {
+                const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+                if (token) {
+                    // 토큰 유효성 검사 API 호출
+                    const response = await axiosInstance.get('/api/auth/validate', {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+                    if (response.status === 200) {
+                        console.log('유효한 토큰이 존재하여 로그인 페이지를 건너뜁니다.');
+                        navigate('/', { state: { loginSuccess: true } });
+                    }
+                }
+            } catch (e) {
+                // 토큰이 유효하지 않으면 저장소에서 제거
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
+                console.warn('토큰 유효성 검사 실패:', e);
             }
-        } catch (e) {
-            console.warn('토큰 확인 중 오류:', e);
-        }
+        };
+        validateTokenAndRedirect();
     }, [navigate]);
     
     const onChangeId = (e) => {
