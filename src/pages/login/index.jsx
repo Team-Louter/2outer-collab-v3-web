@@ -120,7 +120,7 @@ export default function login() {
                         console.log('토큰(localStorage)에 저장 완료:', token);
                     } else {
                         sessionStorage.setItem('token', token);
-                        console.log('토큰(sessionStorage)에 저장 완료:', token);
+                        console.log('토큰(sessionStorage)에 저장 완료');
                     }
                 }
                 
