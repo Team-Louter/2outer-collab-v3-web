@@ -51,11 +51,7 @@ export default function login() {
                 const token = localStorage.getItem('token') || sessionStorage.getItem('token');
                 if (token) {
                     // 토큰 유효성 검사 API 호출
-                    const response = await axiosInstance.get('/api/auth/validate', {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    });
+                    const response = await axiosInstance.get('/api/auth/validate');
                     if (response.status === 200) {
                         console.log('유효한 토큰이 존재하여 로그인 페이지를 건너뜁니다.');
                         navigate('/', { state: { loginSuccess: true } });
