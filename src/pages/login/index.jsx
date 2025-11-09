@@ -113,7 +113,7 @@ export default function login() {
                     // 사용자가 '로그인 유지'를 체크하면 localStorage에, 아니면 sessionStorage에 저장
                     if (rememberMe) {
                         localStorage.setItem('token', token);
-                        console.log('토큰(localStorage)에 저장 완료:', token);
+                        console.log('토큰(localStorage)에 저장 완료');
                     } else {
                         sessionStorage.setItem('token', token);
                         console.log('토큰(sessionStorage)에 저장 완료');
