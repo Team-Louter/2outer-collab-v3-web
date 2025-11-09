@@ -25,6 +25,7 @@ export default function Main() {
     useEffect(() => {
         if (location.state?.loginSuccess) {
             toast.success('로그인 성공!', { ...toastcode(3000) });
+            toast.clearWaitingQueue();
             
             // state 초기화 (뒤로가기 후 다시 접속 시 메시지 재표시 방지)
             window.history.replaceState({}, document.title);
