@@ -143,7 +143,7 @@ export default function login() {
 
                     let userMessage = serverMessage;
                     if (status === 401 || status === 403) {
-                        // 서버 내부 오류 (Internal Server Error)
+                        // 인증/권한 오류 (Authentication/Authorization Error)
                         userMessage = '이메일 또는 비밀번호가 올바르지 않습니다';
                     }
 
