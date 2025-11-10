@@ -22,7 +22,7 @@ export default function CalendarContent({ schedules, startDate, endDate, current
             e.stopPropagation();
         }
         setModalShow(!modalShow);
-        const localDateStr = `${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;
+        const localDateStr = new Date(day.getTime() + 9 * 60 * 60 * 1000).toISOString();
         setSelectedDate(localDateStr);
         setModalMode(mode);
 
@@ -30,7 +30,7 @@ export default function CalendarContent({ schedules, startDate, endDate, current
     }
 
     const dailySchedules = (schedules || []).reduce((acc, cur) => {
-        const date = new Date(cur.date); 
+        const date = new Date(cur.scheduleDate); 
         const localDateKey = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
         if (!acc[localDateKey]) acc[localDateKey] = [];
         acc[localDateKey].push(cur);
@@ -73,15 +73,15 @@ export default function CalendarContent({ schedules, startDate, endDate, current
                                         <div className={styles.forScroll}>
                                             <span style={{padding:"5px"}} onClick={(e) => changeDate(e, day)}>{day.getDate()}일<br/></span>
                                             {dailySchedules[format(day, 'yyyy-MM-dd')]?.map(item => (
-                                                <div key={item.id}>
+                                                <div key={item.scheduleId}>
                                                     <span
-                                                        key={item.id}
+                                                        key={item.scheduleId}
                                                         onClick={(e) => clickDate(e, day, '편집', item)}
                                                         data-tooltip-id="scheduleTooltip"
                                                         data-tooltip-content={item.title}
                                                         style={{ backgroundColor: item.color, marginLeft: '5px'}}
                                                     >
-                                                        {item.title}
+                                                        {item.scheduleTitle}
                                                     </span>
                                                     <br/>
                                                 </div>
@@ -96,10 +96,10 @@ export default function CalendarContent({ schedules, startDate, endDate, current
             </table>
             <div className={styles.scheduleContainer}>
                 {dailySchedules[selectedDate]?.map(item => (
-                    <div className={`${styles.scheduleItems} ${detailShow.includes(item.id) ? styles.detail : ""}`} onClick={() => toggleDetail(item.id)} key={item.id}>
+                    <div className={`${styles.scheduleItems} ${detailShow.includes(item.scheduleId) ? styles.detail : ""}`} onClick={() => toggleDetail(item.scheduleId)} key={item.scheduleId}>
                         <span>{format(selectedDate, 'MM/dd')}</span>
-                        <span>{item.title}</span>
-                        <small>{item.content}</small>
+                        <span>{item.scheduleTitle}</span>
+                        <small>{item.scheduleContent}</small>
                     </div>
                 ))}
             </div>

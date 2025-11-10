@@ -4,6 +4,8 @@ import CalendarContent from '../../components/CalendarContent';
 import CalendarHeader from '../../components/CalendarHeader';
 import CalendarModal from '../../components/CalendarModal';
 import styles from './schedule.module.css';
+import axiosInstance from "../../axiosInstance";
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Schedule() {
@@ -15,21 +17,25 @@ export default function Schedule() {
     const [modalMode, setModalMode] = useState(null);
     const [schedules, setSchedules] = useState([]);
     const [clickedSchedule, setClickedSchedule] = useState(null);
-    console.log(modalShow);
-    console.log('clickedSchedule : ',clickedSchedule);
+    const { teamId } = useParams();
+    console.log(teamId)
 
     if (modalShow === true) {
         document.body.style.overflow = 'hidden';
     }
 
-    useEffect(() => {
-        axios.get("http://localhost:5173/schedules")
+    const getSchedules = () => {
+        axiosInstance.get(`/team/${teamId}/schedule`)
             .then(res => {
-                setSchedules(res.data);
+                setSchedules(res.data.schedules);
             })
             .catch(err => {
                 console.error("데이터 가져오기 실패 :", err);
             });
+    }
+
+    useEffect(() => {
+        getSchedules();
     }, []);
     console.log('schedules :', schedules);
     console.log('selectedDate: ', selectedDate)
@@ -60,6 +66,7 @@ export default function Schedule() {
                         modalMode={modalMode}
                         setSchedules={setSchedules}
                         clickedSchedule={clickedSchedule}
+                        getSchedules={getSchedules}
                     />}
                 </div>
             </main>
