@@ -7,80 +7,68 @@ import { useParams } from 'react-router-dom';
 import axiosInstance from '../../axiosInstance';
 
 export default function CalendarModal({ modalShow, setModalShow, selectedDate, modalMode, setSchedules, clickedSchedule, getSchedules }) {
-    const [highlight, setHighlight] = useState(() =>
-        modalMode === '편집' && clickedSchedule ? clickedSchedule.color : 'LightGrey'
-    );
+    const getInitialValue = (field, defaultValue) => modalMode === '편집' && clickedSchedule ? clickedSchedule[field] : defaultValue;
+    
+    const [highlight, setHighlight] = useState(getInitialValue('color', 'LightGrey'));
+    const [title, setTitle] = useState(getInitialValue('scheduleTitle', ''));
+    const [content, setContent] = useState(getInitialValue('scheduleContent', ''));
     const { teamId } = useParams();
-    const [title, setTitle] = useState(() =>
-        modalMode === '편집' && clickedSchedule ? clickedSchedule.scheduleTitle : ''
-    );
-    const [content, setContent] = useState(() =>
-        modalMode === '편집' && clickedSchedule ? clickedSchedule.scheduleContent : ''
-    );
       
-    const handleTitleText = (e) => {
-        setTitle(e.target.value);
-        setTitleTextLength(e.target.value.length);
+    const handleText = (e, mainF, lengthF) => {
+        mainF(e.target.value);
+        lengthF(e.target.value.length);
     };
       
-    const handleDetailText = (e) => {
-        setContent(e.target.value);
-        setDetailTextLength(e.target.value.length);
-    };
-      
+    const [titleTextLength, setTitleTextLength] = useState(
+        (clickedSchedule?.scheduleTitle?.length) || 0
+    );
+    const [detailTextLength, setDetailTextLength] = useState(
+        (clickedSchedule?.scheduleContent?.length) || 0
+    );    
 
-    console.log(clickedSchedule)
-    const [titleTextLength, setTitleTextLength] = useState(() => modalMode === '편집' ? clickedSchedule.scheduleTitle.length : 0);
-    const [detailTextLength, setDetailTextLength] = useState(() => modalMode === '편집' ? clickedSchedule.scheduleContent.length : 0);
-
-    const scheduleSubmit = (e, scheduleId) => {
+    const scheduleSubmit = async (e, scheduleId) => {
         e.preventDefault();
-        if (modalMode === '생성') {
-            console.log('생성 모드')
-            axiosInstance.post(`/team/${teamId}/schedule`, {
-                scheduleTitle: title,
-                scheduleContent: content,
-                scheduleDate: selectedDate,
-                color: highlight
-            })
-            .then(res => {
-                console.log('추가 성공', res.data);
-                setSchedules(prev => [...prev, res.data])
-                setModalShow(!modalShow);
-                getSchedules();
-            })
-            .catch(err => console.error("❌ 추가 실패:", err.response?.data || err));
-        }
 
-        if (modalMode === '편집') {
-            console.log('편집 모드');
-            axiosInstance.put(`/team/${teamId}/schedule/${scheduleId}`, {
-                scheduleTitle: title,
-                scheduleContent: content,
-                scheduleDate: selectedDate,
-                color: highlight
-            })
-            .then(res => {
-                console.log('변경 성공', res.data);
-                setSchedules(prev => [...prev, res.data])
-                setModalShow(!modalShow);
-                getSchedules();
-            })
-            .catch(err => console.error("❌ 변경 실패:", err.response?.data || err));
+        const data = {
+            scheduleTitle : title,
+            scheduleContent : content,
+            scheduleDate : selectedDate,
+            color : highlight
+        };
+
+        try {
+            let res;
+            if (modalMode === '생성') {
+                console.log('생성 모드')
+                res = await axiosInstance.post(`/team/${teamId}/schedule`, data);
+                console.log('추가 성공', res.data);
+            }
+            else if (modalMode === '편집') {
+                console.log('편집 모드');
+                res = await axiosInstance.put(`/team/${teamId}/schedule/${scheduleId}`, data);
+                console.log('수정 성공', res.data);
+            }
+
+            setSchedules(prev => [...prev, res.data])
+            setModalShow(!modalShow);
+            getSchedules();
+        }
+        catch (err) {
+            console.error("❌ 변경 실패:", err.response?.data || err);
         }
     };
 
-    const scheduleDelete = (scheduleId) => {
-        axiosInstance.delete(`/team/${teamId}/schedule/${scheduleId}`)
-            .then(res => {
-                console.log('삭제 성공', res.data);
-                setModalShow(false);
-                getSchedules();
-            })
-            .catch(err => {
-                console.error("❌ 삭제 실패:", err.response?.data || err);
-            });
-    }
+    const scheduleDelete = async () => {
+        try {
+            const res = await axiosInstance.delete(`/team/${teamId}/schedule/${clickedSchedule.scheduleId}`);
+            console.log('삭제 성공', res.data);
+            setModalShow(false);
+            getSchedules();
+        } catch (err) {
+            console.error("❌ 삭제 실패:", err.response?.data || err);
+        }
+    };
+    
 
     const colors = ['LightGrey', 'Pink', 'Gold', 'LightGreen', 'LightBlue'];
 
@@ -101,7 +89,7 @@ export default function CalendarModal({ modalShow, setModalShow, selectedDate, m
                                 required
                                 maxLength="50"
                                 value={title}
-                                onChange={handleTitleText}
+                                onChange={(e) => handleText(e, setTitle, setTitleTextLength)}
                             />
                             <small>{titleTextLength}/50</small>
                         </div>
@@ -111,7 +99,7 @@ export default function CalendarModal({ modalShow, setModalShow, selectedDate, m
                                 placeholder="내용을 입력하세요."
                                 maxLength="250"
                                 value={content}
-                                onChange={handleDetailText}
+                                onChange={(e) => handleText(e, setContent, setDetailTextLength)}
                             />
                             <small>{detailTextLength}/250</small>
                         </div>

@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import { endOfMonth, startOfMonth } from 'date-fns';
 import CalendarContent from '../../components/CalendarContent';
 import CalendarHeader from '../../components/CalendarHeader';
-import CalendarModal from '../../components/CalendarModal';
+import CalendarModal from '../../components/calendarModal';
 import styles from './schedule.module.css';
 import axiosInstance from "../../axiosInstance";
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import Header from '../../components/Header';
 
 export default function Schedule() {
     const [current, setCurrent] = useState(new Date());
@@ -18,31 +18,28 @@ export default function Schedule() {
     const [schedules, setSchedules] = useState([]);
     const [clickedSchedule, setClickedSchedule] = useState(null);
     const { teamId } = useParams();
-    console.log(teamId)
 
-    if (modalShow === true) {
-        document.body.style.overflow = 'hidden';
-    }
+    useEffect(() => {
+        document.body.style.overflow = modalShow ? 'hidden' : 'auto';
+        return () => { document.body.style.overflow = 'auto'; }
+    }, [modalShow]);
 
-    const getSchedules = () => {
-        axiosInstance.get(`/team/${teamId}/schedule`)
-            .then(res => {
-                setSchedules(res.data.schedules);
-            })
-            .catch(err => {
-                console.error("데이터 가져오기 실패 :", err);
-            });
+    const getSchedules = async () => {
+        try {
+            const res = await axiosInstance.get(`/team/${teamId}/schedule`);
+            setSchedules(res.data.schedules);
+        } catch (err) {
+            console.error("데이터 가져오기 실패 :", err);
+        }
     }
 
     useEffect(() => {
         getSchedules();
     }, []);
-    console.log('schedules :', schedules);
-    console.log('selectedDate: ', selectedDate)
 
     return(
         <>
-            <div className={`${styles.topbar} topbar`}>탑바</div>
+            <Header />
             <div className={`${styles.leftSidebar} leftSidebar`}>왼 사이드</div>
             <main>
                 <div className={styles.calendar}>

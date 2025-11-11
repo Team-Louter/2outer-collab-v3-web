@@ -1,6 +1,5 @@
 import { eachDayOfInterval, endOfWeek, format, startOfWeek } from "date-fns";
 import styles from './calendarContent.module.css';
-import { Tooltip } from "react-tooltip";
 import { useState } from "react";
 
 export default function CalendarContent({ schedules, startDate, endDate, current, modalShow, setModalShow, setSelectedDate, selectedDate, setModalMode, setClickedSchedule}) {
@@ -9,13 +8,11 @@ export default function CalendarContent({ schedules, startDate, endDate, current
         start: startOfWeek(startDate),
         end : endOfWeek(endDate)
     })
-    console.log(monthDays)
 
     const weekDays = [];
     for (let i = 0; i < monthDays.length; i += 7) {
         weekDays.push(monthDays.slice(i, i + 7));
     }
-    console.log(weekDays);
 
     const clickDate = (e, day, mode, item) => {
         if (e) {
@@ -103,13 +100,6 @@ export default function CalendarContent({ schedules, startDate, endDate, current
                     </div>
                 ))}
             </div>
-            {/* <Tooltip 
-                id="scheduleTooltip" 
-                place="bottom"
-                render={({content}) => (
-                    <span className={styles.tooltip}>{content}</span>
-                )}
-            /> */}
         </>
     )
 }
