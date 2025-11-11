@@ -18,7 +18,7 @@ export default function Schedule() {
     const [schedules, setSchedules] = useState([]);
     const [clickedSchedule, setClickedSchedule] = useState(null);
     const { teamId } = useParams();
-
+  
     useEffect(() => {
         document.body.style.overflow = modalShow ? 'hidden' : 'auto';
         return () => { document.body.style.overflow = 'auto'; }
@@ -71,3 +71,4 @@ export default function Schedule() {
         </>
     )
 }
+                            

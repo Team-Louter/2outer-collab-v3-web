@@ -8,6 +8,23 @@ const axiosInstance = axios.create({
   },
 });
 
+// 요청 인터셉터: localStorage 또는 sessionStorage에서 토큰을 찾아 Authorization 헤더에 설정
+axiosInstance.interceptors.request.use(
+  (config) => {
+    try {
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+      if (token) {
+        config.headers = config.headers || {};
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } catch (e) {
+      console.warn('토큰을 읽는 동안 오류가 발생했습니다:', e);
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 // 요청/응답 인터셉터 (선택)
 axiosInstance.interceptors.response.use(
   (res) => res,
