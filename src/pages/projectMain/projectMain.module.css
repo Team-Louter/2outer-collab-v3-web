@@ -27,22 +27,27 @@ main a {
   cursor: pointer;
 }
 
-.banner small {
+.onlineWrap {
   position: absolute;
-  bottom: 12px;
-  right: 17px;
-  font-size: 0.8rem
+  bottom: 17px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .online {
   background-color: cornflowerblue;
   height: 7px;
   width: 7px;
-  border-radius: 50px;
-  position: absolute;
-  bottom: 17px;
-  right: 68px;
+  border-radius: 50%;
+}
 
+.onlineWrap small {
+  font-size: 0.8rem;
+  text-align: right;
+  min-width: 20px; /* 숫자 칸 고정 */
+  margin: 0px;
 }
 
 .box {

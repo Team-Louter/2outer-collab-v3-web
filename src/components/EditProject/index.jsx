@@ -62,8 +62,8 @@ export default function EditProject({ setEditProject, teamInfo }) {
           </div>
           <div className={styles.inputBox}>
             <small>설명<span>*</span></small>
-            <input placeholder="설명을 입력해주세요."/>
-            <small className={styles.letter}>0/100</small>
+            <input placeholder="설명을 입력해주세요." defaultValue={teamInfo.intro}/>
+            <small className={styles.letter}>{teamInfo.intro?.length}/100</small>
           </div>
           <small style={{fontWeight: 600}}>프로젝트 사진</small>
           <div className={styles.imgContainer}>

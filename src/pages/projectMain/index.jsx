@@ -24,6 +24,7 @@ export default function ProjectMain() {
     const [editPModal, setEditPModal] = useState(false);
     const [outPModal, setOutPModal] = useState(false);
     const [teamInfo, setTeamInfo] = useState(null);
+    const [members, setMembers] = useState(null);
     const { teamId } = useParams();
     console.log('open: ',open)
     console.log('reportOpen: ', reportOpen)
@@ -45,7 +46,19 @@ export default function ProjectMain() {
             }
         }
 
+            const getMembers = async () => {
+                try {
+                    const res = await axiosInstance.get(`/teams/${teamId}/members`);
+                    setMembers(res.data);
+                    console.log("멤버", res.data);
+                }
+                catch(err) {
+                    console.error("멤버 불러오기 실패", err);
+                }
+            }
+
         getTeam();
+        getMembers();
     }, [])
 
     return(
@@ -75,7 +88,10 @@ export default function ProjectMain() {
                             </div>
                         </li>
                     </ul>
-                        <div className={styles.online}></div><small>멤버 수</small>
+                    <div className={styles.onlineWrap}>
+                        <div className={styles.online}></div>
+                        <small>{members ? members.length : 0}명</small>
+                    </div>
                 </div>
                 <div className={styles.container}>
                     <div className={`${styles.notice} ${styles.box}`}>
