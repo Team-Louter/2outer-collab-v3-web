@@ -26,7 +26,7 @@ function App() {
         <Route path="/:teamId/minutes" element={<Minutes />} />
         <Route path="/:teamId/todos" element={<MyTodolist />} />
         <Route path="/:teamId/notice" element={<Notice />} />
-        <Route path="/:teamId/report" element={<Activity />} />
+        <Route path="/act" element={<Activity />} />
       </Routes>
     </>
   );
