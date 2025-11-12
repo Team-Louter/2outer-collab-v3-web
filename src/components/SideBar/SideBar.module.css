@@ -303,7 +303,7 @@
     display: flex;
     align-items: center;
     gap: 0.4375rem; /* 7px */
-    margin-top: 1.25rem; /* 20px - 줄임 */
+    margin-top: 1.25rem; /* 20px (from 70px) */
     cursor: pointer;
 }
 
