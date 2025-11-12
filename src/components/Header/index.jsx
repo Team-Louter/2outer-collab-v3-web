@@ -15,18 +15,29 @@ import profileImg from '../../assets/header/profile.svg';
 // Theme Context
 import { useTheme } from '../../context/ThemeContext';
 
+// Sidebar Context
+import { useSidebar } from '../../context/SidebarContext';
+
 // Userid
 const userid = 1;
 
 // Const
 const Header = () => {
     const { isDarkMode } = useTheme();
+    const { toggleSidebar } = useSidebar();
     
     return (
         <header className={styles.mainHeader}>
-            <Link className={styles.logoButton} to={`/`}>
-                <img className={styles.logoImg} src={isDarkMode ? logoDarkImg : logoImg} alt="로고" />
-            </Link>
+            <div className={styles.leftSection}>
+                <button className={styles.menuButton} onClick={toggleSidebar} aria-label="Toggle menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                </button>
+                <Link className={styles.logoButton} to={`/`}>
+                    <img className={styles.logoImg} src={isDarkMode ? logoDarkImg : logoImg} alt="로고" />
+                </Link>
+            </div>
             
             <div className={styles.headerSearch}>
                 <img className={styles.searchImg} src={searchImg} alt="검색 아이콘" />

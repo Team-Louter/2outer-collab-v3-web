@@ -323,3 +323,95 @@
 :global(body.dark) .logoutText {
     color: #FFFFFF;
 }
+
+/* Responsive Design */
+/* Overlay for mobile */
+.overlay {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+}
+
+/* Tablet screens (768px - 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        width: 200px;
+    }
+}
+
+/* Mobile screens (below 768px) */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        top: 3.75rem;
+        left: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out, background-color 0.3s, border-color 0.3s;
+        z-index: 1000;
+        max-height: calc(100vh - 3.75rem);
+        overflow-y: auto;
+    }
+
+    .container.open {
+        transform: translateX(0);
+    }
+
+    .minusButton {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+
+    .projectList {
+        max-height: 300px;
+    }
+}
+
+/* Small mobile screens (below 480px) */
+@media (max-width: 480px) {
+    .container {
+        width: 85%;
+        max-width: 300px;
+    }
+
+    .projectCreate {
+        padding-left: 1rem;
+    }
+
+    .myProjectsTitle {
+        margin-left: 1rem;
+    }
+
+    .sidebarBottom {
+        padding: 1rem;
+    }
+
+    .projectNameText {
+        font-size: 14px;
+    }
+
+    .projectOwnerText {
+        font-size: 9px;
+    }
+
+    .settingText,
+    .darkModeText,
+    .logoutText,
+    .toggleText1,
+    .toggleText2 {
+        font-size: 14px;
+    }
+}
