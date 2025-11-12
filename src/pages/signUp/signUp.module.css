@@ -64,14 +64,14 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0rem 62.5rem #F5F5F5 inset;
+    -webkit-box-shadow: 0 0 0 62.5rem #F5F5F5 inset;
 }
 
 .container.dark input:-webkit-autofill,
 .container.dark input:-webkit-autofill:hover,
 .container.dark input:-webkit-autofill:focus,
 .container.dark input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0rem 62.5rem #0A0A0A inset;
+    -webkit-box-shadow: 0 0 0 62.5rem #0A0A0A inset;
     -webkit-text-fill-color: #FFFFFF;
 }
 
