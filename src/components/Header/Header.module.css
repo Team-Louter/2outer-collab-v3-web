@@ -31,6 +31,31 @@
     border-bottom: 1px solid transparent;
 }
 
+.leftSection {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.menuButton {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    color: #181F29;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .menuButton {
+    color: #FFFFFF;
+}
+
+.menuButton:hover {
+    opacity: 0.7;
+}
+
 :global(body.dark) .mainHeader {
     background-color: #1f1f1f;
     border-bottom: 1px solid #333333;
@@ -198,9 +223,13 @@
         height: 3.5rem; /* 56px */
     }
 
+    .menuButton {
+        display: block;
+    }
+
     .logoImg {
         height: 1.5rem; /* 24px */
-        margin-left: 0.75rem; /* 12px */
+        margin-left: 0;
     }
 
     .headerSearch {
@@ -261,6 +290,6 @@
 
     .logoImg {
         height: 1.375rem; /* 22px */
-        margin-left: 0.625rem; /* 10px */
+        margin-left: 0;
     }
 }

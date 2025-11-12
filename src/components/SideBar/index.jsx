@@ -17,9 +17,13 @@ import projectImg from '../../assets/sideBar/Louter.svg';
 // Theme Context
 import { useTheme } from '../../context/ThemeContext';
 
+// Sidebar Context
+import { useSidebar } from '../../context/SidebarContext';
+
 // Function
 export default function Sidebar() {
     const { isDarkMode, toggleDarkMode } = useTheme();
+    const { isOpen, toggleSidebar } = useSidebar();
     
     const projectItems = [
         {
@@ -47,9 +51,10 @@ export default function Sidebar() {
     
     return(
         <>
-            <div className={styles.container}>
+            {isOpen && <div className={styles.overlay} onClick={toggleSidebar}></div>}
+            <div className={`${styles.container} ${isOpen ? styles.open : ''}`}>
                 <div className={styles.minusButton}>
-                    <img className={styles.minusIcon} src={minus} alt="Minus" />
+                    <img className={styles.minusIcon} src={minus} alt="Minus" onClick={toggleSidebar} />
                 </div>
                 <div className={styles.projectCreate}>
                     <img className={styles.plusIcon} src={plus} alt="Plus" /><div className={styles.projectCreateText}>새 프로젝트 만들기</div>
