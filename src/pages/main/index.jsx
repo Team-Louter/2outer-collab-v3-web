@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Sidebar from '../../components/SideBar';
+import Sidebar from '../../components/Sidebar';
 
 // Const
 export default function Main() {
