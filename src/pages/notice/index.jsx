@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./notice.module.css";
 
-const Notice = () => {
+const Activity = () => {
   // 공지사항 데이터
   const notices = [
     {
