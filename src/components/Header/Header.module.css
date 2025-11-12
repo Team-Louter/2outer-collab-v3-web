@@ -10,6 +10,11 @@
 .textSetting {
     text-decoration: none;
     color: #181F29;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .textSetting {
+    color: #FFFFFF;
 }
 
 /* header 기본 세팅 */
@@ -22,6 +27,38 @@
     position: fixed;
     background-color: #FFFFFF;
     top: 0;
+    transition: background-color 0.3s, border-bottom 0.3s;
+    border-bottom: 1px solid transparent;
+}
+
+.leftSection {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.menuButton {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    color: #181F29;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .menuButton {
+    color: #FFFFFF;
+}
+
+.menuButton:hover {
+    opacity: 0.7;
+}
+
+:global(body.dark) .mainHeader {
+    background-color: #1f1f1f;
+    border-bottom: 1px solid #333333;
 }
 
 .mainHeader ul {
@@ -44,14 +81,29 @@
 
 .chattingImg {
     height: 1.25rem; /* 20px */
+    transition: filter 0.3s;
+}
+
+:global(body.dark) .chattingImg {
+    filter: brightness(0) invert(1);
 }
 
 .bellImg {
     height: 1.5rem; /* 24px */
+    transition: filter 0.3s;
+}
+
+:global(body.dark) .bellImg {
+    filter: brightness(0) invert(1);
 }
 
 .profileImg {
     height: 2rem; /* 32px */
+    transition: filter 0.3s;
+}
+
+:global(body.dark) .profileImg {
+    filter: brightness(0) invert(1);
 }
 
 /* header li */
@@ -87,11 +139,21 @@
     left: 50%;
     transform: translateX(-50%);
     box-sizing: border-box;
+    transition: background-color 0.3s;
+}
+
+:global(body.dark) .headerSearch {
+    background-color: #2a2a2a;
 }
 
 .searchImg {
     height: 1.25rem; /* 20px */
     margin-left: 1rem; /* 16px */
+    transition: filter 0.3s;
+}
+
+:global(body.dark) .searchImg {
+    filter: brightness(0) invert(1);
 }
 
 .headerSearchInput {
@@ -105,6 +167,17 @@
     box-sizing: border-box;
     border-radius: 50px;
     padding-right: 0.625rem; /* 10px */
+    color: #181F29;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+:global(body.dark) .headerSearchInput {
+    background-color: #2a2a2a;
+    color: #FFFFFF;
+}
+
+:global(body.dark) .headerSearchInput::placeholder {
+    color: #a0a0a0;
 }
 
 /* main_header 버튼 */
@@ -114,6 +187,11 @@
     align-items: center;
     font-size: 1rem;
     font-weight: 500;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .signupButton {
+    color: #FFFFFF;
 }
 
 .loginButton {
@@ -122,6 +200,11 @@
     align-items: center;
     font-size: 1rem;
     font-weight: 500;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .loginButton {
+    color: #FFFFFF;
 }
 
 .headerMenu {
@@ -140,9 +223,13 @@
         height: 3.5rem; /* 56px */
     }
 
+    .menuButton {
+        display: block;
+    }
+
     .logoImg {
         height: 1.5rem; /* 24px */
-        margin-left: 0.75rem; /* 12px */
+        margin-left: 0;
     }
 
     .headerSearch {
@@ -203,6 +290,6 @@
 
     .logoImg {
         height: 1.375rem; /* 22px */
-        margin-left: 0.625rem; /* 10px */
+        margin-left: 0;
     }
 }

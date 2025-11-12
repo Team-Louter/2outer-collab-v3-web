@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Sidebar from '../../components/Sidebar';
 
 // Const
 export default function Main() {
@@ -35,6 +36,7 @@ export default function Main() {
     return (
         <>
             <Header />
+            <Sidebar />
             <div className={styles.container}>
                 <h1 className={styles.welcomeMessage}>환영합니다!</h1>
             </div>
