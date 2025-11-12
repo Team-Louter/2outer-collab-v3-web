@@ -24,16 +24,16 @@ export default function Schedule() {
         return () => { document.body.style.overflow = 'auto'; }
     }, [modalShow]);
 
-    const getSchedules = async () => {
-        try {
-            const res = await axiosInstance.get(`/team/${teamId}/schedule`);
-            setSchedules(res.data.schedules);
-        } catch (err) {
-            console.error("데이터 가져오기 실패 :", err);
-        }
-    }
-
     useEffect(() => {
+        const getSchedules = async () => {
+            try {
+                const res = await axiosInstance.get(`/team/${teamId}/schedule`);
+                setSchedules(res.data.schedules);
+            } catch (err) {
+                console.error("데이터 가져오기 실패 :", err);
+            }
+        }
+
         getSchedules();
     }, []);
 

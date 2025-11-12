@@ -24,7 +24,7 @@ export default function UserProfile() {
     return (
         <div className={styles.profile}>
             <Header />
-            <main>
+            <div className={styles.main}>
                 <div className={styles.container}>
                     <h2 style={{marginBottom:'30px'}}>기본 프로필</h2>
                     <div className={styles.top}>
@@ -64,7 +64,7 @@ export default function UserProfile() {
                         </div>
                     }
                 </div>
-            </main>
+            </div>
         </div>
     )
 }

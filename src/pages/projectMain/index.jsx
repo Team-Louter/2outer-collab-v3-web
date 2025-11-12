@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from './ProjectMain.module.css'
 import classNames from "classnames/bind";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import detailIcon from "../../assets/projectMain/detailIcon.svg";
 import documentIcon from "../../assets/projectMain/documentIcon.svg";
@@ -12,15 +12,42 @@ import pProfileIcon from "../../assets/projectMain/pProfileIcon.svg";
 import profileChangeIcon from "../../assets/projectMain/profileChangeIcon.svg";
 import reportIcon from "../../assets/projectMain/reportIcon.svg";
 import todoIcon from "../../assets/projectMain/todoIcon.svg";
+import EditProject from "../../components/EditProject";
+import OutProject from "../../components/OutProject";
+import axiosInstance from "../../axiosInstance";
 
 
 export default function ProjectMain() {
-    const teamname = 'Louter'
     const [open, setOpen] = useState(false);
     const [reportOpen, setReportOpen] = useState(false);
     const st = classNames.bind(styles);
+    const [editPModal, setEditPModal] = useState(false);
+    const [outPModal, setOutPModal] = useState(false);
+    const [teamInfo, setTeamInfo] = useState(null);
+    const { teamId } = useParams();
     console.log('open: ',open)
     console.log('reportOpen: ', reportOpen)
+
+    const modalOpen = (func) => {
+        setOpen(false);
+        func(true);
+    }
+
+    useEffect(() => {
+        const getTeam = async () => {
+            try {
+                const res = await axiosInstance.get(`/teams/${teamId}`);
+                console.log(res.data);
+                setTeamInfo(res.data);
+            }
+            catch(err) {
+                console.error("팀 정보 가져오기 실패", err);
+            }
+        }
+
+        getTeam();
+    }, [])
+
     return(
         <>
             <Header />
@@ -30,18 +57,22 @@ export default function ProjectMain() {
                     <img src={headerMenu} alt="프로젝트 관련 메뉴" onClick={() => setOpen(!open)}/>
                     <ul className={st('dropdown', {show: open})}>
                         <li>
-                            <Link to={`/${teamname}/setting`}>
-                            <img src={pProfileIcon} alt="프로젝트 설정" className={styles.dropdownIcon}/>
-                            <span>프로젝트 설정</span>
+                            <Link to={`/${teamId}/setting`}>
+                                <img src={pProfileIcon} alt="프로젝트 설정" className={styles.dropdownIcon}/>
+                                <span>프로젝트 설정</span>
                             </Link>
                         </li>
                         <li>
-                            <img src={profileChangeIcon} alt="프로젝트 편집" className={styles.dropdownIcon}/>
-                            <span>프로젝트 편집</span>
+                            <div onClick={() => modalOpen(setEditPModal)} style={{cursor: "pointer"}}>
+                                <img src={profileChangeIcon} alt="프로젝트 편집" className={styles.dropdownIcon}/>
+                                <span>프로젝트 편집</span>
+                            </div>
                         </li>
                         <li>
-                            <img src={pOutIcon} alt="프로젝트 나가기" className={styles.dropdownIcon}/>
-                            <span>프로젝트 나가기</span>
+                            <div onClick={() => modalOpen(setOutPModal)} style={{cursor: "pointer"}}>
+                                <img src={pOutIcon} alt="프로젝트 나가기" className={styles.dropdownIcon}/>
+                                <span>프로젝트 나가기</span>
+                            </div>
                         </li>
                     </ul>
                         <div className={styles.online}></div><small>멤버 수</small>
@@ -53,7 +84,7 @@ export default function ProjectMain() {
                                 <img src={noticeIcon}/>                       
                                 공지사항
                             </div>
-                            <Link to={`/${teamname}/notice`}>
+                            <Link to={`/${teamId}/notice`}>
                                 <div className={styles.detail}>
                                     자세히 보기 
                                     <img src={detailIcon} alt="자세히보기"/>
@@ -71,7 +102,7 @@ export default function ProjectMain() {
                                 <img src={todoIcon}/>
                                 할 일
                             </div>
-                            <Link to={`/${teamname}/todos`}>
+                            <Link to={`/${teamId}/todos`}>
                                 <div className={styles.detail}>
                                     자세히 보기 
                                     <img src={detailIcon} alt="자세히보기"/>
@@ -89,7 +120,7 @@ export default function ProjectMain() {
                                 <img src={documentIcon}/>                       
                                 회의록
                             </div>
-                            <Link to={`/${teamname}/minutes`}>
+                            <Link to={`/${teamId}/minutes`}>
                                 <div className={styles.detail}>
                                     자세히 보기 
                                     <img src={detailIcon} alt="자세히보기"/>
@@ -107,7 +138,7 @@ export default function ProjectMain() {
                                 <img src={reportIcon}/>                                              
                                 활동 리포트
                             </div>
-                            <Link to={`/${teamname}/report`}>
+                            <Link to={`/${teamId}/report`}>
                                 <div className={styles.detail}>
                                     자세히 보기 
                                     <img src={detailIcon} alt="자세히보기"/>
@@ -137,6 +168,8 @@ export default function ProjectMain() {
                             </div>
                         </div>
                     </div>
+                    {editPModal && <EditProject setEditProject={setEditPModal} teamInfo={teamInfo}/>}
+                    {outPModal && <OutProject setOutPModalOpen={setOutPModal} teamInfo={teamInfo}/>}
                 </div>
             </main>
             <div className={`${styles.rightSidebar} rightSidebar`}>오른 사이드</div>

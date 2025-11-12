@@ -4,8 +4,8 @@ import closeModal from "../../assets/projectSetting/delete.svg";
 import { useParams } from "react-router-dom";
 import CropImage from "../CropImage";
 
-export default function EditProject({ setEditProject }) {
-  const { teamname } = useParams();
+export default function EditProject({ setEditProject, teamInfo }) {
+  const { teamId } = useParams();
   const fileInputRef = useRef(null);
   const [logoPreview, setLogoPreview] = useState(null);
   const [bannerPreview, setBannerPreview] = useState(null);
@@ -57,8 +57,8 @@ export default function EditProject({ setEditProject }) {
           </div>
           <div className={styles.inputBox} style={{marginTop: 20}}>
             <small>프로젝트명 <span>*</span></small>
-            <input placeholder="프로젝트명을 입력해주세요." defaultValue={teamname}/>
-            <small className={styles.letter}>{teamname.length}/50</small>
+            <input placeholder="프로젝트명을 입력해주세요." defaultValue={teamInfo.teamName}/>
+            <small className={styles.letter}>{teamInfo.teamName.length}/50</small>
           </div>
           <div className={styles.inputBox}>
             <small>설명<span>*</span></small>
