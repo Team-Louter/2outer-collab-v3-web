@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import { endOfMonth, startOfMonth } from 'date-fns';
 import CalendarContent from '../../components/CalendarContent';
 import CalendarHeader from '../../components/CalendarHeader';
-import CalendarModal from '../../components/CalendarModal';
+import CalendarModal from '../../components/calendarModal';
 import styles from './schedule.module.css';
-import axios from 'axios';
+import axiosInstance from "../../axiosInstance";
+import { useParams } from 'react-router-dom';
+import Header from '../../components/Header';
 
 export default function Schedule() {
     const [current, setCurrent] = useState(new Date());
@@ -15,28 +17,29 @@ export default function Schedule() {
     const [modalMode, setModalMode] = useState(null);
     const [schedules, setSchedules] = useState([]);
     const [clickedSchedule, setClickedSchedule] = useState(null);
-    console.log(modalShow);
-    console.log('clickedSchedule : ',clickedSchedule);
+    const { teamId } = useParams();
+  
+    useEffect(() => {
+        document.body.style.overflow = modalShow ? 'hidden' : 'auto';
+        return () => { document.body.style.overflow = 'auto'; }
+    }, [modalShow]);
 
-    if (modalShow === true) {
-        document.body.style.overflow = 'hidden';
+    const getSchedules = async () => {
+        try {
+            const res = await axiosInstance.get(`/team/${teamId}/schedule`);
+            setSchedules(res.data.schedules);
+        } catch (err) {
+            console.error("데이터 가져오기 실패 :", err);
+        }
     }
 
     useEffect(() => {
-        axios.get("http://localhost:5173/schedules")
-            .then(res => {
-                setSchedules(res.data);
-            })
-            .catch(err => {
-                console.error("데이터 가져오기 실패 :", err);
-            });
+        getSchedules();
     }, []);
-    console.log('schedules :', schedules);
-    console.log('selectedDate: ', selectedDate)
 
     return(
         <>
-            <div className={`${styles.topbar} topbar`}>탑바</div>
+            <Header />
             <div className={`${styles.leftSidebar} leftSidebar`}>왼 사이드</div>
             <main>
                 <div className={styles.calendar}>
@@ -60,6 +63,7 @@ export default function Schedule() {
                         modalMode={modalMode}
                         setSchedules={setSchedules}
                         clickedSchedule={clickedSchedule}
+                        getSchedules={getSchedules}
                     />}
                 </div>
             </main>
@@ -67,3 +71,4 @@ export default function Schedule() {
         </>
     )
 }
+                            
