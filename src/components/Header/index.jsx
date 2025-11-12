@@ -11,6 +11,7 @@ import searchImg from '../../assets/header/search.svg';
 import chattingImg from '../../assets/header/chatting.svg';
 import bellImg from '../../assets/header/bell.svg';
 import profileImg from '../../assets/header/profile.svg';
+import menuImg from '../../assets/header/menu.svg';
 
 // Theme Context
 import { useTheme } from '../../context/ThemeContext';
@@ -30,9 +31,7 @@ const Header = () => {
         <header className={styles.mainHeader}>
             <div className={styles.leftSection}>
                 <button className={styles.menuButton} onClick={toggleSidebar} aria-label="Toggle menu">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <img src={menuImg} alt="메뉴 열기" />
                 </button>
                 <Link className={styles.logoButton} to={`/`}>
                     <img className={styles.logoImg} src={isDarkMode ? logoDarkImg : logoImg} alt="로고" />
