@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTheme } from '../../context/ThemeContext';
 
 // import
 import axiosInstance from '../../axiosInstance';
@@ -13,6 +14,7 @@ import axiosInstance from '../../axiosInstance';
 export default function login() {
     const navigate = useNavigate();
     const location = useLocation();
+    const { isDarkMode } = useTheme();
     
     const [sendData, setSendData] = useState({
         userEmail: "",
@@ -156,8 +158,7 @@ export default function login() {
     return (
         <>
             <Header />
-            <Sidebar />
-            <div className={styles.container}>
+            <div className={`${styles.container} ${isDarkMode ? styles.dark : ''}`}>
                 <div className={styles.title}>로그인</div>
                 <div className={styles.formContainer}>
                     <form className={styles.formMain}>

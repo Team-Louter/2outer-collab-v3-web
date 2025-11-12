@@ -6,20 +6,26 @@ import { Link } from 'react-router-dom';
 
 // Img import
 import logoImg from '../../assets/header/logo.svg';
+import logoDarkImg from '../../assets/header/logo-dark.svg';
 import searchImg from '../../assets/header/search.svg';
 import chattingImg from '../../assets/header/chatting.svg';
 import bellImg from '../../assets/header/bell.svg';
 import profileImg from '../../assets/header/profile.svg';
+
+// Theme Context
+import { useTheme } from '../../context/ThemeContext';
 
 // Userid
 const userid = 1;
 
 // Const
 const Header = () => {
+    const { isDarkMode } = useTheme();
+    
     return (
         <header className={styles.mainHeader}>
             <Link className={styles.logoButton} to={`/`}>
-                <img className={styles.logoImg} src={logoImg} alt="로고" />
+                <img className={styles.logoImg} src={isDarkMode ? logoDarkImg : logoImg} alt="로고" />
             </Link>
             
             <div className={styles.headerSearch}>

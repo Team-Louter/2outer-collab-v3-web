@@ -6,4 +6,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s;
+}
+
+:global(body.dark) .container {
+    background-color: #121212;
+}
+
+.welcomeMessage {
+    color: #181F29;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .welcomeMessage {
+    color: #e0e0e0;
 }

@@ -8,6 +8,12 @@
     bottom: 0;
     display: flex;
     flex-direction: column;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+:global(body.dark) .container {
+    background-color: #1f1f1f;
+    border-right: 1px solid #333333;
 }
 
 .minusButton {
@@ -25,6 +31,11 @@
     height: 1.5rem;
     margin-right: 1rem;
     cursor: pointer;
+    transition: filter 0.3s;
+}
+
+:global(body.dark) .minusIcon {
+    filter: brightness(0) invert(1);
 }
 
 .projectCreate {
@@ -32,9 +43,19 @@
     height: 2.5rem; /* 40px */
     display: flex;
     align-items: center;
-    margin-top: 1rem; /* 16px */
-    cursor: pointer;
     padding-left: 1.6rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.plusIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: filter 0.3s;
+}
+
+:global(body.dark) .plusIcon {
+    filter: brightness(0) invert(1);
 }
 
 .projectCreateText {
@@ -42,18 +63,263 @@
     font-weight: 600;
     color: #181F29;
     margin-left: 0.4rem; /* 6px */
+    transition: color 0.3s;
+}
+
+:global(body.dark) .projectCreateText {
+    color: #FFFFFF;
 }
 
 .line {
     width: 90%;
     height: 2px;
     background-color: #F1F2F3;
-    margin: 1rem auto; /* 16px */
+    margin-left: 5%;
+    transition: background-color 0.3s;
+}
+
+:global(body.dark) .line {
+    background-color: #333333;
 }
 
 .myProjectsTitle {
     font-size: 1rem; /* 16px */
     font-weight: 700;
     color: #181F29;
+    margin-top: 1rem; /* 16px */
     margin-left: 1.625rem; /* 26px */
+    transition: color 0.3s;
+}
+
+:global(body.dark) .myProjectsTitle {
+    color: #FFFFFF;
+}
+
+.projectList {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 510px;
+    overflow-y: auto;
+    flex: 1;
+    padding: 0.25rem 1rem;
+    margin-top: 12px;
+    margin-bottom: 4px;
+}
+
+.projectItem {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 4px 0;
+    border: 2px solid transparent;
+}
+
+.projectItem:hover {
+    background-color: #F2FAFF;
+    border: 2px solid #85c8ff;
+}
+
+:global(body.dark) .projectItem:hover {
+    background-color: #2a2a2a;
+    border: 2px solid #4A85FF;
+}
+
+.projectImgGradient {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    margin-left: 16px;
+    background: linear-gradient(135deg, #28E2E5, #4A85FF);
+}
+
+.projectImgBackground {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.projectImg {
+    width: 30px;
+    height: 30px;
+}
+
+.projectInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.projectNameText {
+    font-size: 16px;
+    font-weight: 600;
+    color: #181F29;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .projectNameText {
+    color: #FFFFFF;
+}
+
+.projectOwnerText {
+    font-size: 10px;
+    font-weight: 500;
+    color: #757B8A;
+    line-height: 1;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .projectOwnerText {
+    color: #a0a0a0;
+}
+
+.sidebarBottom {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 1.6rem;
+}
+
+.settingToggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.settingToggle img {
+    width: 19px;
+    height: 19px;
+    transition: filter 0.3s;
+}
+
+:global(body.dark) .settingToggle img {
+    filter: brightness(0) invert(1);
+}
+
+.settingText {
+    font-size: 16px;
+    font-weight: 500;
+    color: #181F29;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .settingText {
+    color: #FFFFFF;
+}
+
+.darkModeToggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.darkModeToggle img {
+    width: 19px;
+    height: 19px;
+    transition: filter 0.3s;
+}
+
+:global(body.dark) .darkModeToggle img {
+    filter: brightness(0) invert(1);
+}
+
+.darkModeText {
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: 9px;
+    color: #181F29;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .darkModeText {
+    color: #FFFFFF;
+}
+
+.darkModeSwitch {
+    width: 37px;
+    height: 19px;
+    background-color: #E7E7E7;
+    border-radius: 1rem;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.darkModeSwitch.active {
+    background-color: #4A85FF;
+}
+
+.darkModeCircle {
+    width: 15.62px;
+    height: 15.62px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    position: absolute;
+    top: 0.125rem;
+    left: 0.125rem;
+    transition: left 0.3s;
+}
+
+.darkModeSwitch.active .darkModeCircle {
+    left: calc(100% - 15.62px - 0.125rem);
+}
+
+.toggleText1, .toggleText2 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #181F29;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .toggleText1,
+:global(body.dark) .toggleText2 {
+    color: #FFFFFF;
+}
+
+.toggleText1:hover, .toggleText2:hover {
+    text-decoration: underline;
+}
+
+.logoutToggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 70px;
+    cursor: pointer;
+}
+
+.logoutToggle img {
+    width: 24px;
+    height: 24px;
+    transition: filter 0.3s;
+}
+
+:global(body.dark) .logoutToggle img {
+    filter: brightness(0) invert(1);
+}
+
+.logoutText {
+    font-size: 16px;
+    font-weight: 500;
+    color: #181F29;
+    transition: color 0.3s;
+}
+
+:global(body.dark) .logoutText {
+    color: #FFFFFF;
 }

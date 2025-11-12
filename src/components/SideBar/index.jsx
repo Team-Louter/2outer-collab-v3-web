@@ -14,8 +14,13 @@ import setting from '../../assets/sideBar/setting.svg';
 // Test Import
 import projectImg from '../../assets/sideBar/Louter.svg';
 
+// Theme Context
+import { useTheme } from '../../context/ThemeContext';
+
 // Function
 export default function Sidebar() {
+    const { isDarkMode, toggleDarkMode } = useTheme();
+    
     const projectItems = [
         {
             name: 'Louter',
@@ -24,9 +29,20 @@ export default function Sidebar() {
         },
         {
             name: 'Louter',
-            owner: '프로젝트 소유자',
+            owner: 'owner',
             img: projectImg,
         },
+        {name: 'Louter',owner: 'owner',img: projectImg,},
+        {name: 'Louter',owner: 'owner',img: projectImg,},
+        {name: 'Louter',owner: 'owner',img: projectImg,},
+        {name: 'Louter',owner: 'owner',img: projectImg,},
+        {name: 'Louter',owner: 'owner',img: projectImg,},
+        {name: 'Louter',owner: 'owner',img: projectImg,},
+        {name: 'Louter',owner: 'owner',img: projectImg,},
+        {name: 'Louter',owner: 'owner',img: projectImg,},
+        {name: 'Louter',owner: 'owner',img: projectImg,},
+        {name: 'Louter',owner: 'owner',img: projectImg,},
+
     ];
     
     return(
@@ -60,9 +76,9 @@ export default function Sidebar() {
                     <div className={styles.settingToggle}>
                         <img src={setting} alt="설정 아이콘" /><div className={styles.settingText}>설정</div>
                     </div>
-                    <div className={styles.darkModeToggle}>
+                    <div className={styles.darkModeToggle} onClick={toggleDarkMode}>
                         <img src={night} alt="다크 모드 아이콘" /><div className={styles.darkModeText}>다크 모드</div>
-                        <div className={styles.darkModeSwitch}>
+                        <div className={`${styles.darkModeSwitch} ${isDarkMode ? styles.active : ''}`}>
                             <div className={styles.darkModeCircle}></div>
                         </div>
                     </div>
