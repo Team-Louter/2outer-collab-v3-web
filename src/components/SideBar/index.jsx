@@ -63,7 +63,7 @@ export default function Sidebar() {
                 <div className={styles.myProjectsTitle}>내 프로젝트</div>
                 <div className={styles.projectList}>
                     {projectItems.map((item) => (
-                        <Link className={styles.projectItem} to={`/teamname`}>
+                        <Link key={item.id} className={styles.projectItem} to={`/teamname`}>
                             <div className={styles.projectImgGradient}>
                                 <div className={styles.projectImgBackground}>
                                     <img className={styles.projectImg} src={item.img} alt="프로젝트 이미지" />
@@ -73,7 +73,7 @@ export default function Sidebar() {
                                 <div className={styles.projectNameText}>{item.name}</div>
                                 <div className={styles.projectOwnerText}>{item.owner}</div>
                             </div>
-                    </Link>
+                        </Link>
                     ))}
                 </div>
                 <div className={styles.line}></div>
