@@ -79,7 +79,7 @@ const Activity = () => {
               </div>
             </div>
 
-            {/* 공지사항 리스트 */}
+            {/* 활동 리포트 리스트 */}
             <div className={styles["middle-container"]}>
               <div className={styles["middle-container-wrapper"]}>
                 {notices.map((notice) => {
