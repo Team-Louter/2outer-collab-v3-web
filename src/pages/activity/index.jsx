@@ -86,7 +86,7 @@ const Activity = () => {
                   const isOpen = openIds.includes(notice.id);
                   return (
                     <div key={notice.id} className={styles["notice-item"]}>
-                      {/* 공지 박스 */}
+                      {/* 활동 리포트 박스 */}
                       <div
                         className={`${styles["notice-box"]} ${
                           isOpen ? styles.open : ""
