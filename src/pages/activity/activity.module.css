@@ -93,7 +93,7 @@
   border-top: 4px solid #ccc;
 }
 
-/* === 공지사항 아이템 === */
+/* === 활동 리포트 아이템 === */
 .notice-item {
   display: flex;
   flex-direction: column;
