@@ -87,7 +87,7 @@ export default function Main() {
                 <div className={styles.sponsorContent}>
                     <img className={styles.sponsorImg} src={Testsponsor} alt="광고" />
                     
-                    <button className={styles.closeButton}>
+                    <button className={styles.closeButton} aria-label="광고 닫기">
                         <img src={closeModalIcon} alt="닫기" />
                     </button>
                 </div>
