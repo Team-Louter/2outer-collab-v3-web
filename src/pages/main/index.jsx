@@ -21,8 +21,8 @@ export default function Main() {
     const { isDarkMode } = useTheme();
     
     const bannerText = {
-        tag : "[업데이트]",
-        title : "새 프로젝트 만들기 기능 추가",
+        tag: "[업데이트]",
+        title: "새 프로젝트 만들기 기능 추가",
     };
 
     const toastcode = (time) => ({
