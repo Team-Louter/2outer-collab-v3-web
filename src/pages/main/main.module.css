@@ -12,6 +12,11 @@
     width: calc(100% - 15.625rem); /* 전체 너비에서 Sidebar 너비 제외 */
     min-width: calc(100% - 15.625rem);
     box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+.container.dark {
+    background-color: #1a1a1a;
 }
 
 .bannerSection {
@@ -29,6 +34,10 @@
     font-size: 0.9vw;
     line-height: 1;
     color: #ffffff;
+}
+
+.container.dark .bannerSection {
+    background-color: #333333;
 }
 
 .bannerText {
@@ -75,6 +84,11 @@
     font-size: 28px;
     color: #4A85FF;
     margin-bottom: 13px;
+    transition: color 0.3s ease;
+}
+
+.container.dark .projectTitle {
+    color: #6BA3FF;
 }
 
 .projectSection {
@@ -98,6 +112,12 @@
     width: 300x;
     height: 310px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container.dark .projectCard {
+    background-color: #2a2a2a;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 }
 
 .cardHeader {
@@ -113,6 +133,11 @@
     top: 0;
     border-radius: 8px 8px 0 0;
     background-color: #E0E0E0;
+    transition: background-color 0.3s ease;
+}
+
+.container.dark .projectBanner {
+    background-color: #3a3a3a;
 }
 
 .projectLogoHeader {
@@ -126,6 +151,11 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    transition: background-color 0.3s ease;
+}
+
+.container.dark .projectLogoHeader {
+    background-color: #3a3a3a;
 }
 
 .projectLogo {
@@ -144,6 +174,11 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    transition: color 0.3s ease;
+}
+
+.container.dark .memberCountHeader {
+    color: #b0b0b0;
 }
 
 .memberCountCheck {
@@ -163,6 +198,11 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    transition: color 0.3s ease;
+}
+
+.container.dark .projectName {
+    color: #ffffff;
 }
 
 .verifiedBadge {
@@ -183,12 +223,22 @@
     font-weight: 600;
     font-size: 11px;
     color: #6E6E76;
+    transition: color 0.3s ease;
+}
+
+.container.dark .projectType {
+    color: #b0b0b0;
 }
 
 .projectDesc {
     font-weight: 400;
     font-size: 14px;
     color: #6E6E76;
+    transition: color 0.3s ease;
+}
+
+.container.dark .projectDesc {
+    color: #e0e0e0;
 }
 
 .joinButton {

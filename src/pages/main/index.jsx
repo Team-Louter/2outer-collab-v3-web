@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../../components/Sidebar';
+import { useTheme } from '../../context/ThemeContext';
 
 // Img import
 import Testsponsor from '../../assets/mainpage/testsponsor.png';
@@ -17,6 +18,7 @@ import verifiedImg from '../../assets/mainpage/verified.svg';
 // Const
 export default function Main() {
     const location = useLocation();
+    const { isDarkMode } = useTheme();
     
     const bannerText = {
         tag : "[업데이트]",
@@ -76,7 +78,7 @@ export default function Main() {
         <>
             <Header />
             <Sidebar />
-            <div className={styles.container}>
+            <div className={`${styles.container} ${isDarkMode ? styles.dark : ''}`}>
                 {/* 배너 섹션 */}
                 <div className={styles.bannerSection}>
                     {bannerText.tag}<div className={styles.bannerText}>{bannerText.title}</div>
