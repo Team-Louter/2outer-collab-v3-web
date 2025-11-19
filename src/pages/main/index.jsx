@@ -3,8 +3,7 @@ import styles from './main.module.css';
 import Header from '../../components/Header';
 import { useEffect } from 'react';
 import { href, useLocation } from 'react-router-dom';
-import { ToastContainer, toast, Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import Sidebar from '../../components/Sidebar';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -97,7 +96,6 @@ export default function Main() {
                     </div>
                 </div>
             </div>
-            <ToastContainer limit={1} transition={Bounce} />
         </>
     );
 }

@@ -3,8 +3,7 @@ import styles from './login.module.css';
 import Header from '../../components/Header';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ToastContainer, toast, Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { useTheme } from '../../context/ThemeContext';
 
 // import
@@ -43,6 +42,14 @@ export default function login() {
             
             // state 초기화 (뒤로가기 후 다시 접속 시 메시지 재표시 방지)
             window.history.replaceState({}, document.title);
+        }
+
+        // 세션 만료 체크
+        const sessionExpired = localStorage.getItem('sessionExpired');
+        if (sessionExpired) {
+            toast.info('세션이 만료되었습니다', toastcode(3000));
+            toast.clearWaitingQueue();
+            localStorage.removeItem('sessionExpired');
         }
     }, [location]);
     
@@ -96,11 +103,21 @@ export default function login() {
             .catch(error => {
                 console.error('로그인 실패:', error);
 
-                if (error.message) {
-                    toast.error(error.message, toastcode(3000));
+                if (error.response?.status === 401) {
+                    // 401 에러: 이메일 또는 비밀번호가 틀림
+                    toast.info('잘못된 이메일 또는 비밀번호입니다', toastcode(1000));
+                    toast.clearWaitingQueue();
+                } else if (error.response?.data?.message) {
+                    // 서버에서 전달한 에러 메시지
+                    toast.error(error.response.data.message, toastcode(1000));
+                    toast.clearWaitingQueue();
+                } else if (error.request) {
+                    // 요청은 전송되었지만 응답을 받지 못함
+                    toast.error('서버와 통신할 수 없습니다', toastcode(3000));
                     toast.clearWaitingQueue();
                 } else {
-                    toast.error('서버와 통신할 수 없습니다: ' + error.message, toastcode(3000));
+                    // 요청 설정 중 문제 발생
+                    toast.error('로그인 요청 중 오류가 발생했습니다', toastcode(3000));
                     toast.clearWaitingQueue();
                 }
             });
@@ -133,7 +150,6 @@ export default function login() {
                     </form>
                 </div>
             </div>
-            <ToastContainer limit={1} transition={Bounce} />
         </>
     );
 }

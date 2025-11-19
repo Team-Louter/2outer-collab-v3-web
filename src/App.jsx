@@ -1,5 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import { ToastContainer, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import UserProfile from "./pages/userProfile";
 import ProjectSetting from "./pages/projectSetting";
 import SignUp from "./pages/signUp";
@@ -17,6 +19,18 @@ import PublicRoute from "./components/PublicRoute";
 function App() {
   return (
     <>
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover={false}
+        draggable
+        limit={1}
+        transition={Bounce}
+        theme="light"
+      />
+      
       <Routes>
         <Route element={<PublicRoute />}>
           <Route path="/signup" element={<SignUp />} />
