@@ -2,18 +2,18 @@
 import styles from './main.module.css';
 import Header from '../../components/Header';
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { href, useLocation } from 'react-router-dom';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../../components/Sidebar';
 import { useTheme } from '../../context/ThemeContext';
 
+// import
+import ProjectCard from '../../components/ProjectCard';
+
 // Img import
 import Testsponsor from '../../assets/mainpage/testsponsor.png';
 import closeModalIcon from '../../assets/mainpage/closeModal.svg';
-import testLouterLogo from '../../assets/mainpage/testLouterLogo.png';
-import testLouterB from '../../assets/mainpage/testLouterB.png';
-import verifiedImg from '../../assets/mainpage/verified.svg';
 
 // Const
 export default function Main() {
@@ -23,6 +23,11 @@ export default function Main() {
     const bannerText = {
         tag: "[업데이트]",
         title: "새 프로젝트 만들기 기능 추가",
+    };
+
+    const sponsorText = {
+        href: "https://dodam.b1nd.com/",
+        Img: Testsponsor,
     };
 
     const toastcode = (time) => ({
@@ -35,33 +40,6 @@ export default function Main() {
         progress: 0,
         theme: "light",
     });
-
-    const TestCode = () => {
-        return (
-            <div className={styles.projectCard}>
-                <div className={styles.cardHeader}>
-                    <img className={styles.projectBanner} src={testLouterB} alt="Louter 배너" />
-                </div>
-                <div className={styles.projectLogoHeader}>
-                    <img className={styles.projectLogo} src={testLouterLogo} alt="Louter 로고" />
-                </div>
-                <div className={styles.cardContent}>
-                    <p className={styles.memberCountHeader}>
-                        <div className={styles.memberCountCheck}></div>멤버 19명
-                    </p>
-                    <p className={styles.projectName}>
-                        Louter
-                        <img className={styles.verifiedBadge} src={verifiedImg} alt="인증 배지" />
-                    </p>
-                    <div className={styles.projectDescBox}>
-                        <p className={styles.projectType}>팀 소개</p>
-                        <p className={styles.projectDesc}>대구소프트웨어마이스터고 최우수 동아리 선정</p>
-                    </div>
-                </div>
-                <button className={styles.joinButton}>프로젝트 참가 요청</button>
-            </div>
-        );
-    };
 
     // 로그인 성공 시 토스트 메시지 표시
     useEffect(() => {
@@ -85,7 +63,7 @@ export default function Main() {
                 </div>
 
                 <div className={styles.sponsorContent}>
-                    <img className={styles.sponsorImg} src={Testsponsor} alt="광고" />
+                    <a href={sponsorText.href}><img className={styles.sponsorImg} src={sponsorText.Img} alt="광고" /></a>
                     
                     <button className={styles.closeButton} aria-label="광고 닫기">
                         <img src={closeModalIcon} alt="닫기" />
@@ -99,25 +77,23 @@ export default function Main() {
                     {/* 프로젝트 카드 그리드 */}
                     <div className={styles.projectGrid}>
                         {/* 첫 번째 행 */}
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
-                        <TestCode />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
+                        <ProjectCard />
                     </div>
                 </div>
             </div>
