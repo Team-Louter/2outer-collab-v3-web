@@ -3,8 +3,7 @@ import styles from './signUp.module.css';
 import Header from '../../components/Header';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast, Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { useTheme } from '../../context/ThemeContext';
 
 // import
@@ -258,7 +257,6 @@ export default function SignUp() {
                     </form>
                 </div>
             </div>
-            <ToastContainer limit={1} transition={Bounce} />
         </>
     );
 };
