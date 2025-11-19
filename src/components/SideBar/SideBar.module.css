@@ -11,7 +11,7 @@
     transition: background-color 0.3s, border-color 0.3s;
 }
 
-:global(body.dark) .container {
+.container.dark {
     background-color: #1f1f1f;
     border-right: 1px solid #333333;
 }
@@ -34,7 +34,7 @@
     transition: filter 0.3s;
 }
 
-:global(body.dark) .minusIcon {
+.container.dark .minusIcon {
     filter: brightness(0) invert(1);
 }
 
@@ -54,7 +54,7 @@
     transition: filter 0.3s;
 }
 
-:global(body.dark) .plusIcon {
+.container.dark .plusIcon {
     filter: brightness(0) invert(1);
 }
 
@@ -66,7 +66,7 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .projectCreateText {
+.container.dark .projectCreateText {
     color: #FFFFFF;
 }
 
@@ -80,7 +80,7 @@
     transition: background-color 0.3s;
 }
 
-:global(body.dark) .line {
+.container.dark .line {
     background-color: #333333;
 }
 
@@ -93,7 +93,7 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .myProjectsTitle {
+.container.dark .myProjectsTitle {
     color: #FFFFFF;
 }
 
@@ -124,7 +124,7 @@
     border: 2px solid #85c8ff;
 }
 
-:global(body.dark) .projectItem:hover {
+.container.dark .projectItem:hover {
     background-color: #2a2a2a;
     border: 2px solid #4A85FF;
 }
@@ -173,7 +173,7 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .projectNameText {
+.container.dark .projectNameText {
     color: #FFFFFF;
 }
 
@@ -185,7 +185,7 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .projectOwnerText {
+.container.dark .projectOwnerText {
     color: #a0a0a0;
 }
 
@@ -210,7 +210,7 @@
     transition: filter 0.3s;
 }
 
-:global(body.dark) .settingToggle img {
+.container.dark .settingToggle img {
     filter: brightness(0) invert(1);
 }
 
@@ -221,7 +221,7 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .settingText {
+.container.dark .settingText {
     color: #FFFFFF;
 }
 
@@ -238,7 +238,7 @@
     transition: filter 0.3s;
 }
 
-:global(body.dark) .darkModeToggle img {
+.container.dark .darkModeToggle img {
     filter: brightness(0) invert(1);
 }
 
@@ -250,7 +250,7 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .darkModeText {
+.container.dark .darkModeText {
     color: #FFFFFF;
 }
 
@@ -290,8 +290,8 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .toggleText1,
-:global(body.dark) .toggleText2 {
+.container.dark .toggleText1,
+.container.dark .toggleText2 {
     color: #FFFFFF;
 }
 
@@ -313,7 +313,7 @@
     transition: filter 0.3s;
 }
 
-:global(body.dark) .logoutToggle img {
+.container.dark .logoutToggle img {
     filter: brightness(0) invert(1);
 }
 
@@ -324,7 +324,7 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .logoutText {
+.container.dark .logoutText {
     color: #FFFFFF;
 }
 
@@ -333,6 +333,19 @@
 .overlay {
     display: none;
 }
+
+.emptyText {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #757B8A;
+    text-align: center;
+    transition: color 0.3s;
+}
+
+.container.dark .emptyText {
+    color: #a0a0a0;
+}
+
 
 @media (max-width: 768px) {
     .overlay {

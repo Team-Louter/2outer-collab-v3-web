@@ -1,6 +1,9 @@
 // Module.css import
 import styles from './SideBar.module.css';
 
+// React import
+import { useState, useEffect } from 'react';
+
 // Link import
 import { Link } from 'react-router-dom';
 
@@ -20,39 +23,48 @@ import { useTheme } from '../../context/ThemeContext';
 // Sidebar Context
 import { useSidebar } from '../../context/SidebarContext';
 
+// Axios Instance
+import axiosInstance from '../../axiosInstance';
+
 // Function
 export default function Sidebar() {
     const { isDarkMode, toggleDarkMode } = useTheme();
     const { isOpen, toggleSidebar } = useSidebar();
-    
-    const projectItems = [
-        {
-            name: 'Louter',
-            owner: 'hyxx._.su',
-            img: projectImg,
-        },
-        {
-            name: 'Louter',
-            owner: 'owner',
-            img: projectImg,
-        },
-        {name: 'Louter',owner: 'owner',img: projectImg,},
-        {name: 'Louter',owner: 'owner',img: projectImg,},
-        {name: 'Louter',owner: 'owner',img: projectImg,},
-        {name: 'Louter',owner: 'owner',img: projectImg,},
-        {name: 'Louter',owner: 'owner',img: projectImg,},
-        {name: 'Louter',owner: 'owner',img: projectImg,},
-        {name: 'Louter',owner: 'owner',img: projectImg,},
-        {name: 'Louter',owner: 'owner',img: projectImg,},
-        {name: 'Louter',owner: 'owner',img: projectImg,},
-        {name: 'Louter',owner: 'owner',img: projectImg,},
+    const [projectItems, setProjectItems] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    ];
+    // 팀 목록 가져오기
+    useEffect(() => {
+        const fetchTeams = async () => {
+            try {
+                setIsLoading(true);
+                const response = await axiosInstance.get('/teams/my-teams');
+                
+                // API 응답 데이터를 projectItems 형식으로 변환
+                const teams = response.data.map(team => ({
+                    id: team.teamId,
+                    name: team.teamName,
+                    owner: team.creatorName,
+                    img: team.profilePicture,
+                }));
+                
+                setProjectItems(teams);
+            } catch (error) {
+                console.error('팀 목록을 불러오는데 실패했습니다:', error);
+                // 에러 발생 시 빈 배열로 설정
+                setProjectItems([]);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchTeams();
+    }, []);
     
     return(
         <>
             {isOpen && <div className={styles.overlay} onClick={toggleSidebar}></div>}
-            <div className={`${styles.container} ${isOpen ? styles.open : ''}`}>
+            <div className={`${styles.container} ${isOpen ? styles.open : ''} ${isDarkMode ? styles.dark : ''}`}>
                 <div className={styles.minusButton}>
                     <img className={styles.minusIcon} src={minus} alt="Minus" onClick={toggleSidebar} />
                 </div>
@@ -62,19 +74,25 @@ export default function Sidebar() {
                 <div className={styles.line}></div>
                 <div className={styles.myProjectsTitle}>내 프로젝트</div>
                 <div className={styles.projectList}>
-                    {projectItems.map((item) => (
-                        <Link key={item.id} className={styles.projectItem} to={`/teamname`}>
-                            <div className={styles.projectImgGradient}>
-                                <div className={styles.projectImgBackground}>
-                                    <img className={styles.projectImg} src={item.img} alt="프로젝트 이미지" />
+                    {isLoading ? (
+                        <div className={styles.loadingText}>로딩 중...</div>
+                    ) : projectItems.length === 0 ? (
+                        <div className={styles.emptyText}>참여 중인 프로젝트가 없습니다</div>
+                    ) : (
+                        projectItems.map((item) => (
+                            <Link key={item.id} className={styles.projectItem} to={`/${item.id}`}>
+                                <div className={styles.projectImgGradient}>
+                                    <div className={styles.projectImgBackground}>
+                                        <img className={styles.projectImg} src={item.img} alt="프로젝트 이미지" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={styles.projectInfo}>
-                                <div className={styles.projectNameText}>{item.name}</div>
-                                <div className={styles.projectOwnerText}>{item.owner}</div>
-                            </div>
-                        </Link>
-                    ))}
+                                <div className={styles.projectInfo}>
+                                    <div className={styles.projectNameText}>{item.name}</div>
+                                    <div className={styles.projectOwnerText}>{item.owner}</div>
+                                </div>
+                            </Link>
+                        ))
+                    )}
                 </div>
                 <div className={styles.line}></div>
                 <div className={styles.sidebarBottom}>

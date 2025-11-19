@@ -1,8 +1,11 @@
 // Module.css import
 import styles from './Header.module.css';
 
+// React import
+import { useState, useEffect } from 'react';
+
 // Link import
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Img import
 import logoImg from '../../assets/header/logo.svg';
@@ -26,9 +29,27 @@ const userid = 1;
 const Header = () => {
     const { isDarkMode } = useTheme();
     const { toggleSidebar } = useSidebar();
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false);
+
+    useEffect(() => {
+        const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        setIsLoggedIn(loggedIn);
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('isLoggedIn');
+        setIsLoggedIn(false);
+        navigate('/login');
+    };
+
+    const toggleNotifications = () => {
+        setShowNotifications(!showNotifications);
+    };
     
     return (
-        <header className={styles.mainHeader}>
+        <header className={`${styles.mainHeader} ${isDarkMode ? styles.dark : ''}`}>
             <div className={styles.leftSection}>
                 <button className={styles.menuButton} onClick={toggleSidebar} aria-label="Toggle menu">
                     <img src={menuImg} alt="메뉴 열기" />
@@ -44,27 +65,49 @@ const Header = () => {
             </div>
 
             <ul className={styles.headerMenu}>
-                <li className={styles.chattingButton}>
-                    <img className={styles.chattingImg} src={chattingImg} alt="채팅 열기" />
-                </li>
+                {isLoggedIn ? (
+                    <>
+                        <li className={styles.chattingButton}>
+                            <img className={styles.chattingImg} src={chattingImg} alt="채팅 열기" />
+                        </li>
 
-                <li className={styles.bellButton}>
-                    <img className={styles.bellImg} src={bellImg} alt="알림 확인" />
-                </li>
+                        <li className={styles.bellButton} onClick={toggleNotifications}>
+                            <img className={styles.bellImg} src={bellImg} alt="알림 확인" />
+                        </li>
 
-                <li className={styles.signupButton}>
-                    <Link className={styles.textSetting} to={`/signup`}>회원가입</Link>
-                </li>
+                        <li className={styles.userName}>
+                            <span className={styles.textSetting}>hyxx._.su님</span>
+                        </li>
 
-                <li className={styles.loginButton}>
-                    <Link className={styles.textSetting} to={`/login`}>로그인</Link>
-                </li>
+                        <li className={styles.logoutButton} onClick={handleLogout}>
+                            <span className={styles.textSetting}>로그아웃</span>
+                        </li>
 
-                <li className={styles.profileButton}>
-                    <Link className={styles.profileImg} to={`/profile/${userid}`}>
-                        <img src={profileImg} alt="내 프로필" />
-                    </Link>
-                </li>
+                        <li className={styles.profileButton}>
+                            <Link className={styles.profileImg} to={`/profile/${userid}`}>
+                                <img src={profileImg} alt="내 프로필" />
+                            </Link>
+                        </li>
+                    </>
+                ) : (
+                    <>
+                        <li className={styles.chattingButton}>
+                            <img className={styles.chattingImg} src={chattingImg} alt="채팅 열기" />
+                        </li>
+
+                        <li className={styles.bellButton} onClick={toggleNotifications}>
+                            <img className={styles.bellImg} src={bellImg} alt="알림 확인" />
+                        </li>
+                        
+                        <li className={styles.signupButton}>
+                            <Link className={styles.textSetting} to={`/signup`}>회원가입</Link>
+                        </li>
+
+                        <li className={styles.loginButton}>
+                            <Link className={styles.textSetting} to={`/login`}>로그인</Link>
+                        </li>
+                    </>
+                )}
             </ul>
         </header>
     );
