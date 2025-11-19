@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTheme } from '../../context/ThemeContext';
 
 // import
 import axiosInstance from '../../axiosInstance';
@@ -16,6 +17,7 @@ import textToggleIcon from '../../assets/signUp/textToggleIcon.svg';
 // Const
 export default function SignUp() {
     const navigate = useNavigate();
+    const { isDarkMode } = useTheme();
     
     const [sendData, setSendData] = useState({
         userName: "",
@@ -206,7 +208,7 @@ export default function SignUp() {
     return (
         <>
             <Header />
-            <div className={styles.container}>
+            <div className={`${styles.container} ${isDarkMode ? styles.dark : ''}`}>
                 <div className={styles.title}>회원 가입</div>
                 <div className={styles.formContainer}>
                     <form className={styles.formMain}>

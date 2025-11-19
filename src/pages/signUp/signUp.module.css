@@ -8,6 +8,10 @@
     justify-content: center;
 }
 
+.container.dark {
+    background-color: #0A0A0A;
+}
+
 .title {
     font-size: 2rem;
     font-weight: 800;
@@ -24,10 +28,18 @@
     align-items: center;
 }
 
+.container.dark .title {
+    background-image: linear-gradient(to right, #4A85FF 0%, #FFFFFF 100%);
+}
+
 .label {
     font-size: 0.8rem;
     font-weight: 500;
     color: #181F29;
+}
+
+.container.dark .label {
+    color: #FFFFFF;
 }
 
 .input {
@@ -41,12 +53,26 @@
     font-weight: 500;
 }
 
+.container.dark .input {
+    background-color: #0A0A0A;
+    color: #FFFFFF;
+    border-bottom-color: #3D4A5C;
+}
+
 /* 자동완성 시 배경색 제거 */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0rem 62.5rem #F5F5F5 inset;
+    -webkit-box-shadow: 0 0 0 62.5rem #F5F5F5 inset;
+}
+
+.container.dark input:-webkit-autofill,
+.container.dark input:-webkit-autofill:hover,
+.container.dark input:-webkit-autofill:focus,
+.container.dark input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 62.5rem #0A0A0A inset;
+    -webkit-text-fill-color: #FFFFFF;
 }
 
 .input:hover {
@@ -73,9 +99,21 @@ input:-webkit-autofill:active {
     font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.container.dark .button {
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+    border-color: #4A85FF;
 }
 
 .button:hover {
+    background-color: #4A85FF;
+    color: #FFFFFF;
+}
+
+.container.dark .button:hover {
     background-color: #4A85FF;
     color: #FFFFFF;
 }
@@ -89,6 +127,10 @@ input:-webkit-autofill:active {
 .input::placeholder {
     color: #999999;
     font-weight: 400;
+}
+
+.container.dark .input::placeholder {
+    color: #CCCCCC;
 }
 
 .inputContainer {
@@ -109,10 +151,15 @@ input:-webkit-autofill:active {
     font-weight: 600;
     cursor: pointer;
     margin-top: 1.6rem;
+    transition: background-color 0.2s ease;
+}
+
+.submit:hover {
+    background-color: #3a6edb;
 }
 
 .submit:active {
-    background-color: #3a6edb;
+    background-color: #2f5ab8;
 }
 
 .signInPrompt {
@@ -122,6 +169,10 @@ input:-webkit-autofill:active {
     font-size: 0.9rem;
     font-weight: 400;
     color: #181F29;
+}
+
+.container.dark .signInPrompt {
+    color: #FFFFFF;
 }
 
 .signInLink {
@@ -148,4 +199,13 @@ input:-webkit-autofill:active {
     width: 1.5rem;
     height: 1.5rem;
     cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.passwordToggleIcon:hover {
+    opacity: 0.7;
+}
+
+.container.dark .passwordToggleIcon {
+    filter: invert(1) brightness(2);
 }

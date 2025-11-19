@@ -6,21 +6,37 @@ import { Link } from 'react-router-dom';
 
 // Img import
 import logoImg from '../../assets/header/logo.svg';
+import logoDarkImg from '../../assets/header/logo-dark.svg';
 import searchImg from '../../assets/header/search.svg';
 import chattingImg from '../../assets/header/chatting.svg';
 import bellImg from '../../assets/header/bell.svg';
 import profileImg from '../../assets/header/profile.svg';
+import menuImg from '../../assets/header/menu.svg';
+
+// Theme Context
+import { useTheme } from '../../context/ThemeContext';
+
+// Sidebar Context
+import { useSidebar } from '../../context/SidebarContext';
 
 // Userid
 const userid = 1;
 
 // Const
 const Header = () => {
+    const { isDarkMode } = useTheme();
+    const { toggleSidebar } = useSidebar();
+    
     return (
         <header className={styles.mainHeader}>
-            <Link className={styles.logoButton} to={`/`}>
-                <img className={styles.logoImg} src={logoImg} alt="로고" />
-            </Link>
+            <div className={styles.leftSection}>
+                <button className={styles.menuButton} onClick={toggleSidebar} aria-label="Toggle menu">
+                    <img src={menuImg} alt="메뉴 열기" />
+                </button>
+                <Link className={styles.logoButton} to={`/`}>
+                    <img className={styles.logoImg} src={isDarkMode ? logoDarkImg : logoImg} alt="로고" />
+                </Link>
+            </div>
             
             <div className={styles.headerSearch}>
                 <img className={styles.searchImg} src={searchImg} alt="검색 아이콘" />

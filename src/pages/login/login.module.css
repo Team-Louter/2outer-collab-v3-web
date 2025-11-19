@@ -8,6 +8,10 @@
     justify-content: center;
 }
 
+.container.dark {
+    background-color: #0A0A0A;
+}
+
 .title {
     font-size: 2.25rem;
     font-weight: 800;
@@ -24,6 +28,10 @@
     align-items: center;
 }
 
+.container.dark .title {
+    background-image: linear-gradient(to right, #4A85FF 0%, #FFFFFF 100%);
+}
+
 .input {
     width: 468px;
     height: 3.6rem;
@@ -37,12 +45,26 @@
     padding: 0 1.5rem;
 }
 
+.container.dark .input {
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+    border-color: #3D4A5C;
+}
+
 /* 자동완성 시 배경색 제거 */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0px 1000px #F5F5F5 inset;
+}
+
+.container.dark input:-webkit-autofill,
+.container.dark input:-webkit-autofill:hover,
+.container.dark input:-webkit-autofill:focus,
+.container.dark input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #1A1A1A inset;
+    -webkit-text-fill-color: #FFFFFF;
 }
 
 .input:hover {
@@ -57,6 +79,10 @@ input:-webkit-autofill:active {
 .input::placeholder {
     color: #999999;
     font-weight: 400;
+}
+
+.container.dark .input::placeholder {
+    color: #CCCCCC;
 }
 
 .inputContainer {
@@ -81,6 +107,15 @@ input:-webkit-autofill:active {
     font-weight: 600;
     cursor: pointer;
     margin-top: 3rem;
+    transition: background-color 0.2s ease;
+}
+
+.submit:hover {
+    background-color: #3a6edb;
+}
+
+.submit:active {
+    background-color: #2f5ab8;
 }
 
 .signUpPrompt {
@@ -90,6 +125,10 @@ input:-webkit-autofill:active {
     font-size: 0.9rem;
     font-weight: 400;
     color: #181F29;
+}
+
+.container.dark .signUpPrompt {
+    color: #FFFFFF;
 }
 
 .signUpLink {
@@ -109,6 +148,10 @@ input:-webkit-autofill:active {
     margin-left: 0.5rem;
 }
 
+.container.dark .rememberMe {
+    color: #FFFFFF;
+}
+
 .checkbox {
     width: 1rem;
     height: 1rem;
@@ -118,6 +161,11 @@ input:-webkit-autofill:active {
     cursor: pointer;
 }
 
+.container.dark .checkbox {
+    background-color: #1A1A1A;
+    border-color: #3D4A5C;
+}
+
 .forgotPasswordLink {
     color: #333333;
     font-size: 0.9rem;
@@ -125,6 +173,10 @@ input:-webkit-autofill:active {
     text-decoration: none;
     float: right;
     cursor: pointer;
+}
+
+.container.dark .forgotPasswordLink {
+    color: #CCCCCC;
 }
 
 .options {
