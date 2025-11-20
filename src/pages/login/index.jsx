@@ -86,23 +86,25 @@ export default function login() {
             return;
         }
         
-        console.log('전송 데이터:', sendData); // 디버깅용
-        
         // API 요청
         axiosInstance.post('/auth/login', sendData)
             .then(response => {
-                console.log('로그인 성공:', response.data);
-                
                 // 로그인 상태 저장
                 localStorage.setItem('isLoggedIn', 'true');
+                
+                // 사용자 정보 저장
+                if (response.data.userName) {
+                    localStorage.setItem('userName', response.data.userName);
+                }
+                if (response.data.userId) {
+                    localStorage.setItem('userId', String(response.data.userId));
+                }
 
                 // 메인 페이지로 이동하면서 state 전달
                 navigate('/', { state: { loginSuccess: true } });
             })
 
             .catch(error => {
-                console.error('로그인 실패:', error);
-
                 if (error.response?.status === 401) {
                     // 401 에러: 이메일 또는 비밀번호가 틀림
                     toast.info('잘못된 이메일 또는 비밀번호입니다', toastcode(1000));
