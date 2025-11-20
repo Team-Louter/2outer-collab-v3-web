@@ -95,6 +95,14 @@ export default function login() {
                 
                 // 로그인 상태 저장
                 localStorage.setItem('isLoggedIn', 'true');
+                
+                // 사용자 정보 저장
+                if (response.data.userName) {
+                    localStorage.setItem('userName', response.data.userName);
+                }
+                if (response.data.userId) {
+                    localStorage.setItem('userId', response.data.userId);
+                }
 
                 // 메인 페이지로 이동하면서 state 전달
                 navigate('/', { state: { loginSuccess: true } });

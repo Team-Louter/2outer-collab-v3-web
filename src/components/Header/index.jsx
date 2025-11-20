@@ -22,9 +22,6 @@ import { useTheme } from '../../context/ThemeContext';
 // Sidebar Context
 import { useSidebar } from '../../context/SidebarContext';
 
-// Userid
-const userid = 1;
-
 // Const
 const Header = () => {
     const { isDarkMode } = useTheme();
@@ -32,15 +29,26 @@ const Header = () => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
+    const [userName, setUserName] = useState('');
+    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
         const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const storedUserName = localStorage.getItem('userName');
+        const storedUserId = localStorage.getItem('userId');
+        
         setIsLoggedIn(loggedIn);
+        if (storedUserName) setUserName(storedUserName);
+        if (storedUserId) setUserId(storedUserId);
     }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userId');
         setIsLoggedIn(false);
+        setUserName('');
+        setUserId(null);
         navigate('/login');
     };
 
@@ -76,7 +84,7 @@ const Header = () => {
                         </li>
 
                         <li className={styles.userName}>
-                            <span className={styles.textSetting}>hyxx._.su님</span>
+                            <span className={styles.textSetting}>{userName ? `${userName}님` : '사용자님'}</span>
                         </li>
 
                         <li className={styles.logoutButton} onClick={handleLogout}>
@@ -84,7 +92,7 @@ const Header = () => {
                         </li>
 
                         <li className={styles.profileButton}>
-                            <Link className={styles.profileImg} to={`/profile/${userid}`}>
+                            <Link className={styles.profileImg} to={`/profile/${userId || 1}`}>
                                 <img src={profileImg} alt="내 프로필" />
                             </Link>
                         </li>

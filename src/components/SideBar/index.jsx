@@ -62,7 +62,7 @@ export default function Sidebar() {
                 id: team.teamId,
                 name: team.teamName,
                 owner: team.creatorName,
-                img: team.profilePicture,
+                img: team.profilePicture || null, // 빈 문자열 대신 null 사용
             }));
             
             setProjectItems(teams);
@@ -127,7 +127,11 @@ export default function Sidebar() {
                             <Link key={item.id} className={styles.projectItem} to={`/${item.id}`}>
                                 <div className={styles.projectImgGradient}>
                                     <div className={styles.projectImgBackground}>
-                                        <img className={styles.projectImg} src={item.img} alt="프로젝트 이미지" />
+                                        {item.img ? (
+                                            <img className={styles.projectImg} src={item.img} alt="프로젝트 이미지" />
+                                        ) : (
+                                            <div className={styles.projectImg} style={{backgroundColor: '#e0e0e0'}}></div>
+                                        )}
                                     </div>
                                 </div>
                                 <div className={styles.projectInfo}>
