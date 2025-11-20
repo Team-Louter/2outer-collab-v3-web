@@ -55,6 +55,10 @@ const Header = () => {
     const toggleNotifications = () => {
         setShowNotifications(!showNotifications);
     };
+
+    const toggleLogin = () => {
+        navigate('/login');
+    };
     
     return (
         <header className={`${styles.mainHeader} ${isDarkMode ? styles.dark : ''}`}>
@@ -105,11 +109,11 @@ const Header = () => {
                     </>
                 ) : (
                     <>
-                        <li className={styles.chattingButton}>
+                        <li className={styles.chattingButton} onClick={toggleLogin}>
                             <img className={styles.chattingImg} src={chattingImg} alt="채팅 열기" />
                         </li>
 
-                        <li className={styles.bellButton} onClick={toggleNotifications}>
+                        <li className={styles.bellButton} onClick={toggleLogin}>
                             <img className={styles.bellImg} src={bellImg} alt="알림 확인" />
                         </li>
                         
