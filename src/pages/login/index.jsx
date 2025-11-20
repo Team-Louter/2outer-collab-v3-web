@@ -101,7 +101,7 @@ export default function login() {
                     localStorage.setItem('userName', response.data.userName);
                 }
                 if (response.data.userId) {
-                    localStorage.setItem('userId', response.data.userId);
+                    localStorage.setItem('userId', String(response.data.userId));
                 }
 
                 // 메인 페이지로 이동하면서 state 전달
