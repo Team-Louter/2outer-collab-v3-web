@@ -92,9 +92,15 @@ const Header = () => {
                         </li>
 
                         <li className={styles.profileButton}>
-                            <Link className={styles.profileImg} to={`/profile/${userId || 1}`}>
-                                <img src={profileImg} alt="내 프로필" />
-                            </Link>
+                            {userId ? (
+                                <Link className={styles.profileImg} to={`/profile/${userId}`}>
+                                    <img src={profileImg} alt="내 프로필" />
+                                </Link>
+                            ) : (
+                                <span className={styles.profileImg} aria-disabled="true" title="프로필 정보를 불러올 수 없습니다.">
+                                    <img src={profileImg} alt="내 프로필" style={{ opacity: 0.5, pointerEvents: 'none' }} />
+                                </span>
+                            )}
                         </li>
                     </>
                 ) : (
