@@ -39,7 +39,7 @@ const Header = () => {
         
         setIsLoggedIn(loggedIn);
         if (storedUserName) setUserName(storedUserName);
-        if (storedUserId) setUserId(storedUserId);
+        if (storedUserId) setUserId(Number(storedUserId));
     }, []);
 
     const handleLogout = () => {
