@@ -1,6 +1,9 @@
 import { useState } from "react";
 import styles from "./minutes.module.css";
 
+import minutesIcon from "../../assets/minutes/minutes_icon.svg";
+import plus from "../../assets/minutes/plus.svg";
+
 function Minutes() {
   const [minutes, setMinutes] = useState([
     {
@@ -60,10 +63,7 @@ function Minutes() {
             <div className={styles["top-container-wrapper"]}>
               <div className={styles["top-container-wrapper-left"]}>
                 {/* 아이콘 */}
-                <img
-                  src="/Users/hsh/Team-Collab/2outer-collab-v3-web/src/assets/minutes/minutes_icon.svg"
-                  alt="Minutes Icon"
-                />
+                <img src={minutesIcon} alt="Minutes Icon" />
                 <div className={styles["top-container-title"]}>회의록</div>
               </div>
               <div className={styles["top-container-wrapper-right"]}>
@@ -72,10 +72,7 @@ function Minutes() {
                   onClick={() => setModalOpen(true)}
                 >
                   {/* + 버튼 아이콘 */}
-                  <img
-                    src="/Users/hsh/Team-Collab/2outer-collab-v3-web/src/assets/minutes/plus.svg"
-                    alt="Add Minutes"
-                  />
+                  <img src={plus} alt="Add Minutes" />
                 </button>
               </div>
             </div>

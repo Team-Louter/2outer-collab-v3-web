@@ -47,7 +47,11 @@ const Activity = () => {
             <div className={styles["top-container"]}>
               <div className={styles["top-container-wrapper"]}>
                 <div className={styles["top-container-wrapper-left"]}>
-                  <img className={styles["act-icon"]} src={activity} alt="활동 리포트 아이콘" />
+                  <img
+                    className={styles["act-icon"]}
+                    src={activity}
+                    alt="활동 리포트 아이콘"
+                  />
 
                   <div className={styles["top-container-title"]}>
                     활동 리포트
