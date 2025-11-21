@@ -3,8 +3,7 @@ import styles from './signUp.module.css';
 import Header from '../../components/Header';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast, Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { useTheme } from '../../context/ThemeContext';
 
 // import
@@ -214,26 +213,26 @@ export default function SignUp() {
                     <form className={styles.formMain}>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>닉네임</label>
-                            <input className={styles.input} type="text" id="username" name="username" placeholder="영문/숫자로 입력해주세요." value={sendData.userName} onChange={onChangeId} title="" required />
+                            <input className={styles.input} type="text" id="username" name="username" placeholder="영문/숫자로 입력해주세요." value={sendData.userName} onChange={onChangeId} title="" required autoComplete="username" />
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>비밀번호</label>
                             <div style={{ position: 'relative', width: '100%' }}>
-                                <input className={styles.input} type={showPassword ? "text" : "password"} id="password" name="password" placeholder="8자 이상 입력해주세요." value={sendData.userPassword} onChange={onChangePassword} />
+                                <input className={styles.input} type={showPassword ? "text" : "password"} id="password" name="password" placeholder="8자 이상 입력해주세요." value={sendData.userPassword} onChange={onChangePassword} autoComplete="new-password" />
                                 <img className={styles.passwordToggleIcon} src={showPassword ? textToggleIcon : passwordToggleIcon} onClick={() => setShowPassword(!showPassword)} alt="비밀번호 보기/숨기기" />
                             </div>
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>비밀번호 확인</label>
                             <div style={{ position: 'relative', width: '100%' }}>
-                                <input className={styles.input} type={showConfirmPassword ? "text" : "password"} id="confirm-password" name="confirm-password" placeholder="비밀번호를 입력해주세요." value={sendData.confirmPassword} onChange={onChangeConfirmPassword} title="" required />
+                                <input className={styles.input} type={showConfirmPassword ? "text" : "password"} id="confirm-password" name="confirm-password" placeholder="비밀번호를 입력해주세요." value={sendData.confirmPassword} onChange={onChangeConfirmPassword} title="" required autoComplete="new-password" />
                                 <img className={styles.passwordToggleIcon} src={showConfirmPassword ? textToggleIcon : passwordToggleIcon} onClick={() => setShowConfirmPassword(!showConfirmPassword)} alt="비밀번호 보기/숨기기" />
                             </div>
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>이메일</label>
                             <div>
-                                <input className={`${styles.input} ${styles.buttonInput}`} type="email" id="email" name="email" placeholder="example@example.com" value={sendData.userEmail} onChange={onChangeEmail} title="" disabled={isEmailVerified} required />
+                                <input className={`${styles.input} ${styles.buttonInput}`} type="email" id="email" name="email" placeholder="example@example.com" value={sendData.userEmail} onChange={onChangeEmail} title="" disabled={isEmailVerified} required autoComplete="email" />
                                 <button className={`${styles.button} ${styles.emailButton}`} type="button" onClick={sendVerificationEmail} disabled={isEmailVerified}>
                                     {isEmailVerified ? '인증 완료' : isEmailSent ? '재전송' : '인증번호 전송'}
                                 </button>
@@ -242,7 +241,7 @@ export default function SignUp() {
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>인증번호</label>
                             <div>
-                                <input className={`${styles.input} ${styles.buttonInput}`} type="text" id="auth" name="auth" placeholder="******" value={verificationCode} onChange={onChangeVerificationCode} title="" disabled={isEmailVerified || !isEmailSent} />
+                                <input className={`${styles.input} ${styles.buttonInput}`} type="text" id="auth" name="auth" placeholder="******" value={verificationCode} onChange={onChangeVerificationCode} title="" disabled={isEmailVerified || !isEmailSent} autoComplete="one-time-code" />
                                 <button className={`${styles.button} ${styles.authButton}`} type="button" onClick={verifyCode} disabled={isEmailVerified || !isEmailSent}>
                                     {isEmailVerified ? '인증 완료' : '인증번호 확인'}
                                 </button>
@@ -258,7 +257,6 @@ export default function SignUp() {
                     </form>
                 </div>
             </div>
-            <ToastContainer limit={1} transition={Bounce} />
         </>
     );
 };

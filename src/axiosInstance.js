@@ -8,29 +8,21 @@ const axiosInstance = axios.create({
   },
 });
 
-// 요청 인터셉터: localStorage 또는 sessionStorage에서 토큰을 찾아 Authorization 헤더에 설정
-axiosInstance.interceptors.request.use(
-  (config) => {
-    try {
-      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-      if (token) {
-        config.headers = config.headers || {};
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    } catch (e) {
-      console.warn('토큰을 읽는 동안 오류가 발생했습니다:', e);
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-// 요청/응답 인터셉터 (선택)
+// 응답 인터셉터
 axiosInstance.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
+    // 로그인 요청에서의 401 에러는 인터셉터에서 처리하지 않음
+    const isLoginRequest = err.config?.url?.includes('/auth/login');
+    
+    if (err.response?.status === 401 && !isLoginRequest) {
       console.warn("인증이 만료되었거나 쿠키가 없습니다.");
+      // 로그인 상태 제거
+      localStorage.removeItem('isLoggedIn');
+      // 세션 만료 플래그 설정
+      localStorage.setItem('sessionExpired', 'true');
+      // 필요시 로그인 페이지로 리다이렉트
+      window.location.href = '/login';
     }
     return Promise.reject(err);
   }

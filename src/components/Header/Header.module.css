@@ -13,7 +13,7 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .textSetting {
+.mainHeader.dark .textSetting {
     color: #FFFFFF;
 }
 
@@ -48,7 +48,7 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .menuButton {
+.mainHeader.dark .menuButton {
     color: #FFFFFF;
 }
 
@@ -56,7 +56,7 @@
     opacity: 0.7;
 }
 
-:global(body.dark) .mainHeader {
+.mainHeader.dark {
     background-color: #1f1f1f;
     border-bottom: 1px solid #333333;
 }
@@ -84,7 +84,7 @@
     transition: filter 0.3s;
 }
 
-:global(body.dark) .chattingImg {
+.mainHeader.dark .chattingImg {
     filter: brightness(0) invert(1);
 }
 
@@ -93,7 +93,7 @@
     transition: filter 0.3s;
 }
 
-:global(body.dark) .bellImg {
+.mainHeader.dark .bellImg {
     filter: brightness(0) invert(1);
 }
 
@@ -102,7 +102,7 @@
     transition: filter 0.3s;
 }
 
-:global(body.dark) .profileImg {
+.mainHeader.dark .profileImg {
     filter: brightness(0) invert(1);
 }
 
@@ -142,7 +142,7 @@
     transition: background-color 0.3s;
 }
 
-:global(body.dark) .headerSearch {
+.mainHeader.dark .headerSearch {
     background-color: #2a2a2a;
 }
 
@@ -152,7 +152,7 @@
     transition: filter 0.3s;
 }
 
-:global(body.dark) .searchImg {
+.mainHeader.dark .searchImg {
     filter: brightness(0) invert(1);
 }
 
@@ -171,12 +171,12 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
-:global(body.dark) .headerSearchInput {
+.mainHeader.dark .headerSearchInput {
     background-color: #2a2a2a;
     color: #FFFFFF;
 }
 
-:global(body.dark) .headerSearchInput::placeholder {
+.mainHeader.dark .headerSearchInput::placeholder {
     color: #a0a0a0;
 }
 
@@ -190,7 +190,7 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .signupButton {
+.mainHeader.dark .signupButton {
     color: #FFFFFF;
 }
 
@@ -203,7 +203,7 @@
     transition: color 0.3s;
 }
 
-:global(body.dark) .loginButton {
+.mainHeader.dark .loginButton {
     color: #FFFFFF;
 }
 
@@ -216,6 +216,28 @@
 
 .mainHeader {
     z-index: 1000;
+}
+
+/* Logged In Styles */
+.userName {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-right: 0.5rem;
+}
+
+.logoutButton {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 0.5rem;
+}
+
+.bellButton {
+    position: relative;
 }
 
 @media (max-width: 768px) {
