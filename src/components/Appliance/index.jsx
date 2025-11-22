@@ -47,39 +47,9 @@ export default function Appliance({ setApplianceOpen, person }) {
             <textarea value={person.introduce} readOnly />
           </div>
 
-          <div className={styles.imageSection}>
+          <div className={styles.result} style={{marginBottom: 20}}>
             <small>작업물</small>
-            <div
-              className={styles.preview}
-              onClick={() => {
-                if (!previewSrc) {
-                  document.getElementById("fileInput").click();
-                } else {
-                  handlePreviewClick();
-                }
-              }}
-            >
-              {previewSrc ? (
-                <img
-                  src={previewSrc}
-                  alt="preview"
-                  className={styles.previewImage}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePreviewClick();
-                  }}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
-            <input
-              id="fileInput"
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className={styles.fileInput}
-            />
+            <input value={person.id} readOnly />
           </div>
 
           <div className={styles.button}>

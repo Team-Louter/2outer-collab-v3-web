@@ -3,9 +3,9 @@ import styles from "./EditProject.module.css";
 import closeModal from "../../assets/projectSetting/delete.svg";
 import { useParams } from "react-router-dom";
 import CropImage from "../CropImage";
+import axiosInstance from "../../axiosInstance";
 
-export default function EditProject({ setEditProject }) {
-  const { teamname } = useParams();
+export default function EditProject({ setEditProject, teamInfo }) {
   const fileInputRef = useRef(null);
   const [logoPreview, setLogoPreview] = useState(null);
   const [bannerPreview, setBannerPreview] = useState(null);
@@ -43,6 +43,24 @@ export default function EditProject({ setEditProject }) {
     else if (targetType === "banner") setBannerPreview(croppedImg);
   };
 
+  const handleSubmit = async () => {
+    // const data = {
+    //   teamName : ,
+    //   profilePicture: ,
+    //   bannerPicture: ,
+    //   intro
+    // }
+
+    try {
+      res = await axiosInstance.post(`/teams/${teamId}`, data)
+    }
+    catch(err) {
+      console.error(err);
+    }
+  }
+
+  console.log(teamInfo);
+
   return (
     <>
       <div className={styles.modalBackground}>
@@ -57,13 +75,13 @@ export default function EditProject({ setEditProject }) {
           </div>
           <div className={styles.inputBox} style={{marginTop: 20}}>
             <small>프로젝트명 <span>*</span></small>
-            <input placeholder="프로젝트명을 입력해주세요." defaultValue={teamname}/>
-            <small className={styles.letter}>{teamname.length}/50</small>
+            <input placeholder="프로젝트명을 입력해주세요." defaultValue={teamInfo.teamName || ''}/>
+            <small className={styles.letter}>{teamInfo.teamName.length || 0}/50</small>
           </div>
           <div className={styles.inputBox}>
             <small>설명<span>*</span></small>
-            <input placeholder="설명을 입력해주세요."/>
-            <small className={styles.letter}>0/100</small>
+            <input placeholder="설명을 입력해주세요." defaultValue={teamInfo.intro || ''}/>
+            <small className={styles.letter}>{teamInfo.intro.length || 0}/100</small>
           </div>
           <small style={{fontWeight: 600}}>프로젝트 사진</small>
           <div className={styles.imgContainer}>

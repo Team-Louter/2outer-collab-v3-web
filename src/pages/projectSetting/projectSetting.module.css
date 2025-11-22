@@ -129,6 +129,10 @@ main {
     cursor: pointer;
 }
 
+.roleElement small, .forRow small {
+    margin: 0px;
+}
+
 .profileImg {
     background-color: aquamarine;
     width: 25px;
@@ -158,4 +162,10 @@ main {
 
 .dropdown:focus {
     outline: none;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 10px
 }
