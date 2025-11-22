@@ -218,14 +218,14 @@ export default function SignUp() {
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>비밀번호</label>
                             <div style={{ position: 'relative', width: '100%' }}>
-                                <input className={styles.input} type={showPassword ? "text" : "password"} id="password" name="password" placeholder="8자 이상 입력해주세요." value={sendData.userPassword} onChange={onChangePassword} autoComplete="new-password" />
+                                <input className={styles.input} type={showPassword ? "text" : "password"} id="password" name="password" placeholder="8자 이상 입력해주세요." value={sendData.userPassword} onChange={onChangePassword} autoComplete="new-password" lang="en" />
                                 <img className={styles.passwordToggleIcon} src={showPassword ? textToggleIcon : passwordToggleIcon} onClick={() => setShowPassword(!showPassword)} alt="비밀번호 보기/숨기기" />
                             </div>
                         </div>
                         <div className={styles.inputContainer}>
                             <label className={styles.label}>비밀번호 확인</label>
                             <div style={{ position: 'relative', width: '100%' }}>
-                                <input className={styles.input} type={showConfirmPassword ? "text" : "password"} id="confirm-password" name="confirm-password" placeholder="비밀번호를 입력해주세요." value={sendData.confirmPassword} onChange={onChangeConfirmPassword} title="" required autoComplete="new-password" />
+                                <input className={styles.input} type={showConfirmPassword ? "text" : "password"} id="confirm-password" name="confirm-password" placeholder="비밀번호를 입력해주세요." value={sendData.confirmPassword} onChange={onChangeConfirmPassword} title="" required autoComplete="new-password" lang="en" />
                                 <img className={styles.passwordToggleIcon} src={showConfirmPassword ? textToggleIcon : passwordToggleIcon} onClick={() => setShowConfirmPassword(!showConfirmPassword)} alt="비밀번호 보기/숨기기" />
                             </div>
                         </div>

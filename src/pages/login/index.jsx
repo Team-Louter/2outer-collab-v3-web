@@ -136,7 +136,7 @@ export default function login() {
                             <input className={`${styles.input} ${styles.usernameInput}`} type="email" id="email" name="email" placeholder="이메일을 입력해주세요" value={sendData.userEmail} onChange={onChangeId} required autoComplete="username" />
                         </div>
                         <div className={styles.inputContainer}>
-                            <input className={`${styles.input} ${styles.passwordInput}`} type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요" value={sendData.userPassword} onChange={onChangePassword} required autoComplete="current-password" />
+                            <input className={`${styles.input} ${styles.passwordInput}`} type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요" value={sendData.userPassword} onChange={onChangePassword} required autoComplete="current-password" lang="en" />
                         </div>
                         <div className={styles.options}>
                             <div className={styles.rememberMe}>
