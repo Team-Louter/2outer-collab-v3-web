@@ -89,6 +89,7 @@
     align-self: center;
     margin-top: 20px;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .create:hover {

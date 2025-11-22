@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from './ProjectMain.module.css'
 import classNames from "classnames/bind";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import detailIcon from "../../assets/projectMain/detailIcon.svg";
 import documentIcon from "../../assets/projectMain/documentIcon.svg";
@@ -12,25 +12,45 @@ import pProfileIcon from "../../assets/projectMain/pProfileIcon.svg";
 import profileChangeIcon from "../../assets/projectMain/profileChangeIcon.svg";
 import reportIcon from "../../assets/projectMain/reportIcon.svg";
 import todoIcon from "../../assets/projectMain/todoIcon.svg";
+import axiosInstance from "../../axiosInstance";
+import Sidebar from "../../components/Sidebar";
 
 
 export default function ProjectMain() {
-    const teamname = 'Louter'
+    const { teamId } = useParams();
     const [open, setOpen] = useState(false);
     const [reportOpen, setReportOpen] = useState(false);
+    const [teamInfo, setTeamInfo] = useState(null);
     const st = classNames.bind(styles);
     console.log('open: ',open)
     console.log('reportOpen: ', reportOpen)
+
+    useEffect(() => {
+        const getTeam = async () => {
+            try {
+                const res = await axiosInstance.get(`/teams/${teamId}`);
+                console.log("팀 정보", res.data);
+                setTeamInfo(res.data);
+            }
+            catch(err) {
+                console.error("팀 정보 가져오기 실패", err);
+            }
+          }
+
+        getTeam();
+    },[])
+
     return(
         <>
             <Header />
-            <div className={`${styles.leftSidebar} leftSidebar`}>왼 사이드</div>
+            <Sidebar />
             <main>
-                <div className={styles.banner}>배너 영역
-                    <img src={headerMenu} alt="프로젝트 관련 메뉴" onClick={() => setOpen(!open)}/>
+                <div className={styles.banner}>
+                    <img src={teamInfo?.bannerPicture} className={styles.bannerImg}/>
+                    <img src={headerMenu} alt="프로젝트 관련 메뉴" onClick={() => setOpen(!open)} className={styles.bannerMenu}/>
                     <ul className={st('dropdown', {show: open})}>
                         <li>
-                            <Link to={`/${teamname}/setting`}>
+                            <Link to={`/${teamId}/setting`}>
                             <img src={pProfileIcon} alt="프로젝트 설정" className={styles.dropdownIcon}/>
                             <span>프로젝트 설정</span>
                             </Link>
@@ -53,7 +73,7 @@ export default function ProjectMain() {
                                 <img src={noticeIcon}/>                       
                                 공지사항
                             </div>
-                            <Link to={`/${teamname}/notice`}>
+                            <Link to={`/${teamId}/notice`}>
                                 <div className={styles.detail}>
                                     자세히 보기 
                                     <img src={detailIcon} alt="자세히보기"/>
@@ -71,7 +91,7 @@ export default function ProjectMain() {
                                 <img src={todoIcon}/>
                                 할 일
                             </div>
-                            <Link to={`/${teamname}/todos`}>
+                            <Link to={`/${teamId}/todos`}>
                                 <div className={styles.detail}>
                                     자세히 보기 
                                     <img src={detailIcon} alt="자세히보기"/>
@@ -89,7 +109,7 @@ export default function ProjectMain() {
                                 <img src={documentIcon}/>                       
                                 회의록
                             </div>
-                            <Link to={`/${teamname}/minutes`}>
+                            <Link to={`/${teamId}/minutes`}>
                                 <div className={styles.detail}>
                                     자세히 보기 
                                     <img src={detailIcon} alt="자세히보기"/>
@@ -107,7 +127,7 @@ export default function ProjectMain() {
                                 <img src={reportIcon}/>                                              
                                 활동 리포트
                             </div>
-                            <Link to={`/${teamname}/report`}>
+                            <Link to={`/${teamId}/report`}>
                                 <div className={styles.detail}>
                                     자세히 보기 
                                     <img src={detailIcon} alt="자세히보기"/>

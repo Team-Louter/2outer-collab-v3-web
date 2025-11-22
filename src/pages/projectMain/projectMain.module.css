@@ -14,18 +14,22 @@ main a {
 }
 
 .banner {
-  background-color: gold;
   width: 100%;
   aspect-ratio: 16 / 2.5;
   position: relative;
 }
 
-.banner img {
+.bannerMenu {
   position: absolute;
   top: 10px;
   right: 10px;
   font-size: 1.3rem;
   cursor: pointer;
+}
+
+.bannerImg {
+  width: 100%;
+  aspect-ratio: 16 / 2.5;
 }
 
 .banner small {
@@ -174,7 +178,8 @@ main a {
   padding: 0px;
   border: 0.5px solid black;
   position: absolute;
-  right: 30px;
+  right: 35px;
+  top: 20px;
   margin: 0px;
   display: none;
   z-index: 1;
