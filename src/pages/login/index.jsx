@@ -148,7 +148,7 @@ export default function login() {
                             <a className={styles.forgotPasswordLink} href="/forgot-password">비밀번호를 잊어버리셨나요?</a>
                         </div>
                         <button className={styles.submit} type="submit" onClick={clickLogin}>로그인</button>
-                        <h5 className={styles.signUpPrompt}>계정이 없으신가요? <a className={styles.signUpLink} href="/signup">회원가입</a></h5>
+                        <h5 className={styles.signUpPrompt}>계정이 없으신가요? <a className={styles.signUpLink} href="/auth/signup">회원가입</a></h5>
                     </form>
                 </div>
             </div>
