@@ -66,6 +66,12 @@
     margin-left: 10px;
 }
 
+.info img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
 .check {
     width: 100px;
     height: 25px;
