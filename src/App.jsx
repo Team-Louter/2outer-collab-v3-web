@@ -48,6 +48,7 @@ function App() {
           <Route path="/:userId/todos" element={<MyTodolist />} />
           <Route path="/:teamId/notice" element={<Notice />} />
           <Route path="/:teamId/report" element={<Activity />} />
+
           <Route path="/:teamId/minutes" element={<Minutes />} />
           <Route path="/:teamId/minutes/create" element={<MinutesCreate />} />
           <Route
@@ -55,8 +56,9 @@ function App() {
             element={<MinutesDetail />}
           />
           <Route path="/:teamId/:minuteId/pages/create" />
+          <Route path="/:teamId/minutes/:minuteId" />
           <Route
-            path="/:teamId/minutes/:minuteId"
+            path="/:teamId/:minuteId/pages/create"
             element={<MinutesCreate />}
           />
         </Route>

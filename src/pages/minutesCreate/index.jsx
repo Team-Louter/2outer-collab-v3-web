@@ -63,51 +63,112 @@ export default function MinutesCreate() {
       const errorMsg =
         error.response?.data?.message || "회의록 저장 중 오류가 발생했습니다";
       toast.error(errorMsg, toastOptions(1500));
-    } finally {
-      setSaving(false);
+      // 업로드한 이미지 파일 포함
+      const coverImageUrl = "/mnt/data/스크린샷 2025-11-26 오전 7.28.09.png";
+
+      const toastcode = (time) => ({
+        position: "top-right",
+        autoClose: time,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: 0,
+        theme: "light",
+      });
+
+      const handleSave = async () => {
+        if (!title.trim()) {
+          toast.info("제목을 입력해주세요", toastcode(1000));
+          return;
+        }
+
+        if (!content.trim()) {
+          toast.info("내용을 입력해주세요", toastcode(1000));
+          return;
+        }
+
+        setSaving(true);
+
+        const body = {
+          title,
+          content,
+          coverImageUrl,
+        };
+
+        try {
+          // POST /teams/:teamId/minutes
+          const response = await axiosInstance.post(
+            `/teams/${teamId}/pages`,
+            body
+          );
+
+          toast.success("회의록이 저장되었습니다!", toastcode(1500));
+          toast.clearWaitingQueue();
+
+          // 저장 성공 → 목록으로 이동
+          navigate(`/${teamId}/minutes`);
+        } catch (error) {
+          if (error.response?.data?.message) {
+            toast.error(error.response.data.message, toastcode(1500));
+          } else {
+            toast.error("회의록 저장 중 오류가 발생했습니다", toastcode(1500));
+          }
+          toast.clearWaitingQueue();
+        } finally {
+          setSaving(false);
+        }
+      };
+
+      return (
+        <div className={styles.pageWrapper}>
+          <div className={styles.editorCard}>
+            {/* 제목 입력 */}
+            <input
+              className={styles.titleInput}
+              type="text"
+              placeholder="제목을 입력하세요"
+            />
+            <input
+              className={styles.titleInput}
+              type="text"
+              placeholder="Untitled"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              disabled={saving}
+            />
+
+            {/* 내용 입력 */}
+
+            <textarea
+              className={styles.contentInput}
+              placeholder="내용을 작성하세요..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              disabled={saving}
+            />
+
+            {/* 버튼 */}
+
+            <div className={styles.buttonArea}>
+              <button
+                className={styles.cancelBtn}
+                onClick={() => navigate(`/${teamId}/minutes`)}
+                disabled={saving}
+              >
+                취소
+              </button>
+              <button
+                className={styles.saveBtn}
+                onClick={handleSave}
+                disabled={saving}
+              >
+                {saving ? "저장 중..." : "저장"}
+              </button>
+            </div>
+          </div>
+        </div>
+      );
     }
   };
-
-  return (
-    <div className={styles.pageWrapper}>
-      <div className={styles.editorCard}>
-        {/* 제목 입력 */}
-        <input
-          className={styles.titleInput}
-          type="text"
-          placeholder="제목을 입력하세요"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          disabled={saving}
-        />
-
-        {/* 내용 입력 */}
-        <textarea
-          className={styles.contentInput}
-          placeholder="내용을 작성하세요..."
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          disabled={saving}
-        />
-
-        {/* 버튼 */}
-        <div className={styles.buttonArea}>
-          <button
-            className={styles.cancelBtn}
-            onClick={() => navigate(`/${teamId}/minutes`)}
-            disabled={saving}
-          >
-            취소
-          </button>
-          <button
-            className={styles.saveBtn}
-            onClick={handleSave}
-            disabled={saving}
-          >
-            {saving ? "저장 중..." : "저장"}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
 }
