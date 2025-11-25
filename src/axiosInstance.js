@@ -22,7 +22,7 @@ axiosInstance.interceptors.response.use(
       // 세션 만료 플래그 설정
       localStorage.setItem("sessionExpired", "true");
       // 필요시 로그인 페이지로 리다이렉트
-      window.location.href = "/login";
+      window.location.href = "/auth/login";
     }
     return Promise.reject(err);
   }

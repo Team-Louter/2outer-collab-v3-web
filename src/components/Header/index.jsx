@@ -49,7 +49,7 @@ const Header = () => {
         setIsLoggedIn(false);
         setUserName('');
         setUserId(null);
-        navigate('/login');
+        navigate('/auth/login');
     };
 
     const toggleNotifications = () => {
@@ -57,7 +57,7 @@ const Header = () => {
     };
 
     const toggleLogin = () => {
-        navigate('/login');
+        navigate('/auth/login');
     };
     
     return (
@@ -118,11 +118,11 @@ const Header = () => {
                         </li>
                         
                         <li className={styles.signupButton}>
-                            <Link className={styles.textSetting} to={`/signup`}>회원가입</Link>
+                            <Link className={styles.textSetting} to={`/auth/signup`}>회원가입</Link>
                         </li>
 
                         <li className={styles.loginButton}>
-                            <Link className={styles.textSetting} to={`/login`}>로그인</Link>
+                            <Link className={styles.textSetting} to={`/auth/login`}>로그인</Link>
                         </li>
                     </>
                 )}

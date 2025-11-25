@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Sidebar from '../../components/Sidebar';
+import Sidebar from '../../components/ProjectSideBar';
 import { useTheme } from '../../context/ThemeContext';
 
 // import
