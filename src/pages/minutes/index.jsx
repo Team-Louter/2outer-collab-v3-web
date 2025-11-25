@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./minutes.module.css";
 
 import minutesIcon from "../../assets/minutes/minutes_icon.svg";
@@ -21,9 +22,9 @@ function Minutes() {
   ]);
 
   const [openIds, setOpenIds] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
-  const [newDetail, setNewDetail] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleMinutes = (id) => {
     if (openIds.includes(id)) {
@@ -33,23 +34,10 @@ function Minutes() {
     }
   };
 
-  const handleCreateMinutes = () => {
-    if (!newTitle.trim() || !newDetail.trim()) {
-      alert("회의 날짜와 내용을 모두 입력해주세요.");
-      return;
-    }
-
-    const newMinutes = {
-      id: Date.now(),
-      title: newTitle,
-      writer: "작성자",
-      detail: newDetail,
-    };
-
-    setMinutes([newMinutes, ...minutes]);
-    setNewTitle("");
-    setNewDetail("");
-    setModalOpen(false);
+  // + 버튼 클릭 시 새 생성 페이지로 이동
+  const handleNavigateCreatePage = () => {
+    const newId = Date.now(); // 새 회의록 ID 생성
+    navigate(`${location.pathname}/${newId}`);
   };
 
   return (
@@ -62,16 +50,14 @@ function Minutes() {
           <div className={styles["top-container"]}>
             <div className={styles["top-container-wrapper"]}>
               <div className={styles["top-container-wrapper-left"]}>
-                {/* 아이콘 */}
                 <img src={minutesIcon} alt="Minutes Icon" />
                 <div className={styles["top-container-title"]}>회의록</div>
               </div>
               <div className={styles["top-container-wrapper-right"]}>
                 <button
                   className={styles["plus-button"]}
-                  onClick={() => setModalOpen(true)}
+                  onClick={handleNavigateCreatePage} // ⬅ 여기서 이동
                 >
-                  {/* + 버튼 아이콘 */}
                   <img src={plus} alt="Add Minutes" />
                 </button>
               </div>
@@ -118,80 +104,6 @@ function Minutes() {
 
         <div className={styles["right-side-bar"]}></div>
       </div>
-
-      {/* 모달 */}
-      {modalOpen && (
-        <div
-          className={styles["modal-overlay"]}
-          onClick={() => setModalOpen(false)}
-        >
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={styles["modal-top"]}>
-              <div className={styles["modal-top-wrapper"]}>
-                <div className={styles["modal-title"]}>회의록 생성</div>
-              </div>
-            </div>
-            <div className={styles["modal-middle"]}>
-              <div className={styles["modal-middle-title"]}>
-                <div className={styles["modal-middle-title-top"]}>
-                  <div className={styles["minutes-title-box-title"]}>
-                    회의 날짜
-                  </div>
-                  <div className={styles.star}>*</div>
-                </div>
-                <div className={styles["modal-middle-title-middle"]}>
-                  <input
-                    className={styles["minutes-title-input"]}
-                    placeholder="예: 2025.09.22"
-                    value={newTitle}
-                    onChange={(e) => setNewTitle(e.target.value)}
-                  />
-                </div>
-                <div className={styles["modal-middle-title-bottom"]}>
-                  <div className={styles["minutes-title-length"]}>
-                    {newTitle.length}/20
-                  </div>
-                </div>
-                <div className={styles["modal-bottom-des-top"]}>
-                  <div className={styles["minutes-des-box-title"]}>
-                    회의 내용
-                  </div>
-                  <div className={styles.star}>*</div>
-                </div>
-                <div className={styles["modal-bottom-des-middle"]}>
-                  <textarea
-                    className={styles["minutes-des-input"]}
-                    placeholder="회의 내용을 입력하세요."
-                    value={newDetail}
-                    onChange={(e) => setNewDetail(e.target.value)}
-                  />
-                </div>
-                <div className={styles["modal-bottom-des-bottom"]}>
-                  <div className={styles["minutes-des-length"]}>
-                    {newDetail.length}/500
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={styles["modal-bottom"]}>
-              <div className={styles["modal-button-wrapper"]}>
-                <button
-                  className={styles["cancel-button"]}
-                  onClick={() => setModalOpen(false)}
-                >
-                  취소
-                </button>
-                <button
-                  className={styles["create-button"]}
-                  onClick={handleCreateMinutes}
-                >
-                  생성
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
