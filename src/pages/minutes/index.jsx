@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import axiosInstance from "../../axiosInstance";
 
+=======
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+>>>>>>> 44b3c77 (fix: 회의록 + 버튼 누를 시 모달이 아닌 새 창으로 이동)
 import styles from "./minutes.module.css";
 
 import minutesIcon from "../../assets/minutes/minutes_icon.svg";
@@ -11,6 +16,12 @@ function Minutes() {
   const { teamId } = useParams();
   const [minutes, setMinutes] = useState([]);
   const [openIds, setOpenIds] = useState([]);
+<<<<<<< HEAD
+=======
+
+  const navigate = useNavigate();
+  const location = useLocation();
+>>>>>>> 44b3c77 (fix: 회의록 + 버튼 누를 시 모달이 아닌 새 창으로 이동)
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,6 +37,7 @@ function Minutes() {
     }
   };
 
+<<<<<<< HEAD
   useEffect(() => {
     if (teamId) fetchMinutes();
   }, [teamId]);
@@ -40,6 +52,12 @@ function Minutes() {
   // + 버튼 클릭 시 새 생성 페이지로 이동
   const handleNavigateCreatePage = () => {
     navigate(`/${teamId}/minutes/create`);
+=======
+  // + 버튼 클릭 시 새 생성 페이지로 이동
+  const handleNavigateCreatePage = () => {
+    const newId = Date.now(); // 새 회의록 ID 생성
+    navigate(`${location.pathname}/${newId}`);
+>>>>>>> 44b3c77 (fix: 회의록 + 버튼 누를 시 모달이 아닌 새 창으로 이동)
   };
 
   return (
@@ -57,7 +75,11 @@ function Minutes() {
               <div className={styles["top-container-wrapper-right"]}>
                 <button
                   className={styles["plus-button"]}
+<<<<<<< HEAD
                   onClick={handleNavigateCreatePage}
+=======
+                  onClick={handleNavigateCreatePage} // ⬅ 여기서 이동
+>>>>>>> 44b3c77 (fix: 회의록 + 버튼 누를 시 모달이 아닌 새 창으로 이동)
                 >
                   <img src={plus} alt="Add Minutes" />
                 </button>
