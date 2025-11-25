@@ -49,10 +49,7 @@ export default function MinutesCreate() {
 
     try {
       // POST /teams/:teamId/minutes
-      const response = await axiosInstance.post(
-        `/teams/${teamId}/minutes`,
-        body
-      );
+      const response = await axiosInstance.post(`/teams/${teamId}/pages`, body);
 
       toast.success("회의록이 저장되었습니다!", toastcode(1500));
       toast.clearWaitingQueue();
@@ -85,7 +82,7 @@ export default function MinutesCreate() {
 
         <textarea
           className={styles.contentInput}
-          placeholder="문서를 작성하세요..."
+          placeholder="내용을 작성하세요..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
           disabled={saving}
