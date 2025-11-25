@@ -45,14 +45,19 @@ function App() {
           <Route path="/:teamId/schedule" element={<Schedule />} />
           <Route path="/profile/:userId" element={<UserProfile />} />
           <Route path="/:teamId/setting" element={<ProjectSetting />} />
-          <Route path="/:teamId/todos" element={<MyTodolist />} />
+          <Route path="/:userId/todos" element={<MyTodolist />} />
           <Route path="/:teamId/notice" element={<Notice />} />
           <Route path="/:teamId/report" element={<Activity />} />
+
           <Route path="/:teamId/minutes" element={<Minutes />} />
           <Route path="/:teamId/minutes/create" element={<MinutesCreate />} />
           <Route
             path="/:teamId/minutes/:minuteId"
             element={<MinutesDetail />}
+          />
+          <Route
+            path="/:teamId/:minuteId/pages/create"
+            element={<MinutesCreate />}
           />
         </Route>
       </Routes>
