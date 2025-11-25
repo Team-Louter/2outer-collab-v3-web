@@ -1,78 +1,85 @@
-/* minutesCreate.module.css */
-.container {
-  max-width: 600px;
-  margin: 50px auto;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: #ffffffcc; /* 약간 투명하게 */
-  backdrop-filter: blur(10px);
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
+/* Notion-style clean editor */
 
-h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 24px;
-  color: #4b3b97;
-}
-
-.inputField,
-.textareaField {
-  background-color: #f9f9f9;
+.pageWrapper {
   width: 100%;
-  padding: 12px 14px;
-  margin-bottom: 16px;
-  border: 1px solid #dcdcdc;
-  border-radius: 8px;
-  font-size: 15px;
+  min-height: 100vh;
+  background: #f7f7f5;
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.editorCard {
+  background: white;
+  width: 100%;
+  max-width: 900px;
+  min-height: 80vh;
+  border-radius: 12px;
+  padding: 50px 60px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+}
+
+.titleInput {
+  width: 100%;
+  font-size: 32px;
+  font-weight: 600;
+  border: none;
   outline: none;
-  transition: border-color 0.2s;
+  margin-bottom: 30px;
+  background: transparent;
 }
 
-.inputField:focus,
-.textareaField:focus {
-  border-color: #883cbe;
-  box-shadow: 0 0 5px rgba(136, 60, 190, 0.3);
+.titleInput::placeholder {
+  color: #c0c0c0;
 }
 
-.textareaField {
-  min-height: 150px;
-  resize: vertical;
+.contentInput {
+  width: 100%;
+  min-height: 500px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  resize: none;
+  line-height: 1.6;
+  background: transparent;
+  resize: none;
+  padding: 0;
 }
 
-.buttonGroup {
-  text-align: right;
-  margin-top: 10px;
+.buttonArea {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
 }
 
-.saveButton {
-  background-color: #883cbe;
+.saveBtn {
+  background: #4a85ff;
   color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 10px 22px;
+  border-radius: 6px;
   border: none;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
-  margin-right: 10px;
+  transition: 0.2s;
+  opacity: 0.9;
 }
 
-.saveButton:hover {
-  background-color: #6f2fa0;
+.saveBtn:hover {
+  opacity: 1;
 }
 
-.cancelButton {
-  background-color: #f0f0f0;
+.cancelBtn {
+  background: #ececec;
   color: #555;
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 10px 22px;
+  border-radius: 6px;
   border: none;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: 0.2s;
 }
 
-.cancelButton:hover {
-  background-color: #e0e0e0;
+.cancelBtn:hover {
+  background: #ddd;
 }

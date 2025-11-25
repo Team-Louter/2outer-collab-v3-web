@@ -1,53 +1,112 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import styles from "./minutesCreate.module.css";
 
+// axiosInstance import
+import axiosInstance from "../../axiosInstance";
+
 export default function MinutesCreate() {
-  const { teamId, minuteId } = useParams();
+  const { teamId } = useParams();
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
-  const [detail, setDetail] = useState("");
+  const [content, setContent] = useState("");
+  const [saving, setSaving] = useState(false);
 
-  const handleSave = () => {
-    if (!title.trim() || !detail.trim()) {
-      alert("회의 날짜와 내용을 모두 입력해주세요.");
+  // 업로드한 이미지 파일 포함
+  const coverImageUrl = "/mnt/data/스크린샷 2025-11-26 오전 7.28.09.png";
+
+  const toastcode = (time) => ({
+    position: "top-right",
+    autoClose: time,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: 0,
+    theme: "light",
+  });
+
+  const handleSave = async () => {
+    if (!title.trim()) {
+      toast.info("제목을 입력해주세요", toastcode(1000));
       return;
     }
 
-    // TODO: API 호출 후 저장 가능
-    // 예: fetch(`/api/teams/${teamId}/minutes`, {...})
+    if (!content.trim()) {
+      toast.info("내용을 입력해주세요", toastcode(1000));
+      return;
+    }
 
-    navigate(`/${teamId}/minutes`);
-  };
+    setSaving(true);
 
-  const handleCancel = () => {
-    navigate(`/${teamId}/minutes`);
+    const body = {
+      title,
+      content,
+      coverImageUrl,
+    };
+
+    try {
+      // POST /teams/:teamId/minutes
+      const response = await axiosInstance.post(
+        `/teams/${teamId}/minutes`,
+        body
+      );
+
+      toast.success("회의록이 저장되었습니다!", toastcode(1500));
+      toast.clearWaitingQueue();
+
+      // 저장 성공 → 목록으로 이동
+      navigate(`/${teamId}/minutes`);
+    } catch (error) {
+      if (error.response?.data?.message) {
+        toast.error(error.response.data.message, toastcode(1500));
+      } else {
+        toast.error("회의록 저장 중 오류가 발생했습니다", toastcode(1500));
+      }
+      toast.clearWaitingQueue();
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
-    <div className={styles.container}>
-      <h2>새 회의록 작성</h2>
-      <input
-        className={styles.inputField}
-        type="text"
-        placeholder="회의 날짜 (예: 2025.11.25)"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <textarea
-        className={styles.textareaField}
-        placeholder="회의 내용"
-        value={detail}
-        onChange={(e) => setDetail(e.target.value)}
-      />
-      <div className={styles.buttonGroup}>
-        <button className={styles.saveButton} onClick={handleSave}>
-          저장
-        </button>
-        <button className={styles.cancelButton} onClick={handleCancel}>
-          취소
-        </button>
+    <div className={styles.pageWrapper}>
+      <div className={styles.editorCard}>
+        <input
+          className={styles.titleInput}
+          type="text"
+          placeholder="Untitled"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          disabled={saving}
+        />
+
+        <textarea
+          className={styles.contentInput}
+          placeholder="문서를 작성하세요..."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          disabled={saving}
+        />
+
+        <div className={styles.buttonArea}>
+          <button
+            className={styles.cancelBtn}
+            onClick={() => navigate(`/${teamId}/minutes`)}
+            disabled={saving}
+          >
+            취소
+          </button>
+          <button
+            className={styles.saveBtn}
+            onClick={handleSave}
+            disabled={saving}
+          >
+            {saving ? "저장 중..." : "저장"}
+          </button>
+        </div>
       </div>
     </div>
   );
