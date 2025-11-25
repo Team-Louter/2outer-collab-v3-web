@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { ToastContainer, Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import UserProfile from "./pages/userProfile";
 import ProjectSetting from "./pages/projectSetting";
 import SignUp from "./pages/signUp";
@@ -15,11 +15,12 @@ import Notice from "./pages/notice";
 import Activity from "./pages/activity";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import MinutesCreate from "./pages/minutesCreate";
 
 function App() {
   return (
     <>
-      <ToastContainer 
+      <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -30,7 +31,7 @@ function App() {
         transition={Bounce}
         theme="light"
       />
-      
+
       <Routes>
         <Route element={<PublicRoute />}>
           <Route path="/signup" element={<SignUp />} />
@@ -47,6 +48,10 @@ function App() {
           <Route path="/:teamId/todos" element={<MyTodolist />} />
           <Route path="/:teamId/notice" element={<Notice />} />
           <Route path="/:teamId/report" element={<Activity />} />
+          <Route
+            path="/:teamId/minutes/:minuteId"
+            element={<MinutesCreate />}
+          />
         </Route>
       </Routes>
     </>
