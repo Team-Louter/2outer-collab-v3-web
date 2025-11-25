@@ -12,6 +12,7 @@ import ApplyJoin from "../../components/ApplyJoin";
 import EditRole from '../../components/EditRole';
 import EditProject from '../../components/EditProject';
 import axiosInstance from '../../axiosInstance';
+import Sidebar from '../../components/Sidebar';
 
 export default function projectSetting() {
     const [expelModalOpen, setExpelModalOpen] = useState(false);
@@ -241,6 +242,7 @@ export default function projectSetting() {
             : <EditProject 
                 setEditProject={setEditProject}
                 teamInfo={teamInfo}
+                getTeam={getTeam}
               />}
         </>
     )
