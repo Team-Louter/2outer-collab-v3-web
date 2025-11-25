@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import axiosInstance from "../../axiosInstance";
+
 import styles from "./minutes.module.css";
 
 import minutesIcon from "../../assets/minutes/minutes_icon.svg";
