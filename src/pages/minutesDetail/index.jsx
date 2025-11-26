@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import styles from "./minutesDetail.module.css"; // Create CSS 그대로 사용
+import styles from "./minutesDetail.module.css";
 import axiosInstance from "../../axiosInstance";
 
 export default function MinutesDetail() {
@@ -12,14 +12,28 @@ export default function MinutesDetail() {
   useEffect(() => {
     async function fetchDetail() {
       try {
-        const response = await axiosInstance.get(
+        const res = await axiosInstance.get(
           `/teams/${teamId}/pages/${minuteId}`
         );
-        setMinuteData(response.data);
+
+        console.log("📌 detail response:", res.data); // 반드시 확인
+
+        const data = Array.isArray(res.data) ? res.data[0] : res.data;
+
+        setMinuteData({
+          title: data.title,
+          content:
+            data.content ??
+            data.body ??
+            data.blocks?.[0]?.content ??
+            data.blockList?.[0]?.value ??
+            "",
+        });
       } catch (error) {
         console.error("회의록 불러오기 실패:", error);
       }
     }
+
     fetchDetail();
   }, [teamId, minuteId]);
 
@@ -29,7 +43,6 @@ export default function MinutesDetail() {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.editorCard}>
-        {/* 제목 */}
         <input
           className={styles.titleInput}
           type="text"
@@ -37,14 +50,12 @@ export default function MinutesDetail() {
           readOnly
         />
 
-        {/* 내용 */}
         <textarea
           className={styles.contentInput}
-          value={minuteData.content}
+          value={minuteData.blocks?.[0]?.content || ""}
           readOnly
         />
 
-        {/* 뒤로가기 버튼만 */}
         <div className={styles.buttonArea}>
           <button className={styles.cancelBtn} onClick={() => navigate(-1)}>
             뒤로가기

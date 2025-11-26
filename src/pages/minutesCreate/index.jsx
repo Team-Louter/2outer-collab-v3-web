@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./minutesCreate.module.css";
-
-// axiosInstance import
 import axiosInstance from "../../axiosInstance";
 
 export default function MinutesCreate() {
@@ -14,10 +12,7 @@ export default function MinutesCreate() {
   const [content, setContent] = useState("");
   const [saving, setSaving] = useState(false);
 
-  // 업로드한 이미지 파일 포함
-  const coverImageUrl = "/mnt/data/스크린샷 2025-11-26 오전 7.28.09.png";
-
-  const toastcode = (time) => ({
+  const toastOptions = (time) => ({
     position: "top-right",
     autoClose: time,
     hideProgressBar: false,
@@ -30,39 +25,44 @@ export default function MinutesCreate() {
 
   const handleSave = async () => {
     if (!title.trim()) {
-      toast.info("제목을 입력해주세요", toastcode(1000));
+      toast.info("제목을 입력해주세요", toastOptions(1000));
       return;
     }
-
     if (!content.trim()) {
-      toast.info("내용을 입력해주세요", toastcode(1000));
+      toast.info("내용을 입력해주세요", toastOptions(1000));
       return;
     }
 
     setSaving(true);
 
-    const body = {
-      title,
-      content,
-      coverImageUrl,
-    };
-
     try {
-      // POST /teams/:teamId/minutes
-      const response = await axiosInstance.post(`/teams/${teamId}/pages`, body);
+      // 1️⃣ 페이지 생성
+      const pageRes = await axiosInstance.post(`/teams/${teamId}/pages`, {
+        title,
+      });
+      const pageId = pageRes.data.pageId; // 서버에서 반환되는 pageId 확인
 
-      toast.success("회의록이 저장되었습니다!", toastcode(1500));
-      toast.clearWaitingQueue();
+      console.log("📌 Page created:", pageId);
 
-      // 저장 성공 → 목록으로 이동
+      // 2️⃣ 블록 생성
+      const blockRes = await axiosInstance.post(`/pages/${pageId}/blocks`, {
+        content: content,
+        type: "text",
+        orderIndex: 0,
+      });
+
+      console.log("📌 Block created:", blockRes.data);
+
+      toast.success("회의록이 저장되었습니다!", toastOptions(1500));
+
+      // 저장 후 목록 페이지 이동
       navigate(`/${teamId}/minutes`);
     } catch (error) {
-      if (error.response?.data?.message) {
-        toast.error(error.response.data.message, toastcode(1500));
-      } else {
-        toast.error("회의록 저장 중 오류가 발생했습니다", toastcode(1500));
-      }
-      toast.clearWaitingQueue();
+      console.error("회의록 저장 오류:", error);
+
+      const errorMsg =
+        error.response?.data?.message || "회의록 저장 중 오류가 발생했습니다";
+      toast.error(errorMsg, toastOptions(1500));
     } finally {
       setSaving(false);
     }
@@ -71,15 +71,17 @@ export default function MinutesCreate() {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.editorCard}>
+        {/* 제목 입력 */}
         <input
           className={styles.titleInput}
           type="text"
-          placeholder="Untitled"
+          placeholder="제목을 입력하세요"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           disabled={saving}
         />
 
+        {/* 내용 입력 */}
         <textarea
           className={styles.contentInput}
           placeholder="내용을 작성하세요..."
@@ -88,6 +90,7 @@ export default function MinutesCreate() {
           disabled={saving}
         />
 
+        {/* 버튼 */}
         <div className={styles.buttonArea}>
           <button
             className={styles.cancelBtn}
