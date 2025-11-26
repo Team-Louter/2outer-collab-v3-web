@@ -16,6 +16,7 @@ import Activity from "./pages/activity";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import MinutesCreate from "./pages/minutesCreate";
+import MinutesDetail from "./pages/minutesDetail";
 
 function App() {
   return (
@@ -44,13 +45,14 @@ function App() {
           <Route path="/:teamId/schedule" element={<Schedule />} />
           <Route path="/profile/:userId" element={<UserProfile />} />
           <Route path="/:teamId/setting" element={<ProjectSetting />} />
-          <Route path="/:teamId/minutes" element={<Minutes />} />
           <Route path="/:teamId/todos" element={<MyTodolist />} />
           <Route path="/:teamId/notice" element={<Notice />} />
           <Route path="/:teamId/report" element={<Activity />} />
+          <Route path="/:teamId/minutes" element={<Minutes />} />
+          <Route path="/:teamId/minutes/create" element={<MinutesCreate />} />
           <Route
             path="/:teamId/minutes/:minuteId"
-            element={<MinutesCreate />}
+            element={<MinutesDetail />}
           />
         </Route>
       </Routes>
