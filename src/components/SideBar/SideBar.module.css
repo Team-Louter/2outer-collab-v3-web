@@ -1,0 +1,517 @@
+.container {
+    width: 15.625rem; /* 250px */
+    height: calc(100% - 3.75rem);
+    background-color: #FFFFFF;
+    border-right: 1px solid #E7E7E7;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.container.dark {
+    background-color: #1f1f1f;
+    border-right: 1px solid #333333;
+}
+
+.minusButton {
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-top: 1rem; /* 16px */
+}
+
+/* 아이콘 크기 */
+.minusIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: filter 0.3s;
+}
+
+.container.dark .minusIcon {
+    filter: brightness(0) invert(1);
+}
+
+.projectCreate {
+    width: 100%;
+    height: 2.5rem; /* 40px */
+    display: flex;
+    align-items: center;
+    padding-left: 1.6rem;
+    margin-bottom: 0.625rem; /* 10px - 줄임 */
+    cursor: pointer;
+}
+
+.plusIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: filter 0.3s;
+}
+
+.container.dark .plusIcon {
+    filter: brightness(0) invert(1);
+}
+
+.projectCreateText {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #181F29;
+    margin-left: 0.4rem; /* 6px */
+    transition: color 0.3s;
+}
+
+.container.dark .projectCreateText {
+    color: #FFFFFF;
+}
+
+.line {
+    width: 90%;
+    height: 2px;
+    background-color: #F1F2F3;
+    margin-left: 5%;
+    margin-top: 0.5rem; /* 상하 여백 추가 */
+    margin-bottom: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.container.dark .line {
+    background-color: #333333;
+}
+
+.myProjectsTitle {
+    font-size: 1rem; /* 16px */
+    font-weight: 700;
+    color: #181F29;
+    margin-top: 0.625rem; /* 10px - 줄임 */
+    margin-left: 1.625rem; /* 26px */
+    transition: color 0.3s;
+}
+
+.container.dark .myProjectsTitle {
+    color: #FFFFFF;
+}
+
+.projectList {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0; /* flexbox 자식 요소가 overflow를 올바르게 처리하도록 함 */
+    padding: 0.5rem 1rem; /* 패딩 증가 */
+    margin-top: 0.5rem; /* 8px - 줄임 */
+    margin-bottom: 0.5rem; /* 8px */
+}
+
+.projectItem {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0.28rem 0; /* 상하 패딩 증가 */
+    border: 2px solid transparent;
+}
+
+.projectItem:hover {
+    background-color: #F2FAFF;
+    border: 2px solid #85c8ff;
+}
+
+.container.dark .projectItem:hover {
+    background-color: #2a2a2a;
+    border: 2px solid #4A85FF;
+}
+
+.projectImgGradient {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 2.25rem; /* 36px */
+    height: 2.25rem; /* 36px */
+    margin-left: 1rem; /* 16px */
+    background: linear-gradient(135deg, #28E2E5, #4A85FF);
+}
+
+.projectImgBackground {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.125rem; /* 34px */
+    height: 2.125rem; /* 34px */
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.projectImg {
+    width: 92%;
+    height: 92%;
+    border-radius: 50%;
+}
+
+.projectInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem; /* 4px - 이름과 소유자 사이 간격 */
+    flex: 1; /* 남은 공간 차지 */
+}
+
+.projectNameText {
+    font-size: 1rem; /* 16px */
+    font-weight: 600;
+    color: #181F29;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    transition: color 0.3s;
+}
+
+.container.dark .projectNameText {
+    color: #FFFFFF;
+}
+
+.projectOwnerText {
+    font-size: 0.625rem; /* 10px */
+    font-weight: 500;
+    color: #757B8A;
+    line-height: 1.2;
+    transition: color 0.3s;
+}
+
+.container.dark .projectOwnerText {
+    color: #a0a0a0;
+}
+
+.sidebarBottom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem; /* 14px */
+    padding: 1rem 1.6rem; /* 상하 패딩 줄임 */
+    flex-shrink: 0; /* 공간이 부족해도 줄어들지 않음 */
+}
+
+.settingToggle {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem; /* 6px */
+    cursor: pointer;
+}
+
+.settingToggle img {
+    width: 1.1875rem; /* 19px */
+    height: 1.1875rem; /* 19px */
+    transition: filter 0.3s;
+}
+
+.container.dark .settingToggle img {
+    filter: brightness(0) invert(1);
+}
+
+.settingText {
+    font-size: 1rem; /* 16px */
+    font-weight: 500;
+    color: #181F29;
+    transition: color 0.3s;
+}
+
+.container.dark .settingText {
+    color: #FFFFFF;
+}
+
+.darkModeToggle {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem; /* 6px */
+    cursor: pointer;
+}
+
+.darkModeToggle img {
+    width: 1.1875rem; /* 19px */
+    height: 1.1875rem; /* 19px */
+    transition: filter 0.3s;
+}
+
+.container.dark .darkModeToggle img {
+    filter: brightness(0) invert(1);
+}
+
+.darkModeText {
+    font-size: 1rem; /* 16px */
+    font-weight: 500;
+    margin-right: 0.5625rem; /* 9px */
+    color: #181F29;
+    transition: color 0.3s;
+}
+
+.container.dark .darkModeText {
+    color: #FFFFFF;
+}
+
+.darkModeSwitch {
+    width: 2.3125rem; /* 37px */
+    height: 1.1875rem; /* 19px */
+    background-color: #E7E7E7;
+    border-radius: 1rem;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.darkModeSwitch.active {
+    background-color: #4A85FF;
+}
+
+.darkModeCircle {
+    width: 0.9775rem; /* 15.62px */
+    height: 0.9775rem; /* 15.62px */
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    position: absolute;
+    top: 0.125rem;
+    left: 0.125rem;
+    transition: left 0.3s;
+}
+
+.darkModeSwitch.active .darkModeCircle {
+    left: calc(100% - 0.9775rem - 0.125rem);
+}
+
+.toggleText1, .toggleText2 {
+    font-size: 1rem; /* 16px */
+    font-weight: 500;
+    color: #181F29;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.container.dark .toggleText1,
+.container.dark .toggleText2 {
+    color: #FFFFFF;
+}
+
+.toggleText1:hover, .toggleText2:hover {
+    text-decoration: underline;
+}
+
+.logoutToggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4375rem; /* 7px */
+    margin-top: 1.25rem; /* 20px (from 70px) */
+    cursor: pointer;
+}
+
+.logoutToggle img {
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+    transition: filter 0.3s;
+}
+
+.container.dark .logoutToggle img {
+    filter: brightness(0) invert(1);
+}
+
+.logoutText {
+    font-size: 1rem; /* 16px */
+    font-weight: 500;
+    color: #181F29;
+    transition: color 0.3s;
+}
+
+.container.dark .logoutText {
+    color: #FFFFFF;
+}
+
+/* Responsive Design */
+/* Overlay for mobile */
+.overlay {
+    display: none;
+}
+
+.emptyText {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #757B8A;
+    text-align: center;
+    transition: color 0.3s;
+}
+
+.container.dark .emptyText {
+    color: #a0a0a0;
+}
+
+
+@media (max-width: 768px) {
+    .overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+}
+
+/* Tablet screens (768px - 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        width: 12.5rem; /* 200px */
+    }
+    
+    .projectImgGradient {
+        width: 2rem; /* 32px */
+        height: 2rem; /* 32px */
+        margin-left: 0.75rem; /* 12px */
+    }
+    
+    .projectImgBackground {
+        width: 1.875rem; /* 30px */
+        height: 1.875rem; /* 30px */
+    }
+    
+    .projectImg {
+        width: 1.625rem; /* 26px */
+        height: 1.625rem; /* 26px */
+    }
+}
+
+/* Mobile screens (below 768px) */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        top: 3.75rem;
+        left: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out, background-color 0.3s, border-color 0.3s;
+        z-index: 1000;
+        max-height: calc(100vh - 3.75rem);
+        overflow-y: auto;
+    }
+
+    .container.open {
+        transform: translateX(0);
+    }
+
+    .minusButton {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+        margin-top: 1rem; /* 웹과 동일하게 */
+        margin-bottom: 0.5rem; /* 아래 간격 추가 */
+    }
+    
+    .projectCreate {
+        margin-bottom: 0.75rem; /* 여백 증가 */
+        height: 2.25rem; /* 높이 약간 증가 */
+    }
+    
+    .myProjectsTitle {
+        margin-top: 0.75rem; /* 여백 증가 */
+    }
+    
+    .line {
+        margin-top: 0.625rem; /* 모바일에서 여백 조정 */
+        margin-bottom: 0.625rem;
+    }
+
+    .projectList {
+        max-height: 50vh; /* 뷰포트 높이의 50%로 증가 */
+        min-height: 15rem; /* 최소 높이 보장 */
+    }
+    
+    .sidebarBottom {
+        padding: 0.875rem 1.25rem; /* 상하 패딩 줄임 */
+        gap: 0.75rem; /* 간격 줄임 */
+    }
+    
+    .logoutToggle {
+        margin-top: 0.75rem; /* 여백 줄임 */
+    }
+}
+
+/* Small mobile screens (below 480px) */
+@media (max-width: 480px) {
+    .container {
+        width: 85%;
+        max-width: 18.75rem; /* 300px */
+    }
+    
+    .minusButton {
+        margin-top: 0.875rem; /* 상단 여백 */
+        margin-bottom: 0.375rem; /* 하단 간격 */
+    }
+
+    .projectCreate {
+        padding-left: 1rem;
+        margin-bottom: 0.625rem; /* 여백 조정 */
+        height: 2rem; /* 높이 조정 */
+    }
+
+    .myProjectsTitle {
+        margin-left: 1rem;
+        margin-top: 0.625rem; /* 여백 조정 */
+        font-size: 0.9375rem; /* 폰트 약간 줄임 */
+    }
+    
+    .line {
+        margin-top: 0.5rem; /* 소형 모바일에서 여백 조정 */
+        margin-bottom: 0.5rem;
+    }
+    
+    .projectList {
+        max-height: 55vh; /* 더 길게 */
+        min-height: 18rem; /* 최소 높이 증가 */
+    }
+
+    .sidebarBottom {
+        padding: 0.75rem 1rem; /* 패딩 더 줄임 */
+        gap: 0.625rem; /* 간격 더 줄임 */
+    }
+
+    .projectNameText {
+        font-size: 0.875rem; /* 14px */
+    }
+
+    .projectOwnerText {
+        font-size: 0.5625rem; /* 9px */
+    }
+
+    .settingText,
+    .darkModeText,
+    .logoutText,
+    .toggleText1,
+    .toggleText2 {
+        font-size: 0.875rem; /* 14px */
+    }
+    
+    .projectImgGradient {
+        width: 1.875rem; /* 30px */
+        height: 1.875rem; /* 30px */
+        margin-left: 0.625rem; /* 10px */
+    }
+    
+    .projectImgBackground {
+        width: 1.75rem; /* 28px */
+        height: 1.75rem; /* 28px */
+    }
+    
+    .projectImg {
+        width: 1.5rem; /* 24px */
+        height: 1.5rem; /* 24px */
+    }
+    
+    .logoutToggle {
+        margin-top: 0.625rem; /* 여백 더 줄임 */
+    }
+}

@@ -15,6 +15,8 @@ import todoIcon from "../../assets/projectMain/todoIcon.svg";
 import EditProject from "../../components/EditProject";
 import OutProject from "../../components/OutProject";
 import axiosInstance from "../../axiosInstance";
+import Sidebar from "../../components/ProjectSideBar"
+import MemberSideBar from '../../components/MemberSideBar';
 
 
 export default function ProjectMain() {
@@ -38,7 +40,7 @@ export default function ProjectMain() {
         const getTeam = async () => {
             try {
                 const res = await axiosInstance.get(`/teams/${teamId}`);
-                console.log(res.data);
+                console.log("팀 정보", res.data);
                 setTeamInfo(res.data);
             }
             catch(err) {
@@ -64,10 +66,11 @@ export default function ProjectMain() {
     return(
         <>
             <Header />
-            <div className={`${styles.leftSidebar} leftSidebar`}>왼 사이드</div>
+            <Sidebar />
             <main>
-                <div className={styles.banner}>배너 영역
-                    <img src={headerMenu} alt="프로젝트 관련 메뉴" onClick={() => setOpen(!open)}/>
+                <div className={styles.banner}>
+                    <img src={teamInfo?.bannerPicture} className={styles.bannerImg}/>
+                    <img src={headerMenu} alt="프로젝트 관련 메뉴" onClick={() => setOpen(!open)} className={styles.bannerMenu}/>
                     <ul className={st('dropdown', {show: open})}>
                         <li>
                             <Link to={`/${teamId}/setting`}>
@@ -188,7 +191,7 @@ export default function ProjectMain() {
                     {outPModal && <OutProject setOutPModalOpen={setOutPModal} teamInfo={teamInfo}/>}
                 </div>
             </main>
-            <div className={`${styles.rightSidebar} rightSidebar`}>오른 사이드</div>
+            <MemberSideBar />
         </>
     )
 }

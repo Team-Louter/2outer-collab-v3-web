@@ -5,33 +5,11 @@ body {
 }
 
 #root {
-  display: grid;
-  grid-template-columns: 250px 1fr 250px;
-  grid-template-rows: 60px 1fr;
-
-  grid-template-areas: 
-      "topbar topbar topbar"
-      "left main right";
   width: 100vw;
   height: 100vh;
 }
 
-.topbar {
-  grid-area: topbar;
-}
 
-.leftSidebar {
-  grid-area: left;
-}
-
-main {
-  grid-area: main;
-}
-
-.rightSidebar {
-    grid-area: right;
-}
-
-.tooltip {
-    background-color: aliceblue;
+img {
+  -webkit-user-drag: none;
 }

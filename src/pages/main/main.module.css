@@ -1,9 +1,274 @@
 .container {
-    width: 100vw;
-    height: 100vh;
-    background-color: #F5F5F5;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #F5F5F5;
+    padding-bottom: 3%;
+    
+    /* Header 높이(60px) + Sidebar 왼쪽 너비(250px)만큼 위치 조정 */
+    margin-left: 15.625rem; /* 250px - Sidebar 너비 */
+    margin-top: 3.75rem; /* 60px - Header 높이 */
+    min-height: calc(100vh - 3.75rem); /* 전체 높이에서 Header 높이 제외 */
+    width: calc(100% - 15.625rem); /* 전체 너비에서 Sidebar 너비 제외 */
+    min-width: calc(100% - 15.625rem);
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+.container.dark {
+    background-color: #1a1a1a;
+}
+
+.bannerSection {
+    display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 31px;
+    margin-bottom: 29px;
+    background-color: #181F29;
+    gap: 0.25rem;
+
+    /* 배너 글씨 */
+    font-weight: 600;
+    font-size: 0.9vw;
+    line-height: 1;
+    color: #ffffff;
+}
+
+.container.dark .bannerSection {
+    background-color: #333333;
+}
+
+.bannerText {
+    font-weight: 700;
+    font-size: 0.9vw;
+    line-height: 1;
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.sponsorContent {
+    position: relative;
+    width: 94%;
+    height: 345px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+    background-color: #0086F8;
+    border-radius: 20px;
+}
+
+.sponsorImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.closeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 24px;
+    height: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.projectTitle {
+    align-self: flex-start;
+    margin-left: 3%;
+    font-weight: 700;
+    font-size: 28px;
+    color: #4A85FF;
+    margin-bottom: 13px;
+    transition: color 0.3s ease;
+}
+
+.container.dark .projectTitle {
+    color: #6BA3FF;
+}
+
+.projectSection {
+    width: 94%;
+}
+
+/* 프로젝트 그리드 */
+.projectGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 14px;
+    column-gap: 12px;
+}
+
+/* 프로젝트 카드 */
+.projectCard {
+    position: relative;
+    background-color: #FCFCFC;
+    border-radius: 12px;
+    box-sizing: border-box;
+    height: 310px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container.dark .projectCard {
+    background-color: #2a2a2a;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cardHeader {
+    display: flex;
+    min-height: 116px;
+    max-height: 116px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.projectBanner {
+    width: 100%;
+    top: 0;
+    border-radius: 8px 8px 0 0;
+    background-color: #E0E0E0;
+    transition: background-color 0.3s ease;
+}
+
+.container.dark .projectBanner {
+    background-color: #3a3a3a;
+}
+
+.projectLogoHeader {
+    position: absolute;
+    top: 80px;
+    left: 16px;
+    width: 64px;
+    height: 62px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    transition: background-color 0.3s ease;
+}
+
+.container.dark .projectLogoHeader {
+    background-color: #3a3a3a;
+}
+
+.projectLogo {
+    width: 58px;
+    height: 59px;
+    border-radius: 16px;
+}
+
+.memberCountHeader {
+    position: absolute;
+    top: 130px;
+    right: 16px;
+    font-weight: 600;
+    font-size: 11px;
+    color: #6E6E76;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.3s ease;
+}
+
+.container.dark .memberCountHeader {
+    color: #b0b0b0;
+}
+
+.memberCountCheck {
+    width: 6px;
+    height: 6px;
+    background-color: #42A25A;
+    border-radius: 50%;
+}
+
+.projectName {
+    position: absolute;
+    top: 157px;
+    left: 16px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #181F29;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.3s ease;
+}
+
+.container.dark .projectName {
+    color: #ffffff;
+}
+
+.verifiedBadge {
+    width: 18px;
+    height: 18px;
+}
+
+.projectDescBox {
+    position: absolute;
+    top: 190px;
+    left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.projectType {
+    font-weight: 600;
+    font-size: 11px;
+    color: #6E6E76;
+    transition: color 0.3s ease;
+}
+
+.container.dark .projectType {
+    color: #b0b0b0;
+}
+
+.projectDesc {
+    font-weight: 400;
+    font-size: 14px;
+    color: #6E6E76;
+    transition: color 0.3s ease;
+}
+
+.container.dark .projectDesc {
+    color: #e0e0e0;
+}
+
+.joinButton {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 256px;
+    height: 29px;
+    background-color: #4A85FF;
+    border: none;
+    border-radius: 6px;
+    color: #FCFCFC;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* Tablet screens (768px - 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        width: calc(100% - 12.5rem);
+        margin-left: 12.5rem;
+    }
+}
+
+/* Mobile screens (below 768px) */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        margin-left: 0;
+        padding: 15px;
+    }
 }

@@ -14,6 +14,7 @@
   background-color: white;
   width: 400px;
   max-height: 80vh;
+  height: 60%;
   position: relative;
   border-radius: 5px;
   display: flex;
@@ -39,21 +40,23 @@
 
 .name,
 .intro,
-.imageSection {
+.imageSection,
+.result {
   display: flex;
   flex-direction: column;
   margin-bottom: 2px;
 }
 
 .name input,
-.intro textarea {
+.intro textarea,
+.result input {
   outline: none;
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;
 }
 
-.name input {
+.name input, .result input {
   height: 30px;
   padding-left: 10px;
 }
