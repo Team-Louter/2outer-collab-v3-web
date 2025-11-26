@@ -39,6 +39,9 @@ export default function ProjectSideBar() {
   const navigate = useNavigate();
   const { teamId } = useParams();
   const userId = localStorage.getItem("userId");
+  if (userId === null) {
+    navigate("/auth/login");
+  }
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { isOpen, toggleSidebar } = useSidebar();
   const [projectItems, setProjectItems] = useState([]);
