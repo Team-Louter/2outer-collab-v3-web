@@ -13,7 +13,8 @@ import profileChangeIcon from "../../assets/projectMain/profileChangeIcon.svg";
 import reportIcon from "../../assets/projectMain/reportIcon.svg";
 import todoIcon from "../../assets/projectMain/todoIcon.svg";
 import axiosInstance from "../../axiosInstance";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/ProjectSideBar"
+import MemberSideBar from '../../components/MemberSideBar';
 
 
 export default function ProjectMain() {
@@ -159,7 +160,7 @@ export default function ProjectMain() {
                     </div>
                 </div>
             </main>
-            <div className={`${styles.rightSidebar} rightSidebar`}>오른 사이드</div>
+            <MemberSideBar />
         </>
     )
 }
