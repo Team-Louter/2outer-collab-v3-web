@@ -48,7 +48,7 @@ td:last-child {
 .scheduleItems {
     background-color: white;
     width: 85%;
-    height: 50px;
+    height: 80px;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
