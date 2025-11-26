@@ -13,7 +13,7 @@ import profileChangeIcon from "../../assets/projectMain/profileChangeIcon.svg";
 import reportIcon from "../../assets/projectMain/reportIcon.svg";
 import todoIcon from "../../assets/projectMain/todoIcon.svg";
 import axiosInstance from "../../axiosInstance";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/ProjectSideBar"
 
 
 export default function ProjectMain() {
