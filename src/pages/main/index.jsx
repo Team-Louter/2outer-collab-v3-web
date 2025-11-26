@@ -1,11 +1,12 @@
 // Link import
 import styles from './main.module.css';
 import Header from '../../components/Header';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Sidebar from '../../components/SideBar';
 import { useTheme } from '../../context/ThemeContext';
+import axiosInstance from '../../axiosInstance';
 
 // import
 import ProjectCard from '../../components/ProjectCard';
@@ -18,6 +19,8 @@ import closeModalIcon from '../../assets/mainpage/closeModal.svg';
 export default function Main() {
     const location = useLocation();
     const { isDarkMode } = useTheme();
+    const [teams, setTeams] = useState([]);
+    const [loading, setLoading] = useState(true);
     
     const bannerText = {
         tag: "[업데이트]",
@@ -51,6 +54,41 @@ export default function Main() {
         }
     }, [location]);
 
+    // 팀 데이터 가져오기
+    useEffect(() => {
+        const fetchTeams = async () => {
+            try {
+                setLoading(true);
+                const response = await axiosInstance.get('/teams/random');
+                const teamsData = response.data;
+                
+                // 각 팀의 멤버 수 가져오기
+                const teamsWithMemberCount = await Promise.all(
+                    teamsData
+                        .filter(team => team && team.teamId)
+                        .map(async (team) => {
+                            try {
+                                const countResponse = await axiosInstance.get(`/teams/${team.teamId}/members/count`);
+                                return { ...team, memberCount: countResponse.data.count };
+                            } catch (error) {
+                                console.error(`팀 ${team.teamId}의 멤버 수를 가져오는데 실패:`, error);
+                                return { ...team, memberCount: 0 };
+                            }
+                        })
+                );
+                
+                setTeams(teamsWithMemberCount);
+            } catch (error) {
+                console.error('팀 데이터를 가져오는데 실패했습니다:', error);
+                toast.error('팀 데이터를 불러오지 못했습니다.', { ...toastcode(3000) });
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTeams();
+    }, []);
+
     return (
         <>
             <Header />
@@ -75,21 +113,15 @@ export default function Main() {
                 <div className={styles.projectSection}>
                     {/* 프로젝트 카드 그리드 */}
                     <div className={styles.projectGrid}>
-                        {/* 첫 번째 행 */}
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
+                        {loading ? (
+                            <p>로딩 중...</p>
+                        ) : teams.length > 0 ? (
+                            teams.map((team) => (
+                                <ProjectCard key={team.teamId} team={team} />
+                            ))
+                        ) : (
+                            <p>표시할 팀이 없습니다.</p>
+                        )}
                     </div>
                 </div>
             </div>

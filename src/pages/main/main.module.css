@@ -123,12 +123,14 @@
     display: flex;
     min-height: 116px;
     max-height: 116px;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
 }
 
 .projectBanner {
     width: 100%;
+    height: 116px;
     top: 0;
     border-radius: 8px 8px 0 0;
     background-color: #E0E0E0;
@@ -254,6 +256,19 @@
     font-weight: 600;
     font-size: 12px;
     cursor: pointer;
+}
+
+.noTeams {
+    font-weight: 600;
+    font-size: 18px;
+    color: #6E6E76;
+    text-align: center;
+    margin-top: 50px;
+    transition: color 0.3s ease;
+}
+
+.container.dark .noTeams {
+    color: #b0b0b0;
 }
 
 /* Tablet screens (768px - 1024px) */
