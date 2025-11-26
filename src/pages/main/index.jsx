@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Sidebar from '../../components/ProjectSideBar';
+import Sidebar from '../../components/SideBar';
 import { useTheme } from '../../context/ThemeContext';
 
 // import
@@ -76,9 +76,6 @@ export default function Main() {
                     {/* 프로젝트 카드 그리드 */}
                     <div className={styles.projectGrid}>
                         {/* 첫 번째 행 */}
-                        <ProjectCard />
-                        <ProjectCard />
-                        <ProjectCard />
                         <ProjectCard />
                         <ProjectCard />
                         <ProjectCard />
