@@ -136,7 +136,7 @@ export default function SignUp() {
             // 성공 시
             .then(response => {
                 // 로그인 페이지로 이동하면서 state 전달
-                navigate('/login', { state: { signUpSuccess: true } });
+                navigate('/auth/login', { state: { signUpSuccess: true } });
             })
 
             // 실패 시
@@ -253,7 +253,7 @@ export default function SignUp() {
                             )}
                         </div>
                         <button className={styles.submit} type="button" onClick={clickSignUp} >회원 가입</button>
-                        <h5 className={styles.signInPrompt}>이미 계정이 있으신가요? <a className={styles.signInLink} href="/login">로그인</a></h5>
+                        <h5 className={styles.signInPrompt}>이미 계정이 있으신가요? <a className={styles.signInLink} href="/auth/login">로그인</a></h5>
                     </form>
                 </div>
             </div>

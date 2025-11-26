@@ -1,11 +1,11 @@
 // Module.css import
-import styles from './SideBar.module.css';
+import styles from './ProjectSideBar.module.css';
 
 // React import
 import { useState, useEffect } from 'react';
 
 // Link import
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 // Toast import
 import { toast } from 'react-toastify';
@@ -16,6 +16,12 @@ import logout from '../../assets/sideBar/logout.svg';
 import night from '../../assets/sideBar/night.svg';
 import plus from '../../assets/sideBar/plus.svg';
 import setting from '../../assets/sideBar/setting.svg';
+import notice from '../../assets/sideBar/notice.svg';
+import todos from '../../assets/sideBar/todos.svg';
+import schedule from '../../assets/sideBar/schedule.svg';
+import minutes from '../../assets/sideBar/minutes.svg';
+import report from '../../assets/sideBar/report.svg';
+import settingIcon from '../../assets/sideBar/settingIcon.svg';
 
 // Theme Context
 import { useTheme } from '../../context/ThemeContext';
@@ -30,8 +36,9 @@ import axiosInstance from '../../axiosInstance';
 import CreateProject from '../CreateProject';
 
 // Function
-export default function Sidebar() {
+export default function ProjectSideBar() {
     const navigate = useNavigate();
+    const { teamId } = useParams();
     const { isDarkMode, toggleDarkMode } = useTheme();
     const { isOpen, toggleSidebar } = useSidebar();
     const [projectItems, setProjectItems] = useState([]);
@@ -50,6 +57,16 @@ export default function Sidebar() {
         progress: 0,
         theme: "light",
     });
+
+    // 사이드바 메뉴
+    const menuItems = [
+        { icon: notice, text: '공지사항', path: `/${teamId}/notice` },
+        { icon: todos, text: '할 일', path: `/${teamId}/todos` },
+        { icon: schedule, text: '일정표', path: `/${teamId}/schedule` },
+        { icon: minutes, text: '회의록', path: `/${teamId}/minutes` },
+        { icon: report, text: '활동 리포트', path: `/${teamId}/report` },
+        { icon: settingIcon, text: '프로젝트 설정', path: `/${teamId}/setting` },
+    ];
 
     // 팀 목록 가져오기
     const fetchTeams = async () => {
@@ -115,6 +132,18 @@ export default function Sidebar() {
                 <div className={styles.projectCreate} onClick={openModal}>
                     <img className={styles.plusIcon} src={plus} alt="Plus" /><div className={styles.projectCreateText}>새 프로젝트 만들기</div>
                 </div>
+
+                <div className={styles.line}></div>
+
+                <div className={styles.menuSection}>
+                    {menuItems.map((item, index) => (
+                        <Link key={index} to={item.path} className={styles.menuItem}>
+                            <img src={item.icon} alt={item.text} className={styles.menuIcon} />
+                            <span className={styles.menuText}>{item.text}</span>
+                        </Link>
+                    ))}
+                </div>
+
                 <div className={styles.line}></div>
                 <div className={styles.myProjectsTitle}>내 프로젝트</div>
                 <div className={styles.projectList}>

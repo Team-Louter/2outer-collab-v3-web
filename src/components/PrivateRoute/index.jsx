@@ -5,7 +5,7 @@ const PrivateRoute = () => {
     // localStorage를 사용하여 로그인 상태 확인
     const isAuthenticated = localStorage.getItem('isLoggedIn') === 'true';
 
-    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+    return isAuthenticated ? <Outlet /> : <Navigate to="/auth/login" />;
 };
 
 export default PrivateRoute;
