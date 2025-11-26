@@ -39,7 +39,7 @@ function Minutes() {
 
   // + 버튼 클릭 시 새 생성 페이지로 이동
   const handleNavigateCreatePage = () => {
-    navigate(`/teams/${teamId}/pages/create`);
+    navigate(`/${teamId}/minutes/create`);
   };
 
   return (
