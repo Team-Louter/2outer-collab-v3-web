@@ -18,6 +18,7 @@ import PublicRoute from "./components/PublicRoute";
 import Chatting from "./pages/chatting";
 import MinutesCreate from "./pages/minutesCreate";
 import MinutesDetail from "./pages/minutesDetail";
+import LodingChatting from "./pages/LodingChatting";
 
 function App() {
   return (
@@ -49,7 +50,8 @@ function App() {
           <Route path="/:userId/todos" element={<MyTodolist />} />
           <Route path="/:teamId/notice" element={<Notice />} />
           <Route path="/:teamId/report" element={<Activity />} />
-          <Route path="/:teamId/chatting" element={<Chatting />} />
+          <Route path="/chatting" element={<LodingChatting />} />
+          <Route path="/chatting/:teamId" element={<Chatting />} />
           <Route path="/:teamId/minutes" element={<Minutes />} />
           <Route path="/:teamId/minutes/create" element={<MinutesCreate />} />
           <Route

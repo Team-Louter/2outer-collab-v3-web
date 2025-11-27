@@ -21,6 +21,7 @@ export default function Main() {
     const { isDarkMode } = useTheme();
     const [teams, setTeams] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showSponsor, setShowSponsor] = useState(true);
     
     const bannerText = {
         tag: "[업데이트]",
@@ -49,6 +50,17 @@ export default function Main() {
             toast.success('로그인 성공!', { ...toastcode(3000) });
             toast.clearWaitingQueue();
             
+            // state 초기화 (뒤로가기 후 다시 접속 시 메시지 재표시 방지)
+            window.history.replaceState({}, document.title);
+        }
+    }, [location]);
+
+    // 팀 없음 토스트 표시
+    useEffect(() => {
+        if (location.state?.teamExists === 'false') {
+            toast.info('참여 중인 프로젝트가 존재하지 않습니다', { ...toastcode(3000)});
+            toast.clearWaitingQueue();
+
             // state 초기화 (뒤로가기 후 다시 접속 시 메시지 재표시 방지)
             window.history.replaceState({}, document.title);
         }
@@ -99,13 +111,14 @@ export default function Main() {
                     {bannerText.tag}<div className={styles.bannerText}>{bannerText.title}</div>
                 </div>
 
-                <div className={styles.sponsorContent}>
-                    <a href={sponsorText.href}><img className={styles.sponsorImg} src={sponsorText.Img} alt="광고" /></a>
-                    
-                    <button className={styles.closeButton} aria-label="광고 닫기">
-                        <img src={closeModalIcon} alt="닫기" />
-                    </button>
-                </div>
+                {showSponsor && (
+                  <div className={styles.sponsorContent}>
+                      <a href={sponsorText.href}><img className={styles.sponsorImg} src={sponsorText.Img} alt="광고" /></a>
+                      <button className={styles.closeButton} aria-label="광고 닫기" onClick={() => setShowSponsor(false)}>
+                          <img src={closeModalIcon} alt="닫기" />
+                      </button>
+                  </div>
+                )}
 
                 <h1 className={styles.projectTitle}>Project</h1>
 
