@@ -21,6 +21,7 @@ import todos from '../../assets/sideBar/todos.svg';
 import schedule from '../../assets/sideBar/schedule.svg';
 import minutes from '../../assets/sideBar/minutes.svg';
 import report from '../../assets/sideBar/report.svg';
+import settingIcon from '../../assets/sideBar/settingIcon.svg';
 
 // Theme Context
 import { useTheme } from '../../context/ThemeContext';
@@ -64,6 +65,7 @@ export default function ProjectSideBar() {
         { icon: schedule, text: '일정표', path: `/${teamId}/schedule` },
         { icon: minutes, text: '회의록', path: `/${teamId}/minutes` },
         { icon: report, text: '활동 리포트', path: `/${teamId}/report` },
+        { icon: settingIcon, text: '프로젝트 설정', path: `/${teamId}/setting` },
     ];
 
     // 팀 목록 가져오기

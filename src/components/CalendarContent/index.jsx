@@ -66,22 +66,36 @@ export default function CalendarContent({ schedules, startDate, endDate, current
                         <tr key={weekIndex}>
                             {days.map(day => {
                                 return(
-                                    <td style={day.getMonth() !== current.getMonth() ? {color:'gray'} : {}} onClick={(e) => clickDate(e, day, '생성')} key={day}>
+                                    <td onClick={(e) => clickDate(e, day, '생성')} key={day}>
                                         <div className={styles.forScroll}>
-                                            <span style={{padding:"5px"}} onClick={(e) => changeDate(e, day)}>{day.getDate()}일<br/></span>
+                                            <span
+                                            style={{
+                                                color:
+                                                day.getMonth() !== current.getMonth()
+                                                    ? 'gray' // 이번 달 아닌 날
+                                                    : day.getDay() === 0
+                                                    ? 'red'   // 일요일
+                                                    : day.getDay() === 6
+                                                    ? 'blue'  // 토요일
+                                                    : 'black',
+                                                marginLeft: '5px',
+                                            }}
+                                            onClick={(e) => changeDate(e, day)}
+                                            >
+                                            {day.getDate()}일<br/>
+                                            </span>
                                             {dailySchedules[format(day, 'yyyy-MM-dd')]?.map(item => (
-                                                <div key={item.scheduleId}>
-                                                    <span
-                                                        key={item.scheduleId}
-                                                        onClick={(e) => clickDate(e, day, '편집', item)}
-                                                        data-tooltip-id="scheduleTooltip"
-                                                        data-tooltip-content={item.title}
-                                                        style={{ backgroundColor: item.color, marginLeft: '5px'}}
-                                                    >
-                                                        {item.scheduleTitle}
-                                                    </span>
-                                                    <br/>
-                                                </div>
+                                            <div key={item.scheduleId}>
+                                                <span
+                                                onClick={(e) => clickDate(e, day, '편집', item)}
+                                                data-tooltip-id="scheduleTooltip"
+                                                data-tooltip-content={item.title}
+                                                style={{ backgroundColor: item.color, marginLeft: '5px'}}
+                                                >
+                                                {item.scheduleTitle}
+                                                </span>
+                                                <br/>
+                                            </div>
                                             ))}
                                         </div>
                                     </td>

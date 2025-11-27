@@ -7,6 +7,8 @@ import styles from './schedule.module.css';
 import axiosInstance from "../../axiosInstance";
 import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
+import ProjectSideBar from '../../components/ProjectSideBar';
+import MemberSideBar from "../../components/MemberSideBar"
 
 export default function Schedule() {
     const [current, setCurrent] = useState(new Date());
@@ -40,7 +42,7 @@ export default function Schedule() {
     return(
         <>
             <Header />
-            <div className={`${styles.leftSidebar} leftSidebar`}>왼 사이드</div>
+            <ProjectSideBar />
             <main>
                 <div className={styles.calendar}>
                     <CalendarHeader current={current} setCurrent={setCurrent}/>
@@ -67,7 +69,7 @@ export default function Schedule() {
                     />}
                 </div>
             </main>
-            <div className={`${styles.rightSidebar} rightSidebar`}>오른 사이드</div>
+            <MemberSideBar />
         </>
     )
 }
