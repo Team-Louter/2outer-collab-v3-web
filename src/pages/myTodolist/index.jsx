@@ -1,79 +1,135 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./myTodolist.module.css";
+import axiosInstance from "../../axiosInstance"; // axiosInstance 경로 맞춰주세요
 
-function Todolist() {
-  // 기본 할 일
-  const [tasks, setTasks] = useState([
-    { id: 1, text: "디자인 완료하기", done: false },
-    { id: 2, text: "UI 구현하기", done: false },
-    { id: 3, text: "JavaScript 강의 영상 시청하기", done: false },
-  ]);
+import toDoIcon from "../../assets/toDo/icon.svg";
 
-  // === 모달 상태 ===
-  const [modalOpen, setModalOpen] = useState(false); // 추가 모달
+export default function MyTodolist() {
+  const { userId } = useParams(); // URL에서 userId 가져오기
+
+  const [tasks, setTasks] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
   const [taskText, setTaskText] = useState("");
 
-  const [editModalOpen, setEditModalOpen] = useState(false); // 편집 모달
+  const [editModalOpen, setEditModalOpen] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
   const [editTaskText, setEditTaskText] = useState("");
 
-  // 체크박스 토글
-  const toggleTask = (id) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, done: !task.done } : task
-      )
-    );
+  // -----------------------------
+  // GET /api/:userId/todos
+  // -----------------------------
+  const fetchTasks = async () => {
+    if (!userId) return; // userId 없으면 호출 금지
+    try {
+      const res = await axiosInstance.get(`/api/todos`);
+      setTasks(
+        res.data.map((t) => ({
+          id: t.todoId,
+          text: t.title,
+          done: t.done,
+        }))
+      );
+    } catch (e) {
+      console.error("할 일 불러오기 실패:", e);
+    }
   };
 
-  // 삭제
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
-  };
+  useEffect(() => {
+    fetchTasks();
+  }, [userId]);
 
-  // 할 일 추가
-  const addTask = () => {
+  // -----------------------------
+  // POST /api/:userId/todos
+  // -----------------------------
+  const addTask = async () => {
     if (!taskText.trim()) return;
-    const newTask = {
-      id: Date.now(),
-      text: taskText,
-      done: false,
-    };
-    setTasks([...tasks, newTask]);
-    setTaskText("");
-    setModalOpen(false);
+    try {
+      await axiosInstance.post(`/api/todos`, { title: taskText });
+      setTaskText("");
+      setModalOpen(false);
+      fetchTasks();
+    } catch (e) {
+      console.error("할 일 생성 실패:", e);
+    }
   };
 
-  // === 편집 관련 ===
+  // -----------------------------
+  // PUT /api/:userId/todos/:todoId
+  // -----------------------------
+  const toggleTask = async (id) => {
+    const target = tasks.find((t) => t.id === id);
+    if (!target) return;
+    try {
+      await axiosInstance.put(`/api/todos/${id}`, {
+        title: target.text,
+        done: !target.done,
+      });
+      fetchTasks();
+    } catch (e) {
+      console.error("업데이트 실패:", e);
+    }
+  };
+
+  // -----------------------------
+  // DELETE /api/:userId/todos/:todoId
+  // -----------------------------
+  const deleteTask = async (id) => {
+    try {
+      await axiosInstance.delete(`/api/todos/${id}`);
+      fetchTasks();
+    } catch (e) {
+      console.error("삭제 실패:", e);
+    }
+  };
+
+  // 편집 모달 표시
   const openEditModal = (task) => {
     setEditTaskId(task.id);
     setEditTaskText(task.text);
     setEditModalOpen(true);
   };
 
-  const saveEditedTask = () => {
+  // -----------------------------
+  // PUT /api/:userId/todos/:todoId - 편집 저장
+  // -----------------------------
+  const saveEditedTask = async () => {
     if (!editTaskText.trim()) return;
-    setTasks(
-      tasks.map((task) =>
-        task.id === editTaskId ? { ...task, text: editTaskText } : task
-      )
-    );
-    setEditModalOpen(false);
-    setEditTaskId(null);
-    setEditTaskText("");
-  };
+    const target = tasks.find((t) => t.id === editTaskId);
+    if (!target) return;
 
+    try {
+      await axiosInstance.put(`/api/${userId}/todos/${editTaskId}`, {
+        title: editTaskText,
+        done: target.done,
+      });
+      setEditModalOpen(false);
+      fetchTasks();
+    } catch (e) {
+      console.error("편집 실패:", e);
+    }
+  };
+  console.log(styles);
+
+  // ==============================
+  // JSX 렌더
+  // ==============================
   return (
-    <div className={styles.background}>
+    <div className={styles["background"]}>
       <div className={styles["top-bar"]}></div>
-      <div className={styles.bottom}>
+      <div className={styles["bottom"]}>
         <div className={styles["left-side-bar"]}></div>
-        <div className={styles.main}>
-          {/* 상단 타이틀 */}
+
+        <div className={styles["main"]}>
           <div className={styles["top-container"]}>
             <div className={styles["top-container-wrapper"]}>
               <div className={styles["top-container-wrapper-left"]}>
-                <img src="/todolist-icon.svg" alt="할일 아이콘" />
+                <img
+                  className={styles["todo-icon"]}
+                  src={toDoIcon}
+                  alt="todo"
+                />
+                <img src="/todolist-icon.svg" alt="todo" />
                 <div className={styles["top-container-title"]}>할 일</div>
               </div>
               <div className={styles["top-container-wrapper-right"]}>
@@ -81,11 +137,7 @@ function Todolist() {
                   className={styles["plus-button"]}
                   onClick={() => setModalOpen(true)}
                 >
-                  <img
-                    src="/plus.svg"
-                    alt="플러스 아이콘"
-                    className={styles["plus-icon"]}
-                  />
+                  <img src="/plus.svg" className={styles["plus-icon"]} />
                 </button>
               </div>
             </div>
@@ -100,9 +152,9 @@ function Todolist() {
                 <div key={task.id} className={styles["task-box"]}>
                   <input
                     type="checkbox"
-                    className={styles["task-checkbox"]}
                     checked={task.done}
                     onChange={() => toggleTask(task.id)}
+                    className={styles["task-checkbox"]}
                   />
                   <span className={styles["task-text"]}>{task.text}</span>
                   <div className={styles["task-actions"]}>
@@ -110,21 +162,13 @@ function Todolist() {
                       className={styles["task-btn"]}
                       onClick={() => openEditModal(task)}
                     >
-                      <img
-                        src="/edit.svg"
-                        alt="편집 아이콘"
-                        className={styles.icon}
-                      />
+                      <img src="/edit.svg" className={styles["icon"]} />
                     </button>
                     <button
                       className={styles["task-btn"]}
                       onClick={() => deleteTask(task.id)}
                     >
-                      <img
-                        src="/delete.svg"
-                        alt="삭제 아이콘"
-                        className={styles.icon}
-                      />
+                      <img src="/delete.svg" className={styles["icon"]} />
                     </button>
                   </div>
                 </div>
@@ -139,13 +183,13 @@ function Todolist() {
               .map((task) => (
                 <div
                   key={task.id}
-                  className={`${styles["task-box"]} ${styles.done}`}
+                  className={`${styles["task-box"]} ${styles["done"]}`}
                 >
                   <input
                     type="checkbox"
-                    className={styles["task-checkbox"]}
                     checked={task.done}
                     onChange={() => toggleTask(task.id)}
+                    className={styles["task-checkbox"]}
                   />
                   <span className={styles["task-text"]}>{task.text}</span>
                   <div className={styles["task-actions"]}>
@@ -153,38 +197,31 @@ function Todolist() {
                       className={styles["task-btn"]}
                       onClick={() => openEditModal(task)}
                     >
-                      <img
-                        src="/public/edit.png"
-                        alt="편집 아이콘"
-                        className={styles.icon}
-                      />
+                      <img src="/edit.svg" className={styles["icon"]} />
                     </button>
                     <button
                       className={styles["task-btn"]}
                       onClick={() => deleteTask(task.id)}
                     >
-                      <img
-                        src="/public/delete.png"
-                        alt="삭제 아이콘"
-                        className={styles.icon}
-                      />
+                      <img src="/delete.svg" className={styles["icon"]} />
                     </button>
                   </div>
                 </div>
               ))}
           </div>
         </div>
+
         <div className={styles["right-side-bar"]}></div>
       </div>
 
-      {/* 추가 모달 */}
+      {/* === 추가 모달 === */}
       {modalOpen && (
         <div
           className={styles["modal-overlay"]}
           onClick={() => setModalOpen(false)}
         >
           <div
-            className={`${styles.modal} ${styles.small}`}
+            className={`${styles["modal"]} ${styles["small"]}`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className={styles["modal-header"]}>
@@ -198,12 +235,12 @@ function Todolist() {
             </div>
             <div className={styles["modal-body"]}>
               <label className={styles["modal-label"]}>
-                할 일 <span className={styles.star}>*</span>
+                할 일 <span className={styles["star"]}>*</span>
               </label>
               <input
                 type="text"
                 className={styles["modal-input"]}
-                placeholder="할 일을 입력해주세요."
+                placeholder="할 일을 입력하세요"
                 value={taskText}
                 onChange={(e) => setTaskText(e.target.value)}
                 maxLength={50}
@@ -225,14 +262,14 @@ function Todolist() {
         </div>
       )}
 
-      {/* 편집 모달 */}
+      {/* === 편집 모달 === */}
       {editModalOpen && (
         <div
           className={styles["modal-overlay"]}
           onClick={() => setEditModalOpen(false)}
         >
           <div
-            className={`${styles.modal} ${styles.small}`}
+            className={`${styles["modal"]} ${styles["small"]}`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className={styles["modal-header"]}>
@@ -246,7 +283,7 @@ function Todolist() {
             </div>
             <div className={styles["modal-body"]}>
               <label className={styles["modal-label"]}>
-                할 일 <span className={styles.star}>*</span>
+                할 일 <span className={styles["star"]}>*</span>
               </label>
               <input
                 type="text"
@@ -279,5 +316,3 @@ function Todolist() {
     </div>
   );
 }
-
-export default Todolist;

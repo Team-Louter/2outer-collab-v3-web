@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { ToastContainer, Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import UserProfile from "./pages/userProfile";
 import ProjectSetting from "./pages/projectSetting";
 import SignUp from "./pages/signUp";
@@ -16,11 +16,13 @@ import Activity from "./pages/activity";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import Chatting from "./pages/chatting";
+import MinutesCreate from "./pages/minutesCreate";
+import MinutesDetail from "./pages/minutesDetail";
 
 function App() {
   return (
     <>
-      <ToastContainer 
+      <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -31,7 +33,7 @@ function App() {
         transition={Bounce}
         theme="light"
       />
-      
+
       <Routes>
         <Route element={<PublicRoute />}>
           <Route path="/auth/signup" element={<SignUp />} />
@@ -44,11 +46,22 @@ function App() {
           <Route path="/:teamId/schedule" element={<Schedule />} />
           <Route path="/profile/:userId" element={<UserProfile />} />
           <Route path="/:teamId/setting" element={<ProjectSetting />} />
-          <Route path="/:teamId/minutes" element={<Minutes />} />
-          <Route path="/:teamId/todos" element={<MyTodolist />} />
+          <Route path="/:userId/todos" element={<MyTodolist />} />
           <Route path="/:teamId/notice" element={<Notice />} />
           <Route path="/:teamId/report" element={<Activity />} />
           <Route path="/:teamId/chatting" element={<Chatting />} />
+          <Route path="/:teamId/minutes" element={<Minutes />} />
+          <Route path="/:teamId/minutes/create" element={<MinutesCreate />} />
+          <Route
+            path="/:teamId/minutes/:minuteId"
+            element={<MinutesDetail />}
+          />
+          <Route path="/:teamId/:minuteId/pages/create" />
+          <Route path="/:teamId/minutes/:minuteId" />
+          <Route
+            path="/:teamId/:minuteId/pages/create"
+            element={<MinutesCreate />}
+          />
         </Route>
       </Routes>
     </>
