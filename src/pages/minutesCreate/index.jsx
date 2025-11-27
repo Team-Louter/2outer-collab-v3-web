@@ -119,56 +119,50 @@ export default function MinutesCreate() {
           setSaving(false);
         }
       };
-
-      return (
-        <div className={styles.pageWrapper}>
-          <div className={styles.editorCard}>
-            {/* 제목 입력 */}
-            <input
-              className={styles.titleInput}
-              type="text"
-              placeholder="제목을 입력하세요"
-            />
-            <input
-              className={styles.titleInput}
-              type="text"
-              placeholder="Untitled"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              disabled={saving}
-            />
-
-            {/* 내용 입력 */}
-
-            <textarea
-              className={styles.contentInput}
-              placeholder="내용을 작성하세요..."
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              disabled={saving}
-            />
-
-            {/* 버튼 */}
-
-            <div className={styles.buttonArea}>
-              <button
-                className={styles.cancelBtn}
-                onClick={() => navigate(`/${teamId}/minutes`)}
-                disabled={saving}
-              >
-                취소
-              </button>
-              <button
-                className={styles.saveBtn}
-                onClick={handleSave}
-                disabled={saving}
-              >
-                {saving ? "저장 중..." : "저장"}
-              </button>
-            </div>
-          </div>
-        </div>
-      );
     }
   };
+  return (
+    <div className={styles.pageWrapper}>
+      <div className={styles.editorCard}>
+        {/* 제목 입력 */}
+        <input
+          className={styles.titleInput}
+          type="text"
+          placeholder="제목을 입력하세요."
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          disabled={saving}
+        />
+
+        {/* 내용 입력 */}
+
+        <textarea
+          className={styles.contentInput}
+          placeholder="내용을 작성하세요..."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          disabled={saving}
+        />
+
+        {/* 버튼 */}
+
+        <div className={styles.buttonArea}>
+          <button
+            className={styles.cancelBtn}
+            onClick={() => navigate(`/${teamId}/minutes`)}
+            disabled={saving}
+          >
+            취소
+          </button>
+          <button
+            className={styles.saveBtn}
+            onClick={handleSave}
+            disabled={saving}
+          >
+            {saving ? "저장 중..." : "저장"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }

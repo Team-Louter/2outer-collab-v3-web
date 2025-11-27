@@ -22,16 +22,6 @@ import schedule from "../../assets/sideBar/schedule.svg";
 import minutes from "../../assets/sideBar/minutes.svg";
 import report from "../../assets/sideBar/report.svg";
 import settingIcon from "../../assets/sideBar/settingIcon.svg";
-import minus from "../../assets/sideBar/minus.svg";
-import logout from "../../assets/sideBar/logout.svg";
-import night from "../../assets/sideBar/night.svg";
-import plus from "../../assets/sideBar/plus.svg";
-import setting from "../../assets/sideBar/setting.svg";
-import notice from "../../assets/sideBar/notice.svg";
-import todos from "../../assets/sideBar/todos.svg";
-import schedule from "../../assets/sideBar/schedule.svg";
-import minutes from "../../assets/sideBar/minutes.svg";
-import report from "../../assets/sideBar/report.svg";
 
 // Theme Context
 import { useTheme } from "../../context/ThemeContext";
