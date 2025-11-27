@@ -22,7 +22,11 @@ export default function Expel({expelPerson, setExpelModalOpen, messages, type, g
             }
             if (type === '멤버') {
                 if (expelPerson.roleName != '관리자'){
-                    res = await axiosInstance.delete(`teams/${teamId}/kick`, expelPerson.userId);
+                    res = await axiosInstance.delete(`/teams/${teamId}/kick`, {
+                        data: {
+                            targetUserId: expelPerson.userId
+                        }
+                    });
                     console.log("멤버 추방 성공");
                     getMembers();
                 }
