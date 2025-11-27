@@ -4,7 +4,7 @@
     display: flex;
 }
 
-main {
+.main {
     flex: 1;
     background-color: #F5F5F5;
     display: flex;
@@ -33,8 +33,9 @@ main {
 }
 
 .profileImg img {
-    width: 70px;
-    height: 70px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
 
 .top {
@@ -127,6 +128,12 @@ small {
     background-color: white;
     border-radius: 5px;
     flex-shrink: 0;
+}
+
+.project img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
 }
 
 .edit {
