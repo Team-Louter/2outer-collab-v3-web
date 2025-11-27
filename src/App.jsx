@@ -15,6 +15,7 @@ import Notice from "./pages/notice";
 import Activity from "./pages/activity";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import Chatting from "./pages/chatting";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="/:teamId/todos" element={<MyTodolist />} />
           <Route path="/:teamId/notice" element={<Notice />} />
           <Route path="/:teamId/report" element={<Activity />} />
+          <Route path="/:teamId/chatting" element={<Chatting />} />
         </Route>
       </Routes>
     </>

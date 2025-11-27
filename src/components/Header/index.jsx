@@ -80,7 +80,7 @@ const Header = () => {
                 {isLoggedIn ? (
                     <>
                         <li className={styles.chattingButton}>
-                            <img className={styles.chattingImg} src={chattingImg} alt="채팅 열기" />
+                            <Link className={styles.chattingButton} to={'/chatting'}><img className={styles.chattingImg} src={chattingImg} alt="채팅 열기" /></Link>
                         </li>
 
                         <li className={styles.bellButton} onClick={toggleNotifications}>
@@ -110,7 +110,7 @@ const Header = () => {
                 ) : (
                     <>
                         <li className={styles.chattingButton} onClick={toggleLogin}>
-                            <img className={styles.chattingImg} src={chattingImg} alt="채팅 열기" />
+                            <Link to={'/chatting'}><img className={styles.chattingImg} src={chattingImg} alt="채팅 열기" /></Link>
                         </li>
 
                         <li className={styles.bellButton} onClick={toggleLogin}>
