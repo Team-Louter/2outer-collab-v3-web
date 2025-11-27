@@ -15,9 +15,8 @@ import todoIcon from "../../assets/projectMain/todoIcon.svg";
 import EditProject from "../../components/EditProject";
 import OutProject from "../../components/OutProject";
 import axiosInstance from "../../axiosInstance";
-import Sidebar from "../../components/ProjectSideBar"
 import MemberSideBar from '../../components/MemberSideBar';
-
+import ProjectSideBar from "../../components/ProjectSideBar";
 
 export default function ProjectMain() {
     const [open, setOpen] = useState(false);
@@ -48,25 +47,24 @@ export default function ProjectMain() {
             }
         }
 
-            const getMembers = async () => {
-                try {
-                    const res = await axiosInstance.get(`/teams/${teamId}/members`);
-                    setMembers(res.data);
-                    console.log("멤버", res.data);
-                }
-                catch(err) {
-                    console.error("멤버 불러오기 실패", err);
-                }
+        const getMembers = async () => {
+            try {
+                const res = await axiosInstance.get(`/teams/${teamId}/members`);
+                setMembers(res.data);
             }
+            catch(err) {
+                console.error(err);
+            }
+        }
 
         getTeam();
         getMembers();
-    }, [])
+    },[teamId])
 
     return(
         <>
             <Header />
-            <Sidebar />
+            <ProjectSideBar/>
             <main>
                 <div className={styles.banner}>
                     <img src={teamInfo?.bannerPicture} className={styles.bannerImg}/>

@@ -44,6 +44,12 @@ main a {
   gap: 5px;
 }
 
+.bannerImg {
+  width: 100%;
+  aspect-ratio: 16 / 2.5;
+}
+
+
 .online {
   background-color: cornflowerblue;
   height: 7px;
