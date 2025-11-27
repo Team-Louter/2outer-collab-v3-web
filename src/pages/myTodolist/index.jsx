@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import styles from "./myTodolist.module.css";
 import axiosInstance from "../../axiosInstance"; // axiosInstance 경로 맞춰주세요
 
+import toDoIcon from "../../assets/toDo/icon.svg";
 export default function MyTodolist() {
   const { userId } = useParams(); // URL에서 userId 가져오기
 
@@ -122,7 +123,11 @@ export default function MyTodolist() {
           <div className={styles["top-container"]}>
             <div className={styles["top-container-wrapper"]}>
               <div className={styles["top-container-wrapper-left"]}>
-                <img src="/todolist-icon.svg" alt="todo" />
+                <img
+                  className={styles["todo-icon"]}
+                  src={toDoIcon}
+                  alt="todo"
+                />
                 <div className={styles["top-container-title"]}>할 일</div>
               </div>
               <div className={styles["top-container-wrapper-right"]}>
