@@ -1,5 +1,8 @@
 import { useState } from "react";
 import styles from "./notice.module.css";
+import Header from "../../components/Header";
+import SideBar from "../../components/ProjectSideBar";
+import MemberSideBar from "../../components/MemberSideBar";
 
 const Notice = () => {
   // 공지사항 데이터
@@ -40,6 +43,8 @@ const Notice = () => {
 
   return (
     <>
+      <Header />
+      <SideBar />
       <div className={styles.background}>
         <div className={styles["top-bar"]}></div>
         <div className={styles.bottom}>
@@ -199,6 +204,7 @@ const Notice = () => {
           </div>
         )}
       </div>
+      <MemberSideBar />
     </>
   );
 };
