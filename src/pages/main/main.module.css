@@ -7,8 +7,8 @@
     
     /* Header 높이(60px) + Sidebar 왼쪽 너비(250px)만큼 위치 조정 */
     margin-left: 15.625rem; /* 250px - Sidebar 너비 */
-    margin-top: 3.75rem; /* 60px - Header 높이 */
-    min-height: calc(100vh - 3.75rem); /* 전체 높이에서 Header 높이 제외 */
+    margin-top: 60px; /* 60px - Header 높이 */
+    min-height: calc(100vh - 60px); /* 전체 높이에서 Header 높이 제외 */
     width: calc(100% - 15.625rem); /* 전체 너비에서 Sidebar 너비 제외 */
     min-width: calc(100% - 15.625rem);
     box-sizing: border-box;
@@ -109,7 +109,8 @@
     background-color: #FCFCFC;
     border-radius: 12px;
     box-sizing: border-box;
-    height: 310px;
+    min-height: 274px;
+    max-height: 274px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -121,16 +122,17 @@
 
 .cardHeader {
     display: flex;
-    min-height: 116px;
-    max-height: 116px;
+    min-height: 60px;
+    max-height: 60px;
     width: 100%;
     justify-content: space-between;
     align-items: center;
 }
 
 .projectBanner {
+    position: absolute;
     width: 100%;
-    height: 116px;
+    height: 60px;
     top: 0;
     border-radius: 8px 8px 0 0;
     background-color: #E0E0E0;
@@ -143,7 +145,7 @@
 
 .projectLogoHeader {
     position: absolute;
-    top: 80px;
+    top: 24px;
     left: 16px;
     width: 64px;
     height: 62px;
@@ -167,7 +169,7 @@
 
 .memberCountHeader {
     position: absolute;
-    top: 130px;
+    top: 80px;
     right: 16px;
     font-weight: 600;
     font-size: 11px;
@@ -191,7 +193,7 @@
 
 .projectName {
     position: absolute;
-    top: 157px;
+    margin-top: 42px;
     left: 16px;
     font-weight: 700;
     font-size: 16px;
@@ -213,8 +215,9 @@
 
 .projectDescBox {
     position: absolute;
-    top: 190px;
+    margin-top: 76px;
     left: 16px;
+    width: calc(100% - 32px);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -244,6 +247,7 @@
 
 .joinButton {
     position: absolute;
+    margin-top: 188px;
     bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
