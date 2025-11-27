@@ -162,18 +162,25 @@ main a {
   color: gray;
 }
 
-.todoContent, .minutesContent {
+.todoContainer, .minutesContainer {
+  height: 70%;
   width: 93%;
+  margin: 0px auto;
+  margin-top: 15px;
+  overflow-y: scroll;
+  border-top: 5px solid #CCCCCC;
+}
+
+.todoContent, .minutesContent {
+  width: 100%;
   margin: 0 auto;
   height: 40px;
-  border-top: 5px solid #CCCCCC;
   border-bottom: 1px solid #CCCCCC;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;
-  margin-top: 15px;
   font-size: 0.8rem;
   box-sizing: border-box;
 }

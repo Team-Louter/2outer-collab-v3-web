@@ -26,6 +26,8 @@ export default function ProjectMain() {
     const [outPModal, setOutPModal] = useState(false);
     const [teamInfo, setTeamInfo] = useState(null);
     const [members, setMembers] = useState(null);
+    const [scheules, setSchedules] = useState(null);
+    const [minutes, setMinutes] = useState(null);
     const { teamId } = useParams();
     console.log('open: ',open)
     console.log('reportOpen: ', reportOpen)
@@ -33,6 +35,11 @@ export default function ProjectMain() {
     const modalOpen = (func) => {
         setOpen(false);
         func(true);
+    }
+
+    const getMemberName = (authorId) => {
+        const member = members?.find(m => m.userId === authorId);
+        return member?.userName || '알 수 없음';
     }
 
     useEffect(() => {
@@ -51,14 +58,39 @@ export default function ProjectMain() {
             try {
                 const res = await axiosInstance.get(`/teams/${teamId}/members`);
                 setMembers(res.data);
+                console.log(res.data)
             }
             catch(err) {
                 console.error(err);
             }
         }
 
+        const getSchedules = async () => {
+            try {
+                const res = await axiosInstance.get(`/team/${teamId}/schedule`);
+                setSchedules(res.data.schedules);
+                console.log("일정", res.data.schedules);
+            }
+            catch(err) {
+                console.error(err);
+            }
+        }
+
+        const getMinutes = async () => {
+            try {
+                const res = await axiosInstance.get(`/teams/${teamId}/pages`);
+                setMinutes(res.data);
+                console.log("회의록", res.data);
+            }
+            catch(err) {
+                console.error(err)
+            }
+        }
+
         getTeam();
         getMembers();
+        getSchedules();
+        getMinutes();
     },[teamId])
 
     return(
@@ -117,18 +149,33 @@ export default function ProjectMain() {
                         <div className={styles.title}>
                             <div className={styles.row}>
                                 <img src={todoIcon}/>
-                                할 일
+                                일정
                             </div>
-                            <Link to={`/${teamId}/todos`}>
+                            <Link to={`/${teamId}/schedule`}>
                                 <div className={styles.detail}>
                                     자세히 보기 
                                     <img src={detailIcon} alt="자세히보기"/>
                                 </div>
                             </Link>
                         </div>
-                        <div className={styles.todoContent}>
-                            <div>할 일을 불러오는 중...</div>
-                            <div className={styles.todoInfo}>날짜 ∙ 작성자</div>
+                        <div className={styles.todoContainer}>
+                            {scheules
+                                ?.filter(schedule => {
+                                const today = new Date();
+                                today.setHours(0, 0, 0, 0); 
+                                const scheduleDate = new Date(schedule.scheduleDate);
+                                return scheduleDate >= today; 
+                                })
+                                .sort((a, b) => new Date(a.scheduleDate) - new Date(b.scheduleDate))
+                                .map(schedule => (
+                                <div className={styles.todoContent} key={schedule.id}>
+                                    <div>{schedule.scheduleTitle}</div>
+                                    <div className={styles.todoInfo}>
+                                    {schedule.scheduleDate.substring(0, 10)} ∙ 작성자
+                                    </div>
+                                </div>
+                                ))
+                            }
                         </div>
                     </div>
                     <div className={`${styles.minutes} ${styles.box}`}>
@@ -144,9 +191,13 @@ export default function ProjectMain() {
                                 </div>
                             </Link>
                         </div>
-                        <div className={styles.minutesContent}>
-                            <div>회의록을 불러오는 중...</div>
-                            <div className={styles.minutesInfo}>날짜 ∙ 생성자</div>
+                        <div className={styles.minutesContainer}>
+                            {minutes?.map(minute => (
+                                <div className={styles.minutesContent}>
+                                    <div>{minute.title}</div>
+                                    <div className={styles.minutesInfo}>{minute?.createdAt.substring(0, 10)} ∙ {getMemberName(minute.authorId)}</div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className={`${styles.report} ${styles.box}`}>
