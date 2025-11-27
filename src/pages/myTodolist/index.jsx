@@ -129,7 +129,6 @@ export default function MyTodolist() {
                   src={toDoIcon}
                   alt="todo"
                 />
-                <img src="/todolist-icon.svg" alt="todo" />
                 <div className={styles["top-container-title"]}>할 일</div>
               </div>
               <div className={styles["top-container-wrapper-right"]}>
