@@ -2,6 +2,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "./minutesDetail.module.css";
 import axiosInstance from "../../axiosInstance";
+import Header from "../../components/Header";
+import SideBar from "../../components/ProjectSideBar";
+import MemberSideBar from "../../components/MemberSideBar";
 
 export default function MinutesDetail() {
   const { teamId, minuteId } = useParams();
@@ -41,27 +44,32 @@ export default function MinutesDetail() {
     return <div className={styles.pageWrapper}>불러오는 중...</div>;
 
   return (
-    <div className={styles.pageWrapper}>
-      <div className={styles.editorCard}>
-        <input
-          className={styles.titleInput}
-          type="text"
-          value={minuteData.title}
-          readOnly
-        />
+    <>
+      <Header />
+      <SideBar />
+      <div className={styles.pageWrapper}>
+        <div className={styles.editorCard}>
+          <input
+            className={styles.titleInput}
+            type="text"
+            value={minuteData.title}
+            readOnly
+          />
 
-        <textarea
-          className={styles.contentInput}
-          value={minuteData.blocks?.[0]?.content || ""}
-          readOnly
-        />
+          <textarea
+            className={styles.contentInput}
+            value={minuteData.blocks?.[0]?.content || ""}
+            readOnly
+          />
 
-        <div className={styles.buttonArea}>
-          <button className={styles.cancelBtn} onClick={() => navigate(-1)}>
-            뒤로가기
-          </button>
+          <div className={styles.buttonArea}>
+            <button className={styles.cancelBtn} onClick={() => navigate(-1)}>
+              뒤로가기
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+      <MemberSideBar />
+    </>
   );
 }
