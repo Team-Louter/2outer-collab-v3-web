@@ -28,6 +28,7 @@ export default function ProjectMain() {
     const [members, setMembers] = useState(null);
     const [scheules, setSchedules] = useState(null);
     const [minutes, setMinutes] = useState(null);
+    const [notice, setNotice] = useState(null);
     const { teamId } = useParams();
     console.log('open: ',open)
     console.log('reportOpen: ', reportOpen)
@@ -87,10 +88,24 @@ export default function ProjectMain() {
             }
         }
 
+        const getNotice = async () => {
+            try {
+                const res = await axiosInstance.get(`/notices`);
+                
+                const lastNotice = res.data.at(-1); 
+                setNotice(lastNotice);
+                console.log(lastNotice);
+            }
+            catch(err) {
+                console.error(err);
+            }
+        }
+
         getTeam();
         getMembers();
         getSchedules();
         getMinutes();
+        getNotice();
     },[teamId])
 
     return(
@@ -141,8 +156,8 @@ export default function ProjectMain() {
                             </Link>
                         </div>
                         <div className={styles.noticeContent}>
-                            <div>공지사항을 불러오는 중...</div>
-                            <div className={styles.noticeInfo}>날짜 ∙ 작성자</div>
+                            <div>{notice?.title}</div>
+                            <div className={styles.noticeInfo}>{notice?.createdAt.substring(10,2)} ∙ 작성자</div>
                         </div>
                     </div>
                     <div className={`${styles.todo} ${styles.box}`}>
