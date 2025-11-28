@@ -121,7 +121,7 @@ const Header = () => {
                             {isLoading ? (
                                 <div className={styles.loadingText}>로딩 중...</div>
                             ) : (
-                                <Link to={`/profile/${userId}`}>
+                                <Link className={styles.profileButton} to={`/profile/${userId}`}>
                                     <img className={styles.profileImg} src={profile?.profileImageUrl || profileImg} alt="내 프로필" />
                                 </Link>
                             )}
@@ -130,7 +130,7 @@ const Header = () => {
                 ) : (
                     <>
                         <li className={styles.chattingButton} onClick={toggleLogin}>
-                            <Link to={'/chatting'}><img className={styles.chattingImg} src={chattingImg} alt="채팅 열기" /></Link>
+                            <Link className={styles.chattingButton} to={'/chatting'}><img className={styles.chattingImg} src={chattingImg} alt="채팅 열기" /></Link>
                         </li>
 
                         <li className={styles.bellButton} onClick={toggleLogin}>

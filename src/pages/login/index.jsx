@@ -105,13 +105,9 @@ export default function login() {
             })
 
             .catch(error => {
-                if (error.response?.status === 401) {
+                if (error.response?.status === 401 || error.response?.status === 500) {
                     // 401 에러: 이메일 또는 비밀번호가 틀림
                     toast.info('잘못된 이메일 또는 비밀번호입니다', toastcode(1000));
-                    toast.clearWaitingQueue();
-                } else if (error.response?.data?.message) {
-                    // 서버에서 전달한 에러 메시지
-                    toast.error(error.response.data.message, toastcode(1000));
                     toast.clearWaitingQueue();
                 } else if (error.request) {
                     // 요청은 전송되었지만 응답을 받지 못함
