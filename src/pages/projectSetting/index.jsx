@@ -12,6 +12,8 @@ import ApplyJoin from "../../components/ApplyJoin";
 import EditRole from '../../components/EditRole';
 import EditProject from '../../components/EditProject';
 import axiosInstance from '../../axiosInstance';
+import ProjectSideBar from '../../components/ProjectSideBar';
+import MemberSideBar from "../../components/MemberSideBar";
 
 export default function projectSetting() {
     const [expelModalOpen, setExpelModalOpen] = useState(false);
@@ -138,7 +140,7 @@ export default function projectSetting() {
     return(
         <>
             <Header />
-            <div className={`${styles.leftSidebar} leftSidebar`}>왼 사이드</div>
+            <ProjectSideBar />
             <main>
                 <div className={styles.container}>
                     <div className={styles.title}>
@@ -205,7 +207,7 @@ export default function projectSetting() {
                     }
                 </div>
             </main>
-            <div className={`${styles.rightSidebar} rightSidebar`}>오른 사이드</div>
+            <MemberSideBar />
 
             {expelModalOpen === false 
             ? <></> 
@@ -241,6 +243,7 @@ export default function projectSetting() {
             : <EditProject 
                 setEditProject={setEditProject}
                 teamInfo={teamInfo}
+                getTeam={getTeam}
               />}
         </>
     )

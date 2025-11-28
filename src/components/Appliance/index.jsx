@@ -4,8 +4,8 @@ import closeModal from "../../assets/projectSetting/delete.svg";
 import { useParams } from "react-router-dom";
 import { OkayButtons } from "../Buttons";
 
-export default function Appliance({ setApplianceOpen, person }) {
-  const { teamname } = useParams();
+export default function Appliance({ apply, setApplianceOpen }) {
+  const { teamId} = useParams();
   const [previewSrc, setPreviewSrc] = useState(null);
   const [bigger, setBigger] = useState(false);
 
@@ -34,22 +34,22 @@ export default function Appliance({ setApplianceOpen, person }) {
 
           <div className={styles.top}>
             <h3>참가 요청서</h3>
-            <small>{teamname}</small>
+            <small>{apply.teamName}</small>
           </div>
 
           <div className={styles.name}>
             <small>닉네임</small>
-            <input value={person.id} readOnly />
+            <input value={apply.userName} readOnly />
           </div>
 
           <div className={styles.intro}>
             <small>소개</small>
-            <textarea value={person.introduce} readOnly />
+            <textarea value readOnly />
           </div>
 
           <div className={styles.result} style={{marginBottom: 20}}>
             <small>작업물</small>
-            <input value={person.id} readOnly />
+            <input value={apply.workUrl} readOnly />
           </div>
 
           <div className={styles.button}>
@@ -57,20 +57,6 @@ export default function Appliance({ setApplianceOpen, person }) {
           </div>
         </div>
       </div>
-
-      {bigger && (
-        <div
-          className={styles.enlargedBackground}
-          onClick={() => setBigger(false)}
-        >
-          <img
-            src={previewSrc}
-            alt="enlarged"
-            className={styles.enlargedImage}
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-      )}
     </>
   );
 }
