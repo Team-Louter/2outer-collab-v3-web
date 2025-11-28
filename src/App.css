@@ -1,7 +1,8 @@
 body {
-  margin: 0px;
+  margin: 0;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 }
 
 #root {
@@ -9,6 +10,25 @@ body {
   height: 100vh;
 }
 
+.topbar {
+  grid-area: topbar;
+}
+
+.leftSidebar {
+  grid-area: left;
+}
+
+main {
+  grid-area: main;
+}
+
+.rightSidebar {
+  grid-area: right;
+}
+
+.tooltip {
+  background-color: aliceblue;
+}
 
 img {
   -webkit-user-drag: none;

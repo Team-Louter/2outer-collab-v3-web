@@ -56,8 +56,13 @@ export default function EditRole({ setEditRole, roleMode, selectedRole, getRoles
         console.log("역할 생성 성공", res.data);
       }
       if (roleMode === '편집') {
-        res = await axiosInstance.put(`/teams/${teamId}/roles/${selectedRole.roleId}`, data);
-        console.log("역할 편집 성공", res.data);
+        if (selectedRole.roleName !== '관리자') {
+          res = await axiosInstance.put(`/teams/${teamId}/roles/${selectedRole.roleId}`, data);
+          console.log("역할 편집 성공", res.data);
+        }
+        else {
+          alert('관리자 권한은 변경할 수 없습니다.');
+        }
       }
 
       setEditRole(false);

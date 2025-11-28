@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import CropImage from "../CropImage";
 
 export default function EditProject({ setEditProject, teamInfo, onClose, onProjectUpdated, getTeam }) {
+
   const { teamId } = useParams();
   const fileInputRef = useRef(null);
   
