@@ -22,17 +22,6 @@ import { useSidebar } from '../../context/SidebarContext';
 // Axios Instance
 import axiosInstance from '../../axiosInstance';
 
-// 이름에서 고유한 색상 생성 (재현 가능한 랜덤)
-function getColorFromString(name, saturation = 65, lightness = 50) {
-    let hash = 0;
-    for (let i = 0; i < name.length; i++) {
-        hash = name.charCodeAt(i) + ((hash << 5) - hash);
-        hash = hash & hash;
-    }
-    const hue = Math.abs(hash) % 360;
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-}
-
 // Function
 export default function ProjectSideBar() {
     const { teamId } = useParams();
@@ -40,18 +29,6 @@ export default function ProjectSideBar() {
     const { isOpen, toggleSidebar } = useSidebar();
     const [members, setMembers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
-    // Toast 설정
-    const toastcode = (time) => ({
-        position: "top-right",
-        autoClose: time,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: 0,
-        theme: "light",
-    });
 
     // 팀 멤버 목록 가져오기
     const fetchMembers = async () => {

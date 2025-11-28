@@ -99,6 +99,7 @@
 
 .profileImg {
     height: 2rem; /* 32px */
+    border-radius: 50%;
     transition: filter 0.3s;
 }
 

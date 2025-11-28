@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #EAEFF9;
+  padding-bottom: 3%;
+  
+  margin-left: 250px;
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
+  width: calc(100% - 500px);
+  min-width: calc(100% - 500px);
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+.mainChat {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+}
