@@ -6,6 +6,7 @@ import CropImage from "../CropImage";
 import axiosInstance from "../../axiosInstance";
 
 export default function EditProject({ setEditProject, teamInfo }) {
+  const { teamId } = useParams();
   const fileInputRef = useRef(null);
   const [logoPreview, setLogoPreview] = useState(null);
   const [bannerPreview, setBannerPreview] = useState(null);

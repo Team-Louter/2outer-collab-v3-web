@@ -1,0 +1,44 @@
+.modalBackground {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.modalContent {
+  background-color: white;
+  width: 400px;
+  max-height: 80vh;
+  height: 200px;
+  position: relative;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 30px 40px;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.modalContent h3 {
+    font-weight: 700;
+}
+
+.modalContent small {
+    margin: 0px
+}

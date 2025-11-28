@@ -13,6 +13,7 @@ export default function CalendarModal({ modalShow, setModalShow, selectedDate, m
     const [title, setTitle] = useState(getInitialValue('scheduleTitle', ''));
     const [content, setContent] = useState(getInitialValue('scheduleContent', ''));
     const { teamId } = useParams();
+    const userId = localStorage.getItem('userId');
       
     const handleText = (e, mainF, lengthF) => {
         mainF(e.target.value);
@@ -40,7 +41,7 @@ export default function CalendarModal({ modalShow, setModalShow, selectedDate, m
             let res;
             if (modalMode === '생성') {
                 console.log('생성 모드')
-                res = await axiosInstance.post(`/team/${teamId}/schedule`, data);
+                res = await axiosInstance.post(`/team/${teamId}/schedule?userId=${userId}`, data);
                 console.log('추가 성공', res.data);
             }
             else if (modalMode === '편집') {

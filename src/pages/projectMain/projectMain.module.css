@@ -2,7 +2,7 @@ main {
   background-color: #F5F5F5;
   display: flex;
   flex-direction: column;
-  min-width: 560px;
+  justify-items: flex-start;
   overflow-y: scroll;
   justify-content: flex-start;
   width: calc(100% - 500px);
@@ -22,6 +22,11 @@ main a {
   position: relative;
 }
 
+.bannerImg {
+  width: 100%;
+  height: auto;
+}
+
 .bannerMenu {
   position: absolute;
   top: 10px;
@@ -30,27 +35,33 @@ main a {
   cursor: pointer;
 }
 
+.onlineWrap {
+  position: absolute;
+  bottom: 17px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .bannerImg {
   width: 100%;
   aspect-ratio: 16 / 2.5;
 }
 
-.banner small {
-  position: absolute;
-  bottom: 12px;
-  right: 17px;
-  font-size: 0.8rem
-}
 
 .online {
   background-color: cornflowerblue;
   height: 7px;
   width: 7px;
-  border-radius: 50px;
-  position: absolute;
-  bottom: 17px;
-  right: 68px;
+  border-radius: 50%;
+}
 
+.onlineWrap small {
+  font-size: 0.8rem;
+  text-align: right;
+  min-width: 20px; /* 숫자 칸 고정 */
+  margin: 0px;
 }
 
 .box {
@@ -151,18 +162,25 @@ main a {
   color: gray;
 }
 
-.todoContent, .minutesContent {
+.todoContainer, .minutesContainer {
+  height: 70%;
   width: 93%;
+  margin: 0px auto;
+  margin-top: 15px;
+  overflow-y: scroll;
+  border-top: 5px solid #CCCCCC;
+}
+
+.todoContent, .minutesContent {
+  width: 100%;
   margin: 0 auto;
   height: 40px;
-  border-top: 5px solid #CCCCCC;
   border-bottom: 1px solid #CCCCCC;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;
-  margin-top: 15px;
   font-size: 0.8rem;
   box-sizing: border-box;
 }
