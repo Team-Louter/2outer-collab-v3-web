@@ -1,25 +1,3 @@
-.topbar {
-    width: 100%;
-    height: 60px;
-    background-color: white;
-}
-  
-.leftSidebar {
-    background-color: white;
-}
-
-main {
-    background-color: #F5F5F5;
-    width: 100%;
-    height: 100%;
-    min-width: 550px;
-    overflow-y: scroll;
-}
-
-.rightSidebar {
-    background-color: white;
-}
-
 .container {
     display: flex;
     width: 100%;
@@ -47,6 +25,8 @@ main {
 
 .title h2 {
     font-weight: 600;
+    margin: 0px;
+    color: black;
 }
 
 .thisProject {
@@ -134,7 +114,6 @@ main {
 }
 
 .profileImg {
-    background-color: aquamarine;
     width: 25px;
     height: 25px;
     border-radius: 50%;

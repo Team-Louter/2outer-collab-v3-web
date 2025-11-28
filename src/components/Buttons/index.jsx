@@ -12,8 +12,8 @@ export function YesNoButtons({no, yes}) {
 export function OkayButtons({no, yes}) {
     return (
         <div className={styles.Buttons}>
-            <button className={styles.no} onClick={() => no}>거절</button>
-            <button className={styles.yes} onClick={() => yes}>수락</button>
+            <button className={styles.no} onClick={no}>거절</button>
+            <button className={styles.yes} onClick={yes}>수락</button>
         </div>
     )
 }

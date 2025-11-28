@@ -3,24 +3,45 @@ import styles from "./Appliance.module.css";
 import closeModal from "../../assets/projectSetting/delete.svg";
 import { useParams } from "react-router-dom";
 import { OkayButtons } from "../Buttons";
+import axiosInstance from "../../axiosInstance";
 
-export default function Appliance({ apply, setApplianceOpen }) {
+export default function Appliance({ apply, setApplianceOpen, getMembers, applyJoin }) {
   const { teamId} = useParams();
-  const [previewSrc, setPreviewSrc] = useState(null);
-  const [bigger, setBigger] = useState(false);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    setPreviewSrc(url);
-  };
+  const reject = async () => {
+    const data = {
+      requestId : apply.requestId,
+      approve: false
+    };
 
-  const handlePreviewClick = () => {
-    if (previewSrc) {
-      setBigger(true);
+    try {
+      const res = await axiosInstance.post(`/teams/${teamId}/join-request/process`, data);
+      console.log("거절 성공");
+      setApplianceOpen(false);
+      applyJoin();
     }
-  };
+    catch(err) {
+      console.error(err);
+    }
+  }
+
+  const ok = async () => {
+    const data = {
+      requestId : apply.requestId,
+      approve: true
+    };
+
+    try {
+      const res = await axiosInstance.post(`/teams/${teamId}/join-request/process`, data);
+      console.log("승인 성공", res);
+      setApplianceOpen(false);
+      getMembers();
+      applyJoin();
+    }
+    catch(err) {
+      console.error(err);
+    }
+  }
 
   return (
     <>
@@ -44,7 +65,7 @@ export default function Appliance({ apply, setApplianceOpen }) {
 
           <div className={styles.intro}>
             <small>소개</small>
-            <textarea value readOnly />
+            <textarea value={apply.introduction} readOnly />
           </div>
 
           <div className={styles.result} style={{marginBottom: 20}}>
@@ -53,7 +74,7 @@ export default function Appliance({ apply, setApplianceOpen }) {
           </div>
 
           <div className={styles.button}>
-            <OkayButtons />
+            <OkayButtons no={reject} yes={ok}/>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import Appliance from "../Appliance";
 import axiosInstance from "../../axiosInstance";
 import { useParams } from "react-router-dom";
 
-export default function ApplyJoin({ setApplyModalOpen }) {
+export default function ApplyJoin({ setApplyModalOpen, getMembers }) {
     const [applianceOpen, setApplianceOpen] = useState(false); 
     const { teamId } = useParams();
     const [applies, setApplies] = useState(null);
@@ -56,6 +56,8 @@ export default function ApplyJoin({ setApplyModalOpen }) {
                                     <Appliance 
                                         apply={apply} 
                                         setApplianceOpen={setApplianceOpen} 
+                                        getMembers={getMembers}
+                                        applyJoin={applyJoin}
                                     />
                                 }
                             </div>

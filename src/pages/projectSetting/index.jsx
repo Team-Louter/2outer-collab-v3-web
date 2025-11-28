@@ -174,7 +174,7 @@ export default function projectSetting() {
                                 {members?.map(member => (
                                     <div className={styles.memberElement} key={member.userId}>
                                         <div className={styles.forRow}>
-                                            <div className={styles.profileImg}></div>
+                                            <img src={member.profileImage} className={styles.profileImg}/>
                                             <small>{member.userName}</small>
                                         </div>
                                         <div className={styles.forRow}>
@@ -229,6 +229,7 @@ export default function projectSetting() {
             ? <></>
             : <ApplyJoin 
                 setApplyModalOpen={setApplyModalOpen}
+                getMembers={getMembers}
             />}
             {editRole === false
             ? <></>
