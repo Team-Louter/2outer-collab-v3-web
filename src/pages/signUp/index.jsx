@@ -134,7 +134,23 @@ export default function SignUp() {
         // API 요청
         axiosInstance.post('/auth/signup', sendData)
             // 성공 시
-            .then(response => {
+            .then(async response => {
+                // 회원가입 성공 후 userId 받아오기
+                const userId = response.data?.userId;
+                if (userId) {
+                    try {
+                        // 프로필 생성 API 호출
+                        await axiosInstance.post(`/profile/${userId}`, {
+                            userName: sendData.userName,
+                            profileImageUrl: 'http://api.teamcollab.site/api/files/download/adb73942-c171-44fb-9446-f097c835af13_%E1%84%80%E1%85%B5%E1%84%87%E1%85%A9%E1%86%ABprofile.svg',
+                            bio: '',
+                        });
+                    } catch (err) {
+                        // 프로필 생성 실패 시 에러 처리
+                        toast.error('프로필 생성에 실패했습니다.', toastcode(3000));
+                        toast.clearWaitingQueue();
+                    }
+                }
                 // 로그인 페이지로 이동하면서 state 전달
                 navigate('/auth/login', { state: { signUpSuccess: true } });
             })

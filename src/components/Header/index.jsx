@@ -22,6 +22,9 @@ import { useTheme } from '../../context/ThemeContext';
 // Sidebar Context
 import { useSidebar } from '../../context/SidebarContext';
 
+// Axios Instance
+import axiosInstance from '../../axiosInstance';
+
 // Const
 const Header = () => {
     const { isDarkMode } = useTheme();
@@ -31,16 +34,35 @@ const Header = () => {
     const [showNotifications, setShowNotifications] = useState(false);
     const [userName, setUserName] = useState('');
     const [userId, setUserId] = useState(null);
+    const [profile, setProfile] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
         const storedUserName = localStorage.getItem('userName');
         const storedUserId = localStorage.getItem('userId');
-        
         setIsLoggedIn(loggedIn);
         if (storedUserName) setUserName(storedUserName);
         if (storedUserId) setUserId(Number(storedUserId));
     }, []);
+
+    const getUserInfo = async () => {
+        try {
+            setIsLoading(true);
+            const res = await axiosInstance.get(`/profile/${userId}`);
+            setProfile(res.data);
+        } catch (err) {
+            setProfile(null); // fallback
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (userId) {
+            getUserInfo();
+        }
+    }, [userId]);
 
     const handleLogout = () => {
         localStorage.removeItem('isLoggedIn');
@@ -96,14 +118,12 @@ const Header = () => {
                         </li>
 
                         <li className={styles.profileButton}>
-                            {userId ? (
-                                <Link className={styles.profileImg} to={`/profile/${userId}`}>
-                                    <img src={profileImg} alt="내 프로필" />
-                                </Link>
+                            {isLoading ? (
+                                <div className={styles.loadingText}>로딩 중...</div>
                             ) : (
-                                <span className={styles.profileImg} aria-disabled="true" title="프로필 정보를 불러올 수 없습니다.">
-                                    <img src={profileImg} alt="내 프로필" style={{ opacity: 0.5, pointerEvents: 'none' }} />
-                                </span>
+                                <Link to={`/profile/${userId}`}>
+                                    <img className={styles.profileImg} src={profile?.profileImageUrl || profileImg} alt="내 프로필" />
+                                </Link>
                             )}
                         </li>
                     </>

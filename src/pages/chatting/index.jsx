@@ -3,6 +3,8 @@ import Header from '../../components/Header';
 import ProjectSideBar from '../../components/ProjectSideBar';
 import MemberSideBar from '../../components/MemberSideBar';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 export default function Chatting() {
   return (
     <>
