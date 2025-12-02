@@ -19,6 +19,8 @@ axiosInstance.interceptors.response.use(
       console.warn("인증이 만료되었거나 쿠키가 없습니다.");
       // 로그인 상태 제거
       localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("userId");
       // 세션 만료 플래그 설정
       localStorage.setItem("sessionExpired", "true");
       // 필요시 로그인 페이지로 리다이렉트
