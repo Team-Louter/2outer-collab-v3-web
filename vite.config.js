@@ -8,6 +8,21 @@ export default defineConfig({
     basicSsl()  
   ],
   server: {
-    https: true
+    https: true,
+    proxy: {
+      '/ws-stomp': {
+        target: 'https://api.teamcollab.site',
+        changeOrigin: true,
+        ws: true
+      },
+      '/api': {
+        target: 'https://api.teamcollab.site',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  },
+  define: {
+    global: 'globalThis',
   }
 })
