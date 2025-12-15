@@ -71,6 +71,7 @@ export default function Main() {
         const fetchTeams = async () => {
             try {
                 setLoading(true);
+                const startTime = Date.now();
                 const response = await axiosInstance.get('/teams/random');
                 const teamsData = response.data;
                 
@@ -90,6 +91,11 @@ export default function Main() {
                 );
                 
                 setTeams(teamsWithMemberCount);
+                
+                // 최소 600ms 로딩 시간 보장
+                const elapsedTime = Date.now() - startTime;
+                const remainingTime = Math.max(0, 600 - elapsedTime);
+                await new Promise(resolve => setTimeout(resolve, remainingTime));
             } catch (error) {
                 console.error('팀 데이터를 가져오는데 실패했습니다:', error);
                 toast.error('팀 데이터를 불러오지 못했습니다.', { ...toastcode(3000) });
@@ -127,13 +133,24 @@ export default function Main() {
                     {/* 프로젝트 카드 그리드 */}
                     <div className={styles.projectGrid}>
                         {loading ? (
-                            <p>로딩 중...</p>
+                            // 스켈레톤 UI - 8개 카드 표시
+                            [...Array(8)].map((_, index) => (
+                                <div key={index} className={styles.skeletonCard}>
+                                    <div className={styles.skeletonBanner}></div>
+                                    <div className={styles.skeletonLogo}></div>
+                                    <div className={styles.skeletonMemberCount}></div>
+                                    <div className={styles.skeletonName}></div>
+                                    <div className={styles.skeletonType}></div>
+                                    <div className={styles.skeletonDesc}></div>
+                                    <div className={styles.skeletonButton}></div>
+                                </div>
+                            ))
                         ) : teams.length > 0 ? (
                             teams.map((team) => (
                                 <ProjectCard key={team.teamId} team={team} />
                             ))
                         ) : (
-                            <p>표시할 팀이 없습니다.</p>
+                            <p className={styles.noTeams}>표시할 팀이 없습니다.</p>
                         )}
                     </div>
                 </div>

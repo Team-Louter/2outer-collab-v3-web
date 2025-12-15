@@ -14,8 +14,10 @@ import EditProject from '../../components/EditProject';
 import axiosInstance from '../../axiosInstance';
 import ProjectSideBar from '../../components/ProjectSideBar';
 import MemberSideBar from "../../components/MemberSideBar";
+import NotFound from "../notFound";
 
 export default function projectSetting() {
+    const { teamId } = useParams();
     const [expelModalOpen, setExpelModalOpen] = useState(false);
     const [deletePModalOpen, setDeletePModalOpen] = useState(false);
     const [applyModalOpen, setApplyModalOpen] = useState(false);
@@ -30,14 +32,18 @@ export default function projectSetting() {
     const [messages, setMessages] = useState("");
     const [type, setType] = useState("");
     const [myRole, setMyRole] = useState(""); 
+    const [notFound, setNotFound] = useState(false);
     const userId = Number(localStorage.getItem("userId"));
+
+    // teamId가 유효한 숫자가 아니거나 권한이 없으면 NotFound
+    if (!teamId || !/^\d+$/.test(teamId) || notFound) {
+        return <NotFound />;
+    }
     
 
     if (expelModalOpen === true || deletePModalOpen === true || applyModalOpen === true || editRole === true || editProject === true) {
         document.body.style.overflow = 'hidden';
     }
-
-    const { teamId } = useParams();
 
     const [memberRoles, setMemberRoles] = useState({});
     
@@ -82,6 +88,9 @@ export default function projectSetting() {
       }
       catch(err) {
           console.error("역할 불러오기 실패", err);
+          if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+            setNotFound(true);
+          }
       }
     }
 
@@ -90,9 +99,20 @@ export default function projectSetting() {
           const res = await axiosInstance.get(`/teams/${teamId}/members`);
           setMembers(res.data);
           console.log("멤버", res.data);
+          
+          // 현재 사용자가 팀 멤버인지 확인
+          const currentUserId = Number(localStorage.getItem("userId"));
+          const isMember = res.data.some(member => member.userId === currentUserId);
+          if (!isMember) {
+              console.log("현재 사용자가 팀 멤버가 아닙니다");
+              setNotFound(true);
+          }
       }
       catch(err) {
           console.error("멤버 불러오기 실패", err);
+          if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+            setNotFound(true);
+          }
       }
     }
 
@@ -104,6 +124,9 @@ export default function projectSetting() {
       }
       catch(err) {
           console.error("팀 정보 가져오기 실패", err);
+          if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+            setNotFound(true);
+          }
       }
     }
 

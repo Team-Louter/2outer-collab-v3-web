@@ -55,6 +55,7 @@ export default function Sidebar() {
     const fetchTeams = async () => {
         try {
             setIsLoading(true);
+            const startTime = Date.now();
             const response = await axiosInstance.get('/teams/my-teams');
             
             // API 응답 데이터를 projectItems 형식으로 변환
@@ -66,6 +67,11 @@ export default function Sidebar() {
             }));
             
             setProjectItems(teams);
+            
+            // 최소 600ms 로딩 시간 보장
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = Math.max(0, 600 - elapsedTime);
+            await new Promise(resolve => setTimeout(resolve, remainingTime));
         } catch (error) {
             console.error('팀 목록을 불러오는데 실패했습니다:', error);
             // 에러 발생 시 빈 배열로 설정
@@ -126,7 +132,16 @@ export default function Sidebar() {
                 <div className={styles.myProjectsTitle}>내 프로젝트</div>
                 <div className={styles.projectList}>
                     {isLoading ? (
-                        <div className={styles.loadingText}>로딩 중...</div>
+                        // 스켈레톤 UI - 5개 아이템 표시
+                        [...Array(5)].map((_, index) => (
+                            <div key={index} className={styles.skeletonItem}>
+                                <div className={styles.skeletonImg}></div>
+                                <div className={styles.skeletonInfo}>
+                                    <div className={styles.skeletonName}></div>
+                                    <div className={styles.skeletonOwner}></div>
+                                </div>
+                            </div>
+                        ))
                     ) : projectItems.length === 0 ? (
                         <div className={styles.emptyText}>참여 중인 프로젝트가 없습니다</div>
                     ) : (

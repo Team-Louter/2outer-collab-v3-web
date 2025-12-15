@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from './ProjectMain.module.css'
 import classNames from "classnames/bind";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import detailIcon from "../../assets/projectMain/detailIcon.svg";
 import documentIcon from "../../assets/projectMain/documentIcon.svg";
@@ -17,8 +17,10 @@ import OutProject from "../../components/OutProject";
 import axiosInstance from "../../axiosInstance";
 import MemberSideBar from '../../components/MemberSideBar';
 import ProjectSideBar from "../../components/ProjectSideBar";
+import NotFound from "../notFound";
 
 export default function ProjectMain() {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [reportOpen, setReportOpen] = useState(false);
     const st = classNames.bind(styles);
@@ -29,9 +31,15 @@ export default function ProjectMain() {
     const [scheules, setSchedules] = useState(null);
     const [minutes, setMinutes] = useState(null);
     const [notice, setNotice] = useState(null);
+    const [notFound, setNotFound] = useState(false);
     const { teamId } = useParams();
-    console.log('open: ',open)
-    console.log('reportOpen: ', reportOpen)
+
+    // teamId가 유효한 숫자가 아니면 바로 NotFound
+    useEffect(() => {
+        if (!teamId || !/^\d+$/.test(teamId)) {
+            setNotFound(true);
+        }
+    }, [teamId]);
 
     const modalOpen = (func) => {
         setOpen(false);
@@ -52,6 +60,10 @@ export default function ProjectMain() {
             }
             catch(err) {
                 console.error("팀 정보 가져오기 실패", err);
+                // 팀이 존재하지 않거나 권한이 없으면 NotFound
+                if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+                    setNotFound(true);
+                }
             }
         }
 
@@ -60,9 +72,20 @@ export default function ProjectMain() {
                 const res = await axiosInstance.get(`/teams/${teamId}/members`);
                 setMembers(res.data);
                 console.log(res.data)
+                
+                // 현재 사용자가 팀 멤버인지 확인
+                const currentUserId = Number(localStorage.getItem("userId"));
+                const isMember = res.data.some(member => member.userId === currentUserId);
+                if (!isMember) {
+                    console.log("현재 사용자가 팀 멤버가 아닙니다");
+                    setNotFound(true);
+                }
             }
             catch(err) {
                 console.error(err);
+                if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+                    setNotFound(true);
+                }
             }
         }
 
@@ -107,6 +130,11 @@ export default function ProjectMain() {
         getMinutes();
         getNotice();
     },[teamId])
+
+    // 팀이 존재하지 않으면 NotFound 페이지 렌더링
+    if (notFound) {
+        return <NotFound />;
+    }
 
     return(
         <>

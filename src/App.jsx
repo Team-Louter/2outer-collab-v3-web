@@ -19,6 +19,7 @@ import Chatting from "./pages/chatting";
 import MinutesCreate from "./pages/minutesCreate";
 import MinutesDetail from "./pages/minutesDetail";
 import LodingChatting from "./pages/LodingChatting";
+import NotFound from "./pages/notFound";
 
 function App() {
   return (
@@ -65,6 +66,9 @@ function App() {
             element={<MinutesCreate />}
           />
         </Route>
+
+        {/* 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

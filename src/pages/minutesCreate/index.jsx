@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./minutesCreate.module.css";
@@ -6,14 +6,41 @@ import axiosInstance from "../../axiosInstance";
 import Header from "../../components/Header";
 import SideBar from "../../components/ProjectSideBar";
 import MemberSideBar from "../../components/MemberSideBar";
+import NotFound from "../notFound";
 
 export default function MinutesCreate() {
   const { teamId } = useParams();
   const navigate = useNavigate();
-
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [saving, setSaving] = useState(false);
+  const [notFound, setNotFound] = useState(false);
+
+  // teamId가 유효한 숫자가 아니거나 권한이 없으면 NotFound
+  if (!teamId || !/^\d+$/.test(teamId) || notFound) {
+    return <NotFound />;
+  }
+
+  // 현재 사용자가 팀 멤버인지 확인
+  useEffect(() => {
+    const checkMembership = async () => {
+      try {
+        const res = await axiosInstance.get(`/teams/${teamId}/members`);
+        const currentUserId = Number(localStorage.getItem("userId"));
+        const isMember = res.data.some(member => member.userId === currentUserId);
+        if (!isMember) {
+          console.log("현재 사용자가 팀 멤버가 아닙니다");
+          setNotFound(true);
+        }
+      } catch (err) {
+        console.error("멤버 확인 실패:", err);
+        if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+          setNotFound(true);
+        }
+      }
+    };
+    checkMembership();
+  }, [teamId]);
 
   const toastOptions = (time) => ({
     position: "top-right",

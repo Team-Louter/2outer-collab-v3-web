@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import axiosInstance from '../../axiosInstance';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import NotFound from '../notFound';
 
 export default function Chatting() {
   const { teamId } = useParams();
@@ -14,10 +15,16 @@ export default function Chatting() {
   const [inputMessage, setInputMessage] = useState('');
   const [isConnected, setIsConnected] = useState(false);
   const [chatRoomId, setChatRoomId] = useState(null);
+  const [notFound, setNotFound] = useState(false);
   const stompClientRef = useRef(null);
   const messagesEndRef = useRef(null);
   const currentUserId = localStorage.getItem('userId');
   const currentUserName = localStorage.getItem('userName');
+
+  // teamId가 유효한 숫자가 아니거나 권한이 없으면 NotFound
+  if (!teamId || !/^\d+$/.test(teamId) || notFound) {
+    return <NotFound />;
+  }
 
   // 팀 정보 가져오기 및 채팅방 ID 설정
   useEffect(() => {
@@ -31,10 +38,32 @@ export default function Chatting() {
         }
       } catch (error) {
         console.error('팀 정보 가져오기 실패:', error);
+        if (error.response?.status === 404 || error.response?.status === 400 || error.response?.status === 403) {
+          setNotFound(true);
+        }
+      }
+    };
+
+    // 현재 사용자가 팀 멤버인지 확인
+    const checkMembership = async () => {
+      try {
+        const res = await axiosInstance.get(`/teams/${teamId}/members`);
+        const userId = Number(localStorage.getItem("userId"));
+        const isMember = res.data.some(member => member.userId === userId);
+        if (!isMember) {
+          console.log("현재 사용자가 팀 멤버가 아닙니다");
+          setNotFound(true);
+        }
+      } catch (err) {
+        console.error("멤버 확인 실패:", err);
+        if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+          setNotFound(true);
+        }
       }
     };
 
     if (teamId) {
+      checkMembership();
       fetchTeamInfo();
     }
   }, [teamId]);

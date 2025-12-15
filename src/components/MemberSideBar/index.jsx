@@ -34,8 +34,14 @@ export default function ProjectSideBar() {
     const fetchMembers = async () => {
         try {
             setIsLoading(true);
+            const startTime = Date.now();
             const response = await axiosInstance.get(`/teams/${teamId}/members`);
             setMembers(response.data);
+            
+            // 최소 600ms 로딩 시간 보장
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = Math.max(0, 600 - elapsedTime);
+            await new Promise(resolve => setTimeout(resolve, remainingTime));
         } catch (error) {
             console.error('멤버 목록을 불러오는데 실패했습니다:', error);
             setMembers([]);
@@ -57,7 +63,16 @@ export default function ProjectSideBar() {
                 <div className={styles.membartext}>멤버</div>
                 <div className={styles.line}></div>
                 {isLoading ? (
-                    <div className={styles.loadingText}>로딩 중...</div>
+                    // 스켈레톤 UI - 5개 멤버 표시
+                    [...Array(5)].map((_, index) => (
+                        <div key={index} className={styles.skeletonMember}>
+                            <div className={styles.skeletonAvatar}></div>
+                            <div className={styles.skeletonMemberInfo}>
+                                <div className={styles.skeletonMemberName}></div>
+                                <div className={styles.skeletonMemberRole}></div>
+                            </div>
+                        </div>
+                    ))
                 ) : members.length === 0 ? (
                     <div className={styles.emptyText}>멤버가 없습니다</div>
                 ) : (

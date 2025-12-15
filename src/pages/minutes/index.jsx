@@ -4,6 +4,7 @@ import axiosInstance from "../../axiosInstance";
 import Header from "../../components/Header";
 import SideBar from "../../components/ProjectSideBar";
 import MemberSideBar from "../../components/MemberSideBar";
+import NotFound from "../notFound";
 
 import styles from "./minutes.module.css";
 
@@ -14,9 +15,14 @@ function Minutes() {
   const { teamId } = useParams();
   const [minutes, setMinutes] = useState([]);
   const [openIds, setOpenIds] = useState([]);
-
+  const [notFound, setNotFound] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  // teamId가 유효한 숫자가 아니거나 권한이 없으면 NotFound
+  if (!teamId || !/^\d+$/.test(teamId) || notFound) {
+    return <NotFound />;
+  }
 
   // 회의록 목록 불러오기
   const fetchMinutes = async () => {
@@ -26,11 +32,35 @@ function Minutes() {
       setMinutes(response.data);
     } catch (err) {
       console.error("회의록 불러오기 실패:", err);
+      if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+        setNotFound(true);
+      }
+    }
+  };
+
+  // 현재 사용자가 팀 멤버인지 확인
+  const checkMembership = async () => {
+    try {
+      const res = await axiosInstance.get(`/teams/${teamId}/members`);
+      const currentUserId = Number(localStorage.getItem("userId"));
+      const isMember = res.data.some(member => member.userId === currentUserId);
+      if (!isMember) {
+        console.log("현재 사용자가 팀 멤버가 아닙니다");
+        setNotFound(true);
+      }
+    } catch (err) {
+      console.error("멤버 확인 실패:", err);
+      if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+        setNotFound(true);
+      }
     }
   };
 
   useEffect(() => {
-    if (teamId) fetchMinutes();
+    if (teamId) {
+      checkMembership();
+      fetchMinutes();
+    }
   }, [teamId]);
 
   // 회의록 클릭 → 상세 페이지 이동

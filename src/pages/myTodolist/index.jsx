@@ -5,19 +5,23 @@ import axiosInstance from "../../axiosInstance"; // axiosInstance 경로 맞춰�
 import Header from "../../components/Header";
 import SideBar from "../../components/ProjectSideBar";
 import MemberSideBar from "../../components/MemberSideBar";
+import NotFound from "../notFound";
 
 import toDoIcon from "../../assets/toDo/icon.svg";
 
 export default function MyTodolist() {
   const { userId } = useParams(); // URL에서 userId 가져오기
-
   const [tasks, setTasks] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [taskText, setTaskText] = useState("");
-
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
   const [editTaskText, setEditTaskText] = useState("");
+
+  // userId가 유효한 숫자가 아니면 NotFound
+  if (!userId || !/^\d+$/.test(userId)) {
+    return <NotFound />;
+  }
 
   // -----------------------------
   // GET /api/:userId/todos

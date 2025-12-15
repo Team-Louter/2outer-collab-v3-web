@@ -7,16 +7,21 @@ import Header from "../../components/Header";
 import SideBar from "../../components/ProjectSideBar";
 import MemberSideBar from "../../components/MemberSideBar";
 import plus from "../../assets/minutes/plus.svg";
+import NotFound from "../notFound";
 
 export default function Notice() {
   const { teamId } = useParams();
-
   const [notices, setNotices] = useState([]);
   const [openIds, setOpenIds] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [notFound, setNotFound] = useState(false);
+
+  // teamId가 유효한 숫자가 아니거나 권한이 없으면 NotFound
+  if (!teamId || !/^\d+$/.test(teamId) || notFound) {
+    return <NotFound />;
+  }
 
   // ----------------------------------------
   // GET /notices
@@ -36,10 +41,32 @@ export default function Notice() {
       );
     } catch (err) {
       console.error("공지사항 불러오기 실패:", err);
+      if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+        setNotFound(true);
+      }
+    }
+  };
+
+  // 현재 사용자가 팀 멤버인지 확인
+  const checkMembership = async () => {
+    try {
+      const res = await axiosInstance.get(`/teams/${teamId}/members`);
+      const currentUserId = Number(localStorage.getItem("userId"));
+      const isMember = res.data.some(member => member.userId === currentUserId);
+      if (!isMember) {
+        console.log("현재 사용자가 팀 멤버가 아닙니다");
+        setNotFound(true);
+      }
+    } catch (err) {
+      console.error("멤버 확인 실패:", err);
+      if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+        setNotFound(true);
+      }
     }
   };
 
   useEffect(() => {
+    checkMembership();
     fetchNotices();
   }, []);
 

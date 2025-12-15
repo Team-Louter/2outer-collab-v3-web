@@ -1,9 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./activity.module.css";
+import NotFound from "../notFound";
+import axiosInstance from "../../axiosInstance";
 
 // 이미지 import
 import activity from "../../assets/activity/activity-icon.svg";
+
 const Activity = () => {
+  const { teamId } = useParams();
+  const [openIds, setOpenIds] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [notFound, setNotFound] = useState(false);
+
+  // teamId가 유효한 숫자가 아니거나 권한이 없으면 NotFound
+  if (!teamId || !/^\d+$/.test(teamId) || notFound) {
+    return <NotFound />;
+  }
+
+  // 현재 사용자가 팀 멤버인지 확인
+  useEffect(() => {
+    const checkMembership = async () => {
+      try {
+        const res = await axiosInstance.get(`/teams/${teamId}/members`);
+        const currentUserId = Number(localStorage.getItem("userId"));
+        const isMember = res.data.some(member => member.userId === currentUserId);
+        if (!isMember) {
+          console.log("현재 사용자가 팀 멤버가 아닙니다");
+          setNotFound(true);
+        }
+      } catch (err) {
+        console.error("멤버 확인 실패:", err);
+        if (err.response?.status === 404 || err.response?.status === 400 || err.response?.status === 403) {
+          setNotFound(true);
+        }
+      }
+    };
+    checkMembership();
+  }, [teamId]);
+
   // 활동 리포트 데이터
   const notices = [
     {
@@ -21,12 +56,6 @@ const Activity = () => {
       detail: "테스트ㅡㅡㅡㅡㅡㅡㅡ",
     },
   ];
-
-  // 열림 상태 (여러 개 가능)
-  const [openIds, setOpenIds] = useState([]);
-
-  // 모달 열림 상태
-  const [modalOpen, setModalOpen] = useState(false);
 
   const toggleNotice = (id) => {
     if (openIds.includes(id)) {

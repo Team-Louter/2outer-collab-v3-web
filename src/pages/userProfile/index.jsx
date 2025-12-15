@@ -1,12 +1,15 @@
 import styles from "./UserProfile.module.css";
 import Header from "../../components/Header";
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import profileIcon from "../../assets/UserProfile/profileIcon.svg";
 import editIcon from "../../assets/UserProfile/editIcon.svg";
 import axiosInstance from "../../axiosInstance";
 import { useTheme } from "../../context/ThemeContext";
+import NotFound from "../notFound";
 
 export default function UserProfile() {
+    const { userId: paramUserId } = useParams();
     const { isDarkMode } = useTheme();
     const [user, setUser] = useState(null);
     const [editting, setEditting] = useState(false);
@@ -14,7 +17,12 @@ export default function UserProfile() {
     const userId = localStorage.getItem('userId');
     const [userName, setUserName] = useState("");
     const [bio, setBio] = useState("");
-    const [uploadedImageUrl, setUploadedImageUrl] = useState(""); 
+    const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+
+    // URL의 userId가 유효한 숫자가 아니면 NotFound
+    if (!paramUserId || !/^\d+$/.test(paramUserId)) {
+        return <NotFound />;
+    }
     
     const handleClick = () => {
         fileInputRef.current.click();
