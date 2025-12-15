@@ -21,6 +21,8 @@ axiosInstance.interceptors.response.use(
       localStorage.removeItem("isLoggedIn");
       localStorage.removeItem("userName");
       localStorage.removeItem("userId");
+      // 다크모드 설정 제거
+      localStorage.removeItem("darkMode");
       // 세션 만료 플래그 설정
       localStorage.setItem("sessionExpired", "true");
       // 필요시 로그인 페이지로 리다이렉트

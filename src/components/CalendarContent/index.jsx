@@ -1,8 +1,10 @@
 import { eachDayOfInterval, endOfWeek, format, startOfWeek } from "date-fns";
 import styles from './calendarContent.module.css';
 import { useState } from "react";
+import { useTheme } from '../../context/ThemeContext';
 
 export default function CalendarContent({ schedules, startDate, endDate, current, modalShow, setModalShow, setSelectedDate, selectedDate, setModalMode, setClickedSchedule}) {
+    const { isDarkMode } = useTheme();
     const week = ['일', '월', '화', '수', '목', '금', '토']
     const monthDays = eachDayOfInterval({
         start: startOfWeek(startDate),
@@ -53,7 +55,7 @@ export default function CalendarContent({ schedules, startDate, endDate, current
       
     return (
         <>
-            <table>
+            <table className={isDarkMode ? styles.dark : ''}>
                 <thead>
                     <tr>
                         {week.map(day => (
@@ -105,7 +107,7 @@ export default function CalendarContent({ schedules, startDate, endDate, current
                     ))}
                 </tbody>
             </table>
-            <div className={styles.scheduleContainer}>
+            <div className={`${styles.scheduleContainer} ${isDarkMode ? styles.dark : ''}`}>
                 {dailySchedules[selectedDate]?.map(item => (
                     <div className={`${styles.scheduleItems} ${detailShow.includes(item.scheduleId) ? styles.detail : ""}`} onClick={() => toggleDetail(item.scheduleId)} key={item.scheduleId}>
                         <span>{format(selectedDate, 'MM/dd')}</span>

@@ -27,7 +27,7 @@ import axiosInstance from '../../axiosInstance';
 
 // Const
 const Header = () => {
-    const { isDarkMode } = useTheme();
+    const { isDarkMode, resetTheme } = useTheme();
     const { toggleSidebar } = useSidebar();
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -65,9 +65,14 @@ const Header = () => {
     }, [userId]);
 
     const handleLogout = () => {
+        // 로컬 스토리지 초기화
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('userName');
         localStorage.removeItem('userId');
+        // 테마 초기화 (상태 + localStorage + body class)
+        resetTheme();
+        // 로그아웃 플래그 설정
+        localStorage.setItem('loggedOut', 'true');
         setIsLoggedIn(false);
         setUserName('');
         setUserId(null);

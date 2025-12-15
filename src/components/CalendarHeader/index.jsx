@@ -3,8 +3,11 @@ import styles from './calendarHeader.module.css'
 import { ko } from 'date-fns/locale';
 import left from '../../assets/schedule/left.svg';
 import right from '../../assets/schedule/right.svg';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function CalendarHeader ({ current, setCurrent }) {
+    const { isDarkMode } = useTheme();
+    
     const preMonth = () => {
         setCurrent(subMonths(current, 1))
     }
@@ -14,7 +17,7 @@ export default function CalendarHeader ({ current, setCurrent }) {
     }
 
     return (
-        <div className={styles.all}>
+        <div className={`${styles.all} ${isDarkMode ? styles.dark : ''}`}>
             <div className={styles.miniTitle}>
                 <h3>{format(current, 'yyyy년', { locale: ko })}</h3>
             </div>

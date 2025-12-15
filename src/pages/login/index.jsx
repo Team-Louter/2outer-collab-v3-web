@@ -51,6 +51,14 @@ export default function login() {
             toast.clearWaitingQueue();
             localStorage.removeItem('sessionExpired');
         }
+
+        // 로그아웃 체크
+        const loggedOut = localStorage.getItem('loggedOut');
+        if (loggedOut) {
+            toast.info('로그아웃 되었습니다', toastcode(2000));
+            toast.clearWaitingQueue();
+            localStorage.removeItem('loggedOut');
+        }
     }, [location]);
     
     const onChangeId = (e) => {

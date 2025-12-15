@@ -40,7 +40,7 @@ export default function ProjectSideBar() {
   const navigate = useNavigate();
   const { teamId } = useParams();
   const userId = localStorage.getItem("userId");
-  const { isDarkMode, toggleDarkMode } = useTheme();
+  const { isDarkMode, toggleDarkMode, resetTheme } = useTheme();
   const { isOpen, toggleSidebar } = useSidebar();
   const [projectItems, setProjectItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -94,9 +94,16 @@ export default function ProjectSideBar() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
+    // 로컬 스토리지 초기화
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userId');
+    // 테마 초기화 (상태 + localStorage + body class)
+    resetTheme();
+    // 로그아웃 플래그 설정
+    localStorage.setItem('loggedOut', 'true');
     setIsLoggedIn(false);
-    navigate("/auth/login");
+    navigate('/auth/login');
   };
 
   useEffect(() => {

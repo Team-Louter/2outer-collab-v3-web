@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import profileIcon from "../../assets/UserProfile/profileIcon.svg";
 import editIcon from "../../assets/UserProfile/editIcon.svg";
 import axiosInstance from "../../axiosInstance";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function UserProfile() {
+    const { isDarkMode } = useTheme();
     const [user, setUser] = useState(null);
     const [editting, setEditting] = useState(false);
     const fileInputRef = useRef(null);
@@ -96,7 +98,7 @@ export default function UserProfile() {
     }
 
     return (
-        <div className={styles.profile}>
+        <div className={`${styles.profile} ${isDarkMode ? styles.dark : ''}`}>
             <Header />
             <div className={styles.main}>
                 <div className={styles.container}>
